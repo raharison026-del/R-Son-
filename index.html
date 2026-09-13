@@ -1,1 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>R Son</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #07111d;
+      color: #ffffff;
+      padding-bottom: 75px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7,17,29,0.96);
+      border-bottom: 1px solid #183149;
+      padding: 15px;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+      color: #20bfff;
+    }
+
+    .logo span {
+      color: white;
+    }
+
+    .language {
+      background: #102235;
+      color: white;
+      border: 1px solid #24445e;
+      border-radius: 8px;
+      padding: 8px;
+    }
+
+    .hero {
+      max-width: 1100px;
+      margin: auto;
+      padding: 60px 20px 35px;
+    }
+
+    .hero-box {
+      background: linear-gradient(135deg, #0b2940, #07111d);
+      border: 1px solid #175678;
+      border-radius: 25px;
+      padding: 35px 25px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #0d789f;
+      padding: 7px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 8vw, 65px);
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      color: #abc1d2;
+      max-width: 650px;
+      font-size: 17px;
+    }
+
+    .search {
+      max-width: 1100px;
+      margin: 10px auto 30px;
+      padding: 0 20px;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 8px;
+    }
+
+    .search input {
+      flex: 1;
+      background: #0c1d2d;
+      border: 1px solid #24445e;
+      color: white;
+      padding: 14px;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+    }
+
+    .search button {
+      background: #13aeea;
+      color: white;
+      border-radius: 10px;
+      padding: 0 18px;
+      font-weight: bold;
+    }
+
+    section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 25px 20px;
+    }
+
+    .section-title {
+      margin-bottom: 18px;
+    }
+
+    .section-title h2 {
+      font-size: 28px;
+    }
+
+    .section-title p {
+      color: #849bad;
+      margin-top: 5px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .card {
+      background: #0c1b2a;
+      border: 1px solid #19374e;
+      border-radius: 16px;
+      padding: 22px;
+    }
+
+    .card-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: #91a7b8;
+      font-size: 14px;
+    }
+
+    .music-card,
+    .video-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .cover {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      background: linear-gradient(135deg,#147da5,#10233a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 25px;
+      flex-shrink: 0;
+    }
+
+    .item-info {
+      flex: 1;
+    }
+
+    .item-info p {
+      margin-top: 3px;
+    }
+
+    .download-btn {
+      background: #12344b;
+      color: #55d5ff;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .ai-box {
+      background: linear-gradient(135deg,#0b2438,#09131f);
+      border: 1px solid #1b6284;
+      border-radius: 20px;
+      padding: 22px;
+    }
+
+    .ai-message {
+      background: #10283a;
+      border-radius: 12px;
+      padding: 13px;
+      margin: 10px 0;
+      color: #d9e8f1;
+      font-size: 14px;
+    }
+
+    .ai-input {
+      display: flex;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .ai-input input {
+      flex: 1;
+      background: #07131f;
+      border: 1px solid #29485e;
+      color: white;
+      padding: 13px;
+      border-radius: 9px;
+      outline: none;
+    }
+
+    .ai-input button {
+      background: #13aeea;
+      color: white;
+      border-radius: 9px;
+      padding: 0 17px;
+      font-size: 18px;
+    }
+
+    .notice {
+      background: #102235;
+      border-left: 4px solid #18b9f0;
+      border-radius: 8px;
+      padding: 14px;
+      color: #b5c9d7;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: #081522;
+      border-top: 1px solid #1a3449;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 4px;
+    }
+
+    .bottom-nav button {
+      background: none;
+      color: #91aabd;
+      font-size: 11px;
+    }
+
+    .bottom-nav button div {
+      font-size: 21px;
+      margin-bottom: 3px;
+    }
+
+    footer {
+      text-align: center;
+      color: #657d90;
+      padding: 35px 20px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .header-content {
+        gap: 8px;
+      }
+
+      .logo {
+        font-size: 21px;
+      }
+
+      .hero {
+        padding-top: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-content">
+    <div class="logo">R Son <span>Production</span></div>
+
+    <select class="language" id="language" onchange="changeLanguage()">
+      <option value="mg">🇲🇬 Malagasy</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="en">🇬🇧 English</option>
+    </select>
+  </div>
+</header>
+
+
+<main>
+
+  <section class="hero">
+    <div class="hero-box">
+      <span class="badge">🎵 R SON PLATFORM</span>
+
+      <h1 id="heroTitle">
+        Ny tontolon'ny R Son
+      </h1>
+
+      <p id="heroText">
+        Hira, horonan-tsary, teknolojia ary R Son AI.
+        Mitadiava sy ankafizo ny votoaty tianao.
+      </p>
+    </div>
+  </section>
+
+
+  <div class="search">
+    <div class="search-box">
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Karohy hira, vidéo..."
+      >
+
+      <button onclick="searchContent()">🔎</button>
+    </div>
+  </div>
+
+
+  <section>
+    <div class="section-title">
+      <h2 id="servicesTitle">✨ R Son</h2>
+      <p id="servicesText">Ireo zavatra lehibe ao amin'ny R Son.</p>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-icon">🎵</div>
+        <h3 id="musicTitle">Hira</h3>
+        <p id="musicText">
+          Mitadiava sy mihaino hira.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🎬</div>
+        <h3 id="videoTitle">Horonan-tsary</h3>
+        <p id="videoText">
+          Mitadiava sy mijery vidéo.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📥</div>
+        <h3 id="downloadTitle">Téléchargements</h3>
+        <p id="downloadText">
+          Tehirizo ireo votoaty tianao hojerena offline.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <section>
+    <div class="section-title">
+      <h2>🎵 Music</h2>
+      <p>Latest music from R Son.</p>
+    </div>
+
+    <div class="card music-card">
+      <div class="cover">🎵</div>
+
+      <div class="item-info">
+        <h3>R Son Music</h3>
+        <p>New release</p>
+      </div>
+
+      <button class="download-btn" onclick="downloadDemo()">
+        📥
+      </button>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="section-title">
+      <h2>🎬 Videos</h2>
+      <p>Latest videos.</p>
+    </div>
+
+    <div class="card video-card">
+      <div class="cover">🎬</div>
+
+      <div class="item-info">
+        <h3>R Son Video</h3>
+        <p>New video</p>
+      </div>
+
+      <button class="download-btn" onclick="downloadDemo()">
+        📥
+      </button>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="section-title">
+      <h2>📢 Announcements</h2>
+    </div>
+
+    <div class="notice" id="announcement">
+      🔔 Tongasoa eto amin'ny R Son! Hisy hira sy vidéo vaovao
+      hampidirina tsy tapaka.
+    </div>
+  </section>
+
+
+  <section id="ai">
+    <div class="section-title">
+      <h2>🤖 R Son AI</h2>
+      <p id="aiDescription">
+        Anontanio ny R Son AI raha misy zavatra tsy azonao.
+      </p>
+    </div>
+
+    <div class="ai-box">
+
+      <div class="ai-message" id="aiWelcome">
+        🤖 Salama! Inona no azoko anampiana anao?
+      </div>
+
+      <div class="ai-input">
+        <input
+          id="aiInput"
+          type="text"
+          placeholder="Soraty ny fanontanianao..."
+          onkeydown="if(event.key==='Enter') askAI()"
+        >
+
+        <button onclick="askAI()">➤</button>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+
+<footer>
+  © 2026 R Son Production — All rights reserved.
+</footer>
+
+
+<nav class="bottom-nav">
+
+  <button onclick="goHome()">
+    <div>🏠</div>
+    <span>Home</span>
+  </button>
+
+  <button onclick="focusSearch()">
+    <div>🔎</div>
+    <span>Search</span>
+  </button>
+
+  <button onclick="goAI()">
+    <div>🤖</div>
+    <span>R Son AI</span>
+  </button>
+
+  <button onclick="showDownloads()">
+    <div>📥</div>
+    <span>Downloads</span>
+  </button>
+
+</nav>
+
+
+<script>
+
+  const translations = {
+
+    mg: {
+      heroTitle: "Ny tontolon'ny R Son",
+      heroText:
+        "Hira, horonan-tsary, teknolojia ary R Son AI. Mitadiava sy ankafizo ny votoaty tianao.",
+      servicesTitle: "✨ R Son",
+      servicesText: "Ireo zavatra lehibe ao amin'ny R Son.",
+      musicTitle: "Hira",
+      musicText: "Mitadiava sy mihaino hira.",
+      videoTitle: "Horonan-tsary",
+      videoText: "Mitadiava sy mijery vidéo.",
+      downloadTitle: "Téléchargements",
+      downloadText: "Tehirizo ireo votoaty tianao hojerena offline.",
+      aiDescription: "Anontanio ny R Son AI raha misy zavatra tsy azonao.",
+      aiWelcome: "🤖 Salama! Inona no azoko anampiana anao?",
+      searchPlaceholder: "Karohy hira, vidéo...",
+      aiPlaceholder: "Soraty ny fanontanianao..."
+    },
+
+    fr: {
+      heroTitle: "L'univers de R Son",
+      heroText:
+        "Musique, vidéos, technologie et R Son AI. Recherchez et profitez de vos contenus préférés.",
+      servicesTitle: "✨ R Son",
+      servicesText: "Découvrez les principales fonctionnalités de R Son.",
+      musicTitle: "Musique",
+      musicText: "Recherchez et écoutez de la musique.",
+      videoTitle: "Vidéos",
+      videoText: "Recherchez et regardez des vidéos.",
+      downloadTitle: "Téléchargements",
+      downloadText: "Enregistrez vos contenus pour les utiliser hors ligne.",
+      aiDescription: "Posez vos questions à R Son AI.",
+      aiWelcome: "🤖 Bonjour ! Comment puis-je vous aider ?",
+      searchPlaceholder: "Rechercher une musique, une vidéo...",
+      aiPlaceholder: "Écrivez votre question..."
+    },
+
+    en: {
+      heroTitle: "The world of R Son",
+      heroText:
+        "Music, videos, technology and R Son AI. Search and enjoy your favorite content.",
+      servicesTitle: "✨ R Son",
+      servicesText: "Discover the main features of R Son.",
+      musicTitle: "Music",
+      musicText: "Search and listen to music.",
+      videoTitle: "Videos",
+      videoText: "Search and watch videos.",
+      downloadTitle: "Downloads",
+      downloadText: "Save your favorite content for offline use.",
+      aiDescription: "Ask R Son AI if you need help.",
+      aiWelcome: "🤖 Hello! How can I help you?",
+      searchPlaceholder: "Search music, videos...",
+      aiPlaceholder: "Write your question..."
+    }
+
+  };
+
+
+  function changeLanguage() {
+
+    const lang = document.getElementById("language").value;
+    const t = translations[lang];
+
+    document.getElementById("heroTitle").textContent = t.heroTitle;
+    document.getElementById("heroText").textContent = t.heroText;
+
+    document.getElementById("servicesTitle").textContent = t.servicesTitle;
+    document.getElementById("servicesText").textContent = t.servicesText;
+
+    document.getElementById("musicTitle").textContent = t.musicTitle;
+    document.getElementById("musicText").textContent = t.musicText;
+
+    document.getElementById("videoTitle").textContent = t.videoTitle;
+    document.getElementById("videoText").textContent = t.videoText;
+
+    document.getElementById("downloadTitle").textContent = t.downloadTitle;
+    document.getElementById("downloadText").textContent = t.downloadText;
+
+    document.getElementById("aiDescription").textContent = t.aiDescription;
+    document.getElementById("aiWelcome").textContent = t.aiWelcome;
+
+    document.getElementById("searchInput").placeholder =
+      t.searchPlaceholder;
+
+    document.getElementById("aiInput").placeholder =
+      t.aiPlaceholder;
+
+    localStorage.setItem("rsonLanguage", lang);
+  }
+
+
+  function askAI() {
+
+    const input = document.getElementById("aiInput");
+    const question = input.value.trim();
+
+    if (!question) return;
+
+    const box = document.querySelector(".ai-box");
+
+    const userMessage = document.createElement("div");
+
+    userMessage.className = "ai-message";
+    userMessage.style.textAlign = "right";
+    userMessage.textContent = "👤 " + question;
+
+    box.insertBefore(
+      userMessage,
+      document.querySelector(".ai-input")
+    );
+
+    const answer = document.createElement("div");
+
+    answer.className = "ai-message";
+    answer.textContent =
+      "🤖 R Son AI: Mbola version initiale ity. Amin'ny dingana manaraka dia hampifandraisintsika amin'ny R Son AI tena izy ity.";
+
+    box.insertBefore(
+      answer,
+      document.querySelector(".ai-input")
+    );
+
+    input.value = "";
+  }
+
+
+  function searchContent() {
+
+    const query =
+      document.getElementById("searchInput").value.trim();
+
+    if (!query) {
+      alert("Ampidiro aloha izay tadiavinao.");
+      return;
+    }
+
+    alert(
+      "Search: " + query +
+      "\n\nNy search tena izy dia ampifandraisina amin'ny serveur/database amin'ny dingana manaraka."
+    );
+  }
+
+
+  function downloadDemo() {
+
+    alert(
+      "Download system dia hampifandraisina amin'ny serveur amin'ny dingana manaraka."
+    );
+  }
+
+
+  function focusSearch() {
+
+    document.getElementById("searchInput").focus();
+
+    window.scrollTo({
+      top: 100,
+      behavior: "smooth"
+    });
+  }
+
+
+  function goHome() {
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+
+  function goAI() {
+
+    document.getElementById("ai").scrollIntoView({
+      behavior: "smooth"
+    });
+  }
+
+
+  function showDownloads() {
+
+    alert(
+      "Your downloaded music and videos will appear here when the offline system is connected."
+    );
+  }
+
+
+  window.onload = function() {
+
+    const savedLanguage =
+      localStorage.getItem("rsonLanguage");
+
+    if (savedLanguage) {
+
+      document.getElementById("language").value =
+        savedLanguage;
+
+      changeLanguage();
+    }
+
+  };
+
+</script>
+
+</body>
+</html>
