@@ -1,712 +1,2057 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mg">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#06182b">
 
-  <title>R Son</title>
+<title>R Son Production</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+<style>
+
+/* =========================
+   R SON PRODUCTION THEME
+   ========================= */
+
+:root{
+    --bg:#031426;
+    --bg2:#061b30;
+    --panel:#09233b;
+    --panel2:#0b2944;
+    --line:#155277;
+    --blue:#08bff4;
+    --blue2:#087fe8;
+    --cyan:#24e6ff;
+    --white:#f7fbff;
+    --muted:#91abc0;
+    --green:#10cfa4;
+    --purple:#6845ed;
+    --orange:#e98d1b;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    background:
+    radial-gradient(circle at 70% 0%,#0b3555 0%,#041426 35%,#020d1b 100%);
+    color:var(--white);
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+/* =========================
+   SIDEBAR
+   ========================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:220px;
+
+    background:#020f20;
+
+    border-right:1px solid #155075;
+
+    padding:18px 12px;
+
+    z-index:100;
+}
+
+.logo-area{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.logo{
+    width:185px;
+    height:78px;
+    object-fit:contain;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.menu button{
+    border:0;
+    background:transparent;
+
+    color:#b9ccdc;
+
+    text-align:left;
+
+    padding:13px 14px;
+
+    border-radius:12px;
+
+    font-size:14px;
+}
+
+.menu button:hover,
+.menu button.active{
+    background:linear-gradient(
+        90deg,
+        #087fe8,
+        #0c9ff0
+    );
+
+    color:white;
+
+    box-shadow:
+    0 8px 25px #087fe844;
+}
+
+.profile{
+    position:absolute;
+    left:12px;
+    right:12px;
+    bottom:18px;
+
+    background:#071b30;
+
+    border:1px solid #155075;
+
+    border-radius:15px;
+
+    padding:12px;
+}
+
+.profile b{
+    display:block;
+}
+
+.profile small{
+    color:var(--muted);
+}
+
+/* =========================
+   MAIN
+   ========================= */
+
+.main{
+    margin-left:220px;
+
+    min-height:100vh;
+
+    padding-bottom:75px;
+}
+
+/* =========================
+   TOP BAR
+   ========================= */
+
+.topbar{
+    position:sticky;
+    top:0;
+
+    height:68px;
+
+    z-index:90;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:10px 22px;
+
+    background:#041526ee;
+
+    backdrop-filter:blur(15px);
+
+    border-bottom:1px solid #154967;
+}
+
+.search{
+    width:100%;
+    max-width:650px;
+
+    display:flex;
+
+    background:#0a2944;
+
+    border:1px solid #155277;
+
+    border-radius:14px;
+
+    overflow:hidden;
+}
+
+.search input{
+    flex:1;
+
+    min-width:0;
+
+    background:transparent;
+
+    border:0;
+
+    outline:none;
+
+    color:white;
+
+    padding:13px 16px;
+}
+
+.search input::placeholder{
+    color:#8da7bb;
+}
+
+.search button{
+    width:50px;
+
+    border:0;
+
+    background:transparent;
+
+    color:white;
+
+    font-size:22px;
+}
+
+.spacer{
+    flex:1;
+}
+
+.language{
+    background:#0a2944;
+
+    color:white;
+
+    border:1px solid #24597a;
+
+    border-radius:12px;
+
+    padding:10px 12px;
+}
+
+.top-button{
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    border:1px solid #205877;
+
+    background:#0a2944;
+
+    color:white;
+}
+
+/* =========================
+   CONTENT
+   ========================= */
+
+.content{
+    max-width:1450px;
+
+    margin:auto;
+
+    padding:12px 18px;
+}
+
+/* =========================
+   HERO
+   ========================= */
+
+.hero{
+    position:relative;
+
+    height:255px;
+
+    overflow:hidden;
+
+    border:1px solid #1473a7;
+
+    border-radius:17px;
+
+    background:#071b30;
+}
+
+.hero img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    opacity:.55;
+}
+
+.hero::after{
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    linear-gradient(
+        90deg,
+        #031426ee 0%,
+        #03142699 50%,
+        #03142615 100%
+    );
+}
+
+.hero-content{
+    position:absolute;
+
+    z-index:2;
+
+    left:32px;
+    top:35px;
+}
+
+.badge{
+    display:inline-block;
+
+    background:#087fd4;
+
+    padding:8px 13px;
+
+    border-radius:999px;
+
+    font-size:12px;
+
+    font-weight:bold;
+}
+
+.hero h1{
+    font-size:44px;
+
+    margin:20px 0 8px;
+}
+
+.hero h1 span{
+    color:var(--blue);
+}
+
+.hero p{
+    margin:4px 0;
+
+    color:#bfd2e1;
+
+    font-size:16px;
+}
+
+/* =========================
+   FEATURE CARDS
+   ========================= */
+
+.features{
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:12px;
+
+    margin-top:16px;
+}
+
+.feature{
+    min-height:125px;
+
+    border:1px solid #185a7e;
+
+    border-radius:14px;
+
+    padding:17px;
+
+    text-align:left;
+
+    color:white;
+
+    background:
+    linear-gradient(
+        145deg,
+        #0a2e4b,
+        #071b30
+    );
+}
+
+.feature:nth-child(2){
+    background:
+    linear-gradient(
+        145deg,
+        #28106d,
+        #111d48
+    );
+}
+
+.feature:nth-child(3){
+    background:
+    linear-gradient(
+        145deg,
+        #07564e,
+        #092e40
+    );
+}
+
+.feature:nth-child(4){
+    background:
+    linear-gradient(
+        145deg,
+        #5a320a,
+        #32200c
+    );
+}
+
+.feature-icon{
+    font-size:28px;
+}
+
+.feature b{
+    display:block;
+
+    margin-top:11px;
+
+    font-size:16px;
+}
+
+.feature small{
+    display:block;
+
+    color:#b7cbda;
+
+    margin-top:6px;
+}
+
+/* =========================
+   MAIN GRID
+   ========================= */
+
+.layout{
+    display:grid;
+
+    grid-template-columns:
+    1fr 310px;
+
+    gap:16px;
+
+    margin-top:18px;
+}
+
+/* =========================
+   TITLES
+   ========================= */
+
+.section-title{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:10px;
+}
+
+.section-title h2{
+    font-size:20px;
+
+    margin:0;
+}
+
+.section-title button{
+    border:0;
+
+    background:none;
+
+    color:#39c9ff;
+}
+
+/* =========================
+   MUSIC
+   ========================= */
+
+.music-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:10px;
+}
+
+.song{
+    position:relative;
+
+    background:#061b30;
+
+    border:1px solid #154764;
+
+    border-radius:13px;
+
+    padding:8px;
+}
+
+.cover{
+    height:105px;
+
+    border-radius:9px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #0c4664,
+        #132c48
+    );
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:35px;
+}
+
+.song b{
+    display:block;
+
+    margin-top:8px;
+
+    font-size:13px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+.song small{
+    color:var(--muted);
+}
+
+.play-button{
+    position:absolute;
+
+    right:10px;
+    top:72px;
+
+    width:36px;
+    height:36px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:#078de6;
+
+    color:white;
+}
+
+/* =========================
+   PLAYER
+   ========================= */
+
+.now-playing{
+    background:#061b30;
+
+    border:1px solid #17506f;
+
+    border-radius:14px;
+
+    padding:13px;
+}
+
+.now-cover{
+    height:105px;
+
+    border-radius:10px;
+
+    background:#123b55;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:40px;
+}
+
+.now-playing h3{
+    font-size:14px;
+
+    margin:10px 0 2px;
+}
+
+.now-playing small{
+    color:var(--muted);
+}
+
+.progress{
+    width:100%;
+
+    accent-color:var(--blue);
+}
+
+.time{
+    display:flex;
+
+    justify-content:space-between;
+
+    color:var(--muted);
+
+    font-size:11px;
+}
+
+.player-controls{
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    margin-top:10px;
+}
+
+.player-controls button{
+    border:0;
+
+    background:none;
+
+    color:white;
+
+    font-size:18px;
+}
+
+.player-controls .big{
+    background:#078de6;
+
+    width:46px;
+    height:46px;
+
+    border-radius:50%;
+}
+
+/* =========================
+   ANNOUNCEMENTS
+   ========================= */
+
+.announcement{
+    margin-top:12px;
+
+    padding:14px;
+
+    border:1px solid #174d6d;
+
+    border-radius:14px;
+
+    background:#071f36;
+}
+
+.announcement-title{
+    font-weight:bold;
+
+    margin-bottom:10px;
+}
+
+.news{
+    display:flex;
+
+    gap:10px;
+
+    padding:10px 0;
+
+    border-top:1px solid #123e59;
+}
+
+.news-icon{
+    width:45px;
+    height:45px;
+
+    border-radius:8px;
+
+    background:#143c58;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:20px;
+}
+
+.news b{
+    font-size:12px;
+}
+
+.news small{
+    display:block;
+
+    color:var(--muted);
+
+    margin-top:4px;
+}
+
+/* =========================
+   AI
+   ========================= */
+
+.ai{
+    margin-top:18px;
+
+    background:
+    linear-gradient(
+        145deg,
+        #052d4f,
+        #06182c
+    );
+
+    border:1px solid #12618d;
+
+    border-radius:16px;
+
+    padding:16px;
+}
+
+.ai-header{
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.robot{
+    font-size:30px;
+}
+
+.ai h2{
+    margin:0;
+
+    font-size:20px;
+}
+
+.ai p{
+    color:#9fb9cd;
+}
+
+.ai-input{
+    display:flex;
+
+    background:#041729;
+
+    border:1px solid #276486;
+
+    border-radius:12px;
+
+    overflow:hidden;
+}
+
+.ai-input input{
+    flex:1;
+
+    background:transparent;
+
+    border:0;
+
+    outline:none;
+
+    color:white;
+
+    padding:13px;
+}
+
+.ai-input button{
+    width:54px;
+
+    border:0;
+
+    background:#098ce8;
+
+    color:white;
+}
+
+/* =========================
+   BOTTOM PLAYER
+   ========================= */
+
+.player-bar{
+    position:fixed;
+
+    left:220px;
+    right:0;
+    bottom:0;
+
+    height:64px;
+
+    background:#03101ef5;
+
+    border-top:1px solid #174764;
+
+    z-index:95;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:8px 20px;
+
+    gap:16px;
+}
+
+.player-info{
+    flex:1;
+
+    min-width:0;
+}
+
+.player-info b{
+    display:block;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+.player-info small{
+    color:var(--muted);
+}
+
+.mini-controls{
+    display:flex;
+
+    gap:8px;
+}
+
+.mini-controls button{
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    border:1px solid #205877;
+
+    background:#0a2942;
+
+    color:white;
+}
+
+.mini-controls .active{
+    background:#078de6;
+
+    border-color:#078de6;
+}
+
+/* =========================
+   MOBILE NAV
+   ========================= */
+
+.mobile-nav{
+    display:none;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media(max-width:900px){
+
+    .sidebar{
+        display:none;
     }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #07111d;
-      color: #ffffff;
-      padding-bottom: 75px;
+    .main{
+        margin-left:0;
+
+        width:100%;
     }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(7,17,29,0.96);
-      border-bottom: 1px solid #183149;
-      padding: 15px;
+    .topbar{
+        height:60px;
+
+        padding:8px 10px;
     }
 
-    .header-content {
-      max-width: 1100px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
+    .top-button{
+        display:none;
     }
 
-    .logo {
-      font-size: 25px;
-      font-weight: bold;
-      color: #20bfff;
+    .content{
+        padding:10px 10px 90px;
     }
 
-    .logo span {
-      color: white;
+    .hero{
+        height:330px;
     }
 
-    .language {
-      background: #102235;
-      color: white;
-      border: 1px solid #24445e;
-      border-radius: 8px;
-      padding: 8px;
+    .hero-content{
+        left:22px;
+
+        top:30px;
     }
 
-    .hero {
-      max-width: 1100px;
-      margin: auto;
-      padding: 60px 20px 35px;
+    .hero h1{
+        font-size:39px;
+
+        max-width:310px;
     }
 
-    .hero-box {
-      background: linear-gradient(135deg, #0b2940, #07111d);
-      border: 1px solid #175678;
-      border-radius: 25px;
-      padding: 35px 25px;
+    .features{
+        grid-template-columns:
+        repeat(2,1fr);
+
+        gap:8px;
     }
 
-    .badge {
-      display: inline-block;
-      background: #0d789f;
-      padding: 7px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      margin-bottom: 18px;
+    .feature{
+        min-height:110px;
+
+        padding:13px;
     }
 
-    h1 {
-      font-size: clamp(38px, 8vw, 65px);
-      line-height: 1;
-      margin-bottom: 18px;
+    .layout{
+        grid-template-columns:1fr;
     }
 
-    .hero p {
-      color: #abc1d2;
-      max-width: 650px;
-      font-size: 17px;
+    .right-panel{
+        display:none;
     }
 
-    .search {
-      max-width: 1100px;
-      margin: 10px auto 30px;
-      padding: 0 20px;
+    .music-grid{
+        grid-template-columns:
+        repeat(2,1fr);
+
+        gap:8px;
     }
 
-    .search-box {
-      display: flex;
-      gap: 8px;
+    .player-bar{
+        left:0;
+
+        bottom:65px;
+
+        height:58px;
+
+        padding:6px 10px;
     }
 
-    .search input {
-      flex: 1;
-      background: #0c1d2d;
-      border: 1px solid #24445e;
-      color: white;
-      padding: 14px;
-      border-radius: 10px;
-      outline: none;
+    .mobile-nav{
+        position:fixed;
+
+        display:flex;
+
+        left:0;
+        right:0;
+        bottom:0;
+
+        height:65px;
+
+        z-index:110;
+
+        background:#031222;
+
+        border-top:1px solid #174764;
+
+        justify-content:space-around;
     }
 
-    button {
-      cursor: pointer;
-      border: none;
+    .mobile-nav button{
+        border:0;
+
+        background:none;
+
+        color:#91abc0;
+
+        font-size:10px;
     }
 
-    .search button {
-      background: #13aeea;
-      color: white;
-      border-radius: 10px;
-      padding: 0 18px;
-      font-weight: bold;
+    .mobile-nav b{
+        display:block;
+
+        font-size:20px;
+
+        margin-bottom:2px;
     }
 
-    section {
-      max-width: 1100px;
-      margin: auto;
-      padding: 25px 20px;
+    .logo{
+        width:120px;
     }
 
-    .section-title {
-      margin-bottom: 18px;
+    .language{
+        font-size:12px;
+
+        padding:9px;
+    }
+}
+
+@media(max-width:480px){
+
+    .hero h1{
+        font-size:35px;
     }
 
-    .section-title h2 {
-      font-size: 28px;
+    .hero p{
+        font-size:14px;
     }
 
-    .section-title p {
-      color: #849bad;
-      margin-top: 5px;
+    .feature small{
+        font-size:11px;
     }
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
+    .cover{
+        height:105px;
     }
+}
 
-    .card {
-      background: #0c1b2a;
-      border: 1px solid #19374e;
-      border-radius: 16px;
-      padding: 22px;
-    }
-
-    .card-icon {
-      font-size: 32px;
-      margin-bottom: 12px;
-    }
-
-    .card h3 {
-      margin-bottom: 8px;
-    }
-
-    .card p {
-      color: #91a7b8;
-      font-size: 14px;
-    }
-
-    .music-card,
-    .video-card {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .cover {
-      width: 60px;
-      height: 60px;
-      border-radius: 10px;
-      background: linear-gradient(135deg,#147da5,#10233a);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 25px;
-      flex-shrink: 0;
-    }
-
-    .item-info {
-      flex: 1;
-    }
-
-    .item-info p {
-      margin-top: 3px;
-    }
-
-    .download-btn {
-      background: #12344b;
-      color: #55d5ff;
-      padding: 9px 12px;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-
-    .ai-box {
-      background: linear-gradient(135deg,#0b2438,#09131f);
-      border: 1px solid #1b6284;
-      border-radius: 20px;
-      padding: 22px;
-    }
-
-    .ai-message {
-      background: #10283a;
-      border-radius: 12px;
-      padding: 13px;
-      margin: 10px 0;
-      color: #d9e8f1;
-      font-size: 14px;
-    }
-
-    .ai-input {
-      display: flex;
-      gap: 8px;
-      margin-top: 15px;
-    }
-
-    .ai-input input {
-      flex: 1;
-      background: #07131f;
-      border: 1px solid #29485e;
-      color: white;
-      padding: 13px;
-      border-radius: 9px;
-      outline: none;
-    }
-
-    .ai-input button {
-      background: #13aeea;
-      color: white;
-      border-radius: 9px;
-      padding: 0 17px;
-      font-size: 18px;
-    }
-
-    .notice {
-      background: #102235;
-      border-left: 4px solid #18b9f0;
-      border-radius: 8px;
-      padding: 14px;
-      color: #b5c9d7;
-    }
-
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 200;
-      background: #081522;
-      border-top: 1px solid #1a3449;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 4px;
-    }
-
-    .bottom-nav button {
-      background: none;
-      color: #91aabd;
-      font-size: 11px;
-    }
-
-    .bottom-nav button div {
-      font-size: 21px;
-      margin-bottom: 3px;
-    }
-
-    footer {
-      text-align: center;
-      color: #657d90;
-      padding: 35px 20px;
-      font-size: 12px;
-    }
-
-    @media (max-width: 700px) {
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .header-content {
-        gap: 8px;
-      }
-
-      .logo {
-        font-size: 21px;
-      }
-
-      .hero {
-        padding-top: 30px;
-      }
-    }
-  </style>
+</style>
 </head>
+
 
 <body>
 
-<header>
-  <div class="header-content">
-    <div class="logo">R Son <span>Production</span></div>
 
-    <select class="language" id="language" onchange="changeLanguage()">
-      <option value="mg">🇲🇬 Malagasy</option>
-      <option value="fr">🇫🇷 Français</option>
-      <option value="en">🇬🇧 English</option>
+<!-- =========================
+     SIDEBAR
+     ========================= -->
+
+<aside class="sidebar">
+
+    <div class="logo-area">
+        <img
+            src="logo.png"
+            class="logo"
+            alt="R Son Production"
+        >
+    </div>
+
+
+    <nav class="menu">
+
+        <button
+            class="active"
+            onclick="goTo('home')">
+            🏠　Accueil
+        </button>
+
+        <button onclick="goTo('music')">
+            🎵　Musique
+        </button>
+
+        <button onclick="goTo('videos')">
+            🎬　Vidéos
+        </button>
+
+        <button onclick="goTo('downloads')">
+            ⬇️　Téléchargements
+        </button>
+
+        <button onclick="goTo('playlists')">
+            📋　Playlists
+        </button>
+
+        <button onclick="goTo('favorites')">
+            ♡　Favoris
+        </button>
+
+        <button onclick="goTo('ai')">
+            🤖　R Son AI
+        </button>
+
+        <button>
+            ⚙️　Paramètres
+        </button>
+
+    </nav>
+
+
+    <div class="profile">
+
+        <b>R son</b>
+
+        <small>
+            Artiste • Producteur
+        </small>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+     ========================= -->
+
+<div class="main">
+
+
+<!-- TOP BAR -->
+
+<header class="topbar">
+
+    <div class="search">
+
+        <input
+            id="searchInput"
+            type="text"
+            placeholder="Rechercher une chanson, un artiste, une vidéo..."
+        >
+
+        <button onclick="searchContent()">
+            🔎
+        </button>
+
+    </div>
+
+
+    <div class="spacer"></div>
+
+
+    <select class="language">
+
+        <option>
+            🇲🇬 Malagasy
+        </option>
+
+        <option>
+            🇫🇷 Français
+        </option>
+
+        <option>
+            🇬🇧 English
+        </option>
+
     </select>
-  </div>
+
+
+    <button class="top-button">
+        🔔
+    </button>
+
+
+    <button class="top-button">
+        🌙
+    </button>
+
 </header>
 
 
-<main>
 
-  <section class="hero">
-    <div class="hero-box">
-      <span class="badge">🎵 R SON PLATFORM</span>
-
-      <h1 id="heroTitle">
-        Ny tontolon'ny R Son
-      </h1>
-
-      <p id="heroText">
-        Hira, horonan-tsary, teknolojia ary R Son AI.
-        Mitadiava sy ankafizo ny votoaty tianao.
-      </p>
-    </div>
-  </section>
+<div class="content">
 
 
-  <div class="search">
-    <div class="search-box">
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="Karohy hira, vidéo..."
-      >
+<!-- =========================
+     HERO
+     ========================= -->
 
-      <button onclick="searchContent()">🔎</button>
-    </div>
-  </div>
+<section
+    id="home"
+    class="hero">
 
+    <img
+        src="studio.jpg"
+        alt="R Son Studio"
+    >
 
-  <section>
-    <div class="section-title">
-      <h2 id="servicesTitle">✨ R Son</h2>
-      <p id="servicesText">Ireo zavatra lehibe ao amin'ny R Son.</p>
-    </div>
+    <div class="hero-content">
 
-    <div class="cards">
+        <span class="badge">
+            🎵 R SON PLATFORM
+        </span>
 
-      <div class="card">
-        <div class="card-icon">🎵</div>
-        <h3 id="musicTitle">Hira</h3>
-        <p id="musicText">
-          Mitadiava sy mihaino hira.
+        <h1>
+            Ny tontolon'ny
+            <span>R Son</span>
+        </h1>
+
+        <p>
+            Hira, horonan-tsary,
+            teknolojia ary R Son AI.
         </p>
-      </div>
 
-      <div class="card">
-        <div class="card-icon">🎬</div>
-        <h3 id="videoTitle">Horonan-tsary</h3>
-        <p id="videoText">
-          Mitadiava sy mijery vidéo.
+        <p>
+            Mitadiava sy ankafizo
+            ny votoaty tianao.
         </p>
-      </div>
-
-      <div class="card">
-        <div class="card-icon">📥</div>
-        <h3 id="downloadTitle">Téléchargements</h3>
-        <p id="downloadText">
-          Tehirizo ireo votoaty tianao hojerena offline.
-        </p>
-      </div>
 
     </div>
-  </section>
+
+</section>
 
 
-  <section>
+
+<!-- =========================
+     FEATURE CARDS
+     ========================= -->
+
+<div class="features">
+
+
+<button
+    class="feature"
+    onclick="goTo('music')">
+
+    <span class="feature-icon">
+        🎵
+    </span>
+
+    <b>
+        Musique
+    </b>
+
+    <small>
+        Écoute tes sons préférés　›
+    </small>
+
+</button>
+
+
+
+<button
+    class="feature"
+    onclick="goTo('videos')">
+
+    <span class="feature-icon">
+        ▶️
+    </span>
+
+    <b>
+        Vidéos
+    </b>
+
+    <small>
+        Regarde les films et clips　›
+    </small>
+
+</button>
+
+
+
+<button
+    class="feature"
+    onclick="goTo('downloads')">
+
+    <span class="feature-icon">
+        ⬇️
+    </span>
+
+    <b>
+        Téléchargements
+    </b>
+
+    <small>
+        Hors ligne, à tout moment　›
+    </small>
+
+</button>
+
+
+
+<button
+    class="feature"
+    onclick="goTo('ai')">
+
+    <span class="feature-icon">
+        🤖
+    </span>
+
+    <b>
+        R Son AI
+    </b>
+
+    <small>
+        Pose tes questions　›
+    </small>
+
+</button>
+
+
+</div>
+
+
+
+<!-- =========================
+     LAYOUT
+     ========================= -->
+
+<div class="layout">
+
+
+<div>
+
+
+<!-- MUSIC -->
+
+<section id="music">
+
     <div class="section-title">
-      <h2>🎵 Music</h2>
-      <p>Latest music from R Son.</p>
+
+        <h2>
+            🎵 Musique récente
+        </h2>
+
+        <button>
+            Voir tout →
+        </button>
+
     </div>
 
-    <div class="card music-card">
-      <div class="cover">🎵</div>
 
-      <div class="item-info">
-        <h3>R Son Music</h3>
-        <p>New release</p>
-      </div>
+    <div class="music-grid">
 
-      <button class="download-btn" onclick="downloadDemo()">
-        📥
-      </button>
+
+        <div class="song">
+
+            <div class="cover">
+                🌄
+            </div>
+
+            <button
+                class="play-button"
+                onclick="playSong('Rêve d’un jeune')">
+
+                ▶
+
+            </button>
+
+            <b>
+                Rêve d’un jeune
+            </b>
+
+            <small>
+                R Son • 03:45
+            </small>
+
+        </div>
+
+
+
+        <div class="song">
+
+            <div class="cover">
+                🎙️
+            </div>
+
+            <button
+                class="play-button"
+                onclick="playSong('Mamy')">
+
+                ▶
+
+            </button>
+
+            <b>
+                Mamy
+            </b>
+
+            <small>
+                R Son • 04:12
+            </small>
+
+        </div>
+
+
+
+        <div class="song">
+
+            <div class="cover">
+                🎸
+            </div>
+
+            <button
+                class="play-button"
+                onclick="playSong('Antsika')">
+
+                ▶
+
+            </button>
+
+            <b>
+                Antsika
+            </b>
+
+            <small>
+                R Son • 05:20
+            </small>
+
+        </div>
+
+
+
+        <div class="song">
+
+            <div class="cover">
+                🎵
+            </div>
+
+            <button
+                class="play-button"
+                onclick="playSong('Fitiavana')">
+
+                ▶
+
+            </button>
+
+            <b>
+                Fitiavana
+            </b>
+
+            <small>
+                R Son • 03:38
+            </small>
+
+        </div>
+
+
     </div>
-  </section>
+
+</section>
 
 
-  <section>
+
+<!-- VIDEOS -->
+
+<section
+    id="videos"
+    style="margin-top:20px">
+
     <div class="section-title">
-      <h2>🎬 Videos</h2>
-      <p>Latest videos.</p>
+
+        <h2>
+            🎬 Vidéos
+        </h2>
+
+        <button>
+            Voir tout →
+        </button>
+
     </div>
 
-    <div class="card video-card">
-      <div class="cover">🎬</div>
 
-      <div class="item-info">
-        <h3>R Son Video</h3>
-        <p>New video</p>
-      </div>
+    <div class="music-grid">
 
-      <button class="download-btn" onclick="downloadDemo()">
-        📥
-      </button>
+
+        <div class="song">
+
+            <div class="cover">
+                🎬
+            </div>
+
+            <button
+                class="play-button"
+                onclick="playSong('Clip R Son')">
+
+                ▶
+
+            </button>
+
+            <b>
+                Clip R Son
+            </b>
+
+            <small>
+                04:20
+            </small>
+
+        </div>
+
+
+
+        <div class="song">
+
+            <div class="cover">
+                🎥
+            </div>
+
+            <button
+                class="play-button"
+                onclick="playSong('Live Studio')">
+
+                ▶
+
+            </button>
+
+            <b>
+                Live Studio
+            </b>
+
+            <small>
+                08:12
+            </small>
+
+        </div>
+
+
     </div>
-  </section>
+
+</section>
 
 
-  <section>
-    <div class="section-title">
-      <h2>📢 Announcements</h2>
+
+<!-- DOWNLOAD -->
+
+<section
+    id="downloads"
+    class="announcement">
+
+    <div class="announcement-title">
+        ⬇️ Téléchargements / Offline
     </div>
 
-    <div class="notice" id="announcement">
-      🔔 Tongasoa eto amin'ny R Son! Hisy hira sy vidéo vaovao
-      hampidirina tsy tapaka.
+    Ny contenu voatahiry dia azo
+    vakiana rehefa tsy misy Internet.
+
+</section>
+
+
+
+<!-- PLAYLIST -->
+
+<section
+    id="playlists"
+    class="announcement">
+
+    <div class="announcement-title">
+        📋 Playlists
     </div>
-  </section>
+
+    My playlist • Favorites • Ambiance • R Son.
+
+</section>
 
 
-  <section id="ai">
-    <div class="section-title">
-      <h2>🤖 R Son AI</h2>
-      <p id="aiDescription">
-        Anontanio ny R Son AI raha misy zavatra tsy azonao.
-      </p>
+
+<!-- FAVORITES -->
+
+<section
+    id="favorites"
+    class="announcement">
+
+    <div class="announcement-title">
+        ❤️ Favoris
     </div>
 
-    <div class="ai-box">
+    Ny hira sy vidéo tianao
+    dia azo tehirizina eto.
 
-      <div class="ai-message" id="aiWelcome">
-        🤖 Salama! Inona no azoko anampiana anao?
-      </div>
+</section>
 
-      <div class="ai-input">
+
+
+<!-- AI -->
+
+<section
+    id="ai"
+    class="ai">
+
+    <div class="ai-header">
+
+        <div class="robot">
+            🤖
+        </div>
+
+        <div>
+
+            <h2>
+                R Son AI
+            </h2>
+
+            <p>
+                Anontanio ny R Son AI
+                raha misy zavatra tsy azonao.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="ai-input">
+
         <input
-          id="aiInput"
-          type="text"
-          placeholder="Soraty ny fanontanianao..."
-          onkeydown="if(event.key==='Enter') askAI()"
+            id="aiInput"
+            placeholder="Soraty ny fanontanianao..."
         >
 
-        <button onclick="askAI()">➤</button>
-      </div>
+        <button onclick="askAI()">
+            ➤
+        </button>
 
     </div>
-  </section>
-
-</main>
 
 
-<footer>
-  © 2026 R Son Production — All rights reserved.
-</footer>
+    <div id="aiAnswer"></div>
+
+</section>
 
 
-<nav class="bottom-nav">
+</div>
 
-  <button onclick="goHome()">
-    <div>🏠</div>
-    <span>Home</span>
-  </button>
 
-  <button onclick="focusSearch()">
-    <div>🔎</div>
-    <span>Search</span>
-  </button>
 
-  <button onclick="goAI()">
-    <div>🤖</div>
-    <span>R Son AI</span>
-  </button>
+<!-- =========================
+     RIGHT PANEL
+     ========================= -->
 
-  <button onclick="showDownloads()">
-    <div>📥</div>
-    <span>Downloads</span>
-  </button>
+<aside
+    class="right-panel">
+
+
+<div class="section-title">
+
+    <h2>
+        Lecture en cours
+    </h2>
+
+    <button>
+        Voir la playlist
+    </button>
+
+</div>
+
+
+
+<div class="now-playing">
+
+
+    <div class="now-cover">
+        🌄
+    </div>
+
+
+    <h3 id="currentSong">
+        Rêve d’un jeune
+    </h3>
+
+
+    <small>
+        R Son
+    </small>
+
+
+    <br><br>
+
+
+    <input
+        class="progress"
+        type="range"
+        min="0"
+        max="100"
+        value="38"
+    >
+
+
+    <div class="time">
+
+        <span>
+            01:24
+        </span>
+
+        <span>
+            03:45
+        </span>
+
+    </div>
+
+
+    <div class="player-controls">
+
+        <button>
+            🔀
+        </button>
+
+        <button>
+            ⏮
+        </button>
+
+        <button
+            id="bigPlay"
+            class="big"
+            onclick="togglePlay()">
+
+            ▶
+
+        </button>
+
+        <button>
+            ⏭
+        </button>
+
+        <button>
+            🔁
+        </button>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- ANNOUNCEMENTS -->
+
+<div class="announcement">
+
+    <div class="announcement-title">
+        📢 Annonces
+    </div>
+
+
+    <div class="news">
+
+        <div class="news-icon">
+            🎵
+        </div>
+
+        <div>
+
+            <b>
+                Nouveau son disponible !
+            </b>
+
+            <small>
+                Découvrez le dernier titre de R Son.
+            </small>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="news">
+
+        <div class="news-icon">
+            🎬
+        </div>
+
+        <div>
+
+            <b>
+                Nouvelle vidéo
+            </b>
+
+            <small>
+                Le clip officiel est maintenant en ligne.
+            </small>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="news">
+
+        <div class="news-icon">
+            ✨
+        </div>
+
+        <div>
+
+            <b>
+                Mise à jour de l'app
+            </b>
+
+            <small>
+                Plus de fonctionnalités bientôt !
+            </small>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</aside>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     BOTTOM PLAYER
+     ========================= -->
+
+<div class="player-bar">
+
+    <div class="player-info">
+
+        <b id="miniSong">
+            Rêve d’un jeune
+        </b>
+
+        <small>
+            R Son • Player
+        </small>
+
+    </div>
+
+
+    <div class="mini-controls">
+
+        <button>
+            ⏮
+        </button>
+
+        <button
+            id="miniPlay"
+            class="active"
+            onclick="togglePlay()">
+
+            ▶
+
+        </button>
+
+        <button>
+            ⏭
+        </button>
+
+        <button>
+            🔀
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     MOBILE NAV
+     ========================= -->
+
+<nav class="mobile-nav">
+
+    <button onclick="goTo('home')">
+        <b>⌂</b>
+        Accueil
+    </button>
+
+    <button onclick="goTo('music')">
+        <b>♫</b>
+        Musique
+    </button>
+
+    <button onclick="goTo('videos')">
+        <b>▣</b>
+        Vidéos
+    </button>
+
+    <button onclick="goTo('downloads')">
+        <b>⇩</b>
+        Téléch.
+    </button>
+
+    <button onclick="goTo('ai')">
+        <b>🤖</b>
+        R Son AI
+    </button>
 
 </nav>
 
 
+
 <script>
 
-  const translations = {
+/* =========================
+   NAVIGATION
+   ========================= */
 
-    mg: {
-      heroTitle: "Ny tontolon'ny R Son",
-      heroText:
-        "Hira, horonan-tsary, teknolojia ary R Son AI. Mitadiava sy ankafizo ny votoaty tianao.",
-      servicesTitle: "✨ R Son",
-      servicesText: "Ireo zavatra lehibe ao amin'ny R Son.",
-      musicTitle: "Hira",
-      musicText: "Mitadiava sy mihaino hira.",
-      videoTitle: "Horonan-tsary",
-      videoText: "Mitadiava sy mijery vidéo.",
-      downloadTitle: "Téléchargements",
-      downloadText: "Tehirizo ireo votoaty tianao hojerena offline.",
-      aiDescription: "Anontanio ny R Son AI raha misy zavatra tsy azonao.",
-      aiWelcome: "🤖 Salama! Inona no azoko anampiana anao?",
-      searchPlaceholder: "Karohy hira, vidéo...",
-      aiPlaceholder: "Soraty ny fanontanianao..."
-    },
+function goTo(id){
 
-    fr: {
-      heroTitle: "L'univers de R Son",
-      heroText:
-        "Musique, vidéos, technologie et R Son AI. Recherchez et profitez de vos contenus préférés.",
-      servicesTitle: "✨ R Son",
-      servicesText: "Découvrez les principales fonctionnalités de R Son.",
-      musicTitle: "Musique",
-      musicText: "Recherchez et écoutez de la musique.",
-      videoTitle: "Vidéos",
-      videoText: "Recherchez et regardez des vidéos.",
-      downloadTitle: "Téléchargements",
-      downloadText: "Enregistrez vos contenus pour les utiliser hors ligne.",
-      aiDescription: "Posez vos questions à R Son AI.",
-      aiWelcome: "🤖 Bonjour ! Comment puis-je vous aider ?",
-      searchPlaceholder: "Rechercher une musique, une vidéo...",
-      aiPlaceholder: "Écrivez votre question..."
-    },
+    const element =
+        document.getElementById(id);
 
-    en: {
-      heroTitle: "The world of R Son",
-      heroText:
-        "Music, videos, technology and R Son AI. Search and enjoy your favorite content.",
-      servicesTitle: "✨ R Son",
-      servicesText: "Discover the main features of R Son.",
-      musicTitle: "Music",
-      musicText: "Search and listen to music.",
-      videoTitle: "Videos",
-      videoText: "Search and watch videos.",
-      downloadTitle: "Downloads",
-      downloadText: "Save your favorite content for offline use.",
-      aiDescription: "Ask R Son AI if you need help.",
-      aiWelcome: "🤖 Hello! How can I help you?",
-      searchPlaceholder: "Search music, videos...",
-      aiPlaceholder: "Write your question..."
+    if(element){
+
+        element.scrollIntoView({
+            behavior:"smooth"
+        });
+
     }
 
-  };
+}
 
 
-  function changeLanguage() {
+/* =========================
+   MUSIC PLAYER
+   ========================= */
 
-    const lang = document.getElementById("language").value;
-    const t = translations[lang];
-
-    document.getElementById("heroTitle").textContent = t.heroTitle;
-    document.getElementById("heroText").textContent = t.heroText;
-
-    document.getElementById("servicesTitle").textContent = t.servicesTitle;
-    document.getElementById("servicesText").textContent = t.servicesText;
-
-    document.getElementById("musicTitle").textContent = t.musicTitle;
-    document.getElementById("musicText").textContent = t.musicText;
-
-    document.getElementById("videoTitle").textContent = t.videoTitle;
-    document.getElementById("videoText").textContent = t.videoText;
-
-    document.getElementById("downloadTitle").textContent = t.downloadTitle;
-    document.getElementById("downloadText").textContent = t.downloadText;
-
-    document.getElementById("aiDescription").textContent = t.aiDescription;
-    document.getElementById("aiWelcome").textContent = t.aiWelcome;
-
-    document.getElementById("searchInput").placeholder =
-      t.searchPlaceholder;
-
-    document.getElementById("aiInput").placeholder =
-      t.aiPlaceholder;
-
-    localStorage.setItem("rsonLanguage", lang);
-  }
+let playing = false;
 
 
-  function askAI() {
+function playSong(name){
 
-    const input = document.getElementById("aiInput");
-    const question = input.value.trim();
-
-    if (!question) return;
-
-    const box = document.querySelector(".ai-box");
-
-    const userMessage = document.createElement("div");
-
-    userMessage.className = "ai-message";
-    userMessage.style.textAlign = "right";
-    userMessage.textContent = "👤 " + question;
-
-    box.insertBefore(
-      userMessage,
-      document.querySelector(".ai-input")
-    );
-
-    const answer = document.createElement("div");
-
-    answer.className = "ai-message";
-    answer.textContent =
-      "🤖 R Son AI: Mbola version initiale ity. Amin'ny dingana manaraka dia hampifandraisintsika amin'ny R Son AI tena izy ity.";
-
-    box.insertBefore(
-      answer,
-      document.querySelector(".ai-input")
-    );
-
-    input.value = "";
-  }
+    document.getElementById(
+        "currentSong"
+    ).textContent = name;
 
 
-  function searchContent() {
+    document.getElementById(
+        "miniSong"
+    ).textContent = name;
 
-    const query =
-      document.getElementById("searchInput").value.trim();
 
-    if (!query) {
-      alert("Ampidiro aloha izay tadiavinao.");
-      return;
+    playing = true;
+
+    updatePlayer();
+
+}
+
+
+function togglePlay(){
+
+    playing = !playing;
+
+    updatePlayer();
+
+}
+
+
+function updatePlayer(){
+
+    const symbol =
+        playing ? "⏸" : "▶";
+
+
+    document.getElementById(
+        "bigPlay"
+    ).textContent = symbol;
+
+
+    document.getElementById(
+        "miniPlay"
+    ).textContent = symbol;
+
+}
+
+
+/* =========================
+   SEARCH
+   ========================= */
+
+function searchContent(){
+
+    const value =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    if(!value){
+
+        return;
+
     }
 
-    alert(
-      "Search: " + query +
-      "\n\nNy search tena izy dia ampifandraisina amin'ny serveur/database amin'ny dingana manaraka."
-    );
-  }
+
+    const songs =
+        document.querySelectorAll(".song");
 
 
-  function downloadDemo() {
-
-    alert(
-      "Download system dia hampifandraisina amin'ny serveur amin'ny dingana manaraka."
-    );
-  }
+    let found = false;
 
 
-  function focusSearch() {
+    songs.forEach(song => {
 
-    document.getElementById("searchInput").focus();
+        if(
+            song.innerText
+            .toLowerCase()
+            .includes(value)
+        ){
 
-    window.scrollTo({
-      top: 100,
-      behavior: "smooth"
+            song.scrollIntoView({
+                behavior:"smooth",
+                block:"center"
+            });
+
+            song.style.outline =
+                "2px solid #08bff4";
+
+            setTimeout(() => {
+
+                song.style.outline =
+                    "";
+
+            },2000);
+
+            found = true;
+
+        }
+
     });
-  }
 
 
-  function goHome() {
+    if(!found){
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  }
+        alert(
+            "Tsy hita amin'izao prototype izao."
+        );
 
-
-  function goAI() {
-
-    document.getElementById("ai").scrollIntoView({
-      behavior: "smooth"
-    });
-  }
-
-
-  function showDownloads() {
-
-    alert(
-      "Your downloaded music and videos will appear here when the offline system is connected."
-    );
-  }
-
-
-  window.onload = function() {
-
-    const savedLanguage =
-      localStorage.getItem("rsonLanguage");
-
-    if (savedLanguage) {
-
-      document.getElementById("language").value =
-        savedLanguage;
-
-      changeLanguage();
     }
 
-  };
+}
+
+
+/* =========================
+   R SON AI
+   ========================= */
+
+function askAI(){
+
+    const question =
+        document
+        .getElementById("aiInput")
+        .value
+        .trim();
+
+
+    if(!question){
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "aiAnswer"
+    ).innerHTML = `
+
+        <div class="announcement">
+
+            <b>🤖 R Son AI</b>
+
+            <br><br>
+
+            Mbola prototype ity R Son AI ity.
+
+            <br><br>
+
+            Rehefa ampifandraisina
+            amin'ny backend izy dia afaka
+            mamaly fanontaniana tena izy.
+
+        </div>
+
+    `;
+
+}
 
 </script>
+
 
 </body>
 </html>
