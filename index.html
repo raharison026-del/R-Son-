@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="mg">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -48,6 +49,7 @@ a{
     text-decoration:none;
 }
 
+
 /* =========================
    APP LAYOUT
 ========================= */
@@ -56,6 +58,7 @@ a{
     display:flex;
     min-height:100vh;
 }
+
 
 /* =========================
    SIDEBAR
@@ -107,6 +110,7 @@ a{
     margin-top:2px;
 }
 
+
 /* =========================
    MENU
 ========================= */
@@ -146,6 +150,7 @@ a{
     font-size:19px;
 }
 
+
 /* =========================
    CUSTOMER PROFILE
 ========================= */
@@ -159,6 +164,12 @@ a{
     display:flex;
     align-items:center;
     gap:10px;
+    transition:.2s;
+}
+
+.customer-profile:hover{
+    border-color:#00bfff;
+    background:#0c2945;
 }
 
 .customer-avatar{
@@ -196,6 +207,7 @@ a{
     margin-left:4px;
 }
 
+
 /* =========================
    MAIN
 ========================= */
@@ -206,6 +218,7 @@ a{
     min-height:100vh;
     padding:15px 20px 40px;
 }
+
 
 /* =========================
    TOP BAR
@@ -248,6 +261,7 @@ a{
     color:#7890a5;
 }
 
+
 /* =========================
    LANGUAGE
 ========================= */
@@ -261,6 +275,7 @@ a{
     padding:0 15px;
     outline:none;
 }
+
 
 /* =========================
    TOP PROFILE
@@ -291,54 +306,86 @@ a{
     height:43px;
     border-radius:50%;
     border:2px solid #00bfff;
-    background:linear-gradient(135deg,#0e7cff,#00cfff);
-    color:#fff;
-    font-weight:bold;
+    background:#0a2039;
+    padding:0;
     overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .profile-button img{
     width:100%;
     height:100%;
     object-fit:cover;
+    display:block;
 }
+
 
 /* =========================
    HERO
 ========================= */
 
 .hero{
-    min-height:250px;
+    min-height:330px;
     border:1px solid #15527d;
     border-radius:17px;
     overflow:hidden;
-    background:
-        radial-gradient(circle at 80% 20%,rgba(0,190,255,.18),transparent 30%),
-        linear-gradient(110deg,#091c31,#061425);
-    display:flex;
-    align-items:center;
     position:relative;
     margin-bottom:18px;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.88) 0%,
+            rgba(0,0,0,.62) 45%,
+            rgba(0,0,0,.25) 100%
+        ),
+        url("studio.png");
+
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    align-items:flex-end;
 }
 
-.hero-photo{
-    width:46%;
-    height:250px;
-    background:
-        linear-gradient(90deg,transparent,#061425),
-        url("assets/hero.jpg") center/cover no-repeat;
+.hero::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:55%;
+    background:linear-gradient(
+        transparent,
+        rgba(0,0,0,.85)
+    );
+    pointer-events:none;
 }
 
 .hero-content{
-    flex:1;
-    padding:25px;
+    position:relative;
     z-index:2;
+    width:100%;
+    padding:28px;
+    max-width:650px;
+}
+
+.hero-badge{
+    display:inline-block;
+    background:rgba(8,37,61,.85);
+    border:1px solid #14638e;
+    padding:7px 11px;
+    border-radius:20px;
+    font-size:11px;
+    margin-bottom:12px;
 }
 
 .hero-content h1{
-    font-size:38px;
+    font-size:42px;
     color:#00c6ff;
     margin-bottom:8px;
+    text-shadow:0 3px 15px rgba(0,0,0,.7);
 }
 
 .hero-content h1 span{
@@ -346,20 +393,13 @@ a{
 }
 
 .hero-content p{
-    color:#a9bfd0;
+    color:#e0edf5;
     font-size:14px;
-    line-height:1.6;
+    line-height:1.7;
+    max-width:560px;
+    text-shadow:0 2px 8px rgba(0,0,0,.9);
 }
 
-.hero-badge{
-    display:inline-block;
-    background:#0d3555;
-    border:1px solid #14638e;
-    padding:6px 10px;
-    border-radius:20px;
-    font-size:11px;
-    margin-bottom:12px;
-}
 
 /* =========================
    QUICK CARDS
@@ -431,6 +471,7 @@ a{
     font-size:18px;
 }
 
+
 /* =========================
    CONTENT GRID
 ========================= */
@@ -440,6 +481,7 @@ a{
     grid-template-columns:1fr 280px;
     gap:15px;
 }
+
 
 /* =========================
    PANEL
@@ -472,7 +514,10 @@ a{
 .view-all{
     color:#00aef2;
     font-size:12px;
+    background:transparent;
+    border:0;
 }
+
 
 /* =========================
    MUSIC LIST
@@ -496,8 +541,7 @@ a{
     width:100%;
     aspect-ratio:1;
     border-radius:9px;
-    background:
-        linear-gradient(135deg,#0a7bca,#172b5f);
+    background:linear-gradient(135deg,#0a7bca,#172b5f);
     display:flex;
     align-items:center;
     justify-content:center;
@@ -532,6 +576,7 @@ a{
     font-size:17px;
 }
 
+
 /* =========================
    ANNOUNCEMENTS
 ========================= */
@@ -555,6 +600,7 @@ a{
     display:flex;
     align-items:center;
     justify-content:center;
+    flex-shrink:0;
 }
 
 .announcement h4{
@@ -567,6 +613,7 @@ a{
     font-size:10px;
     line-height:1.4;
 }
+
 
 /* =========================
    PLAYER
@@ -593,6 +640,7 @@ a{
     align-items:center;
     justify-content:center;
     font-size:22px;
+    flex-shrink:0;
 }
 
 .now-info{
@@ -649,6 +697,7 @@ a{
     font-size:20px;
 }
 
+
 /* =========================
    AI
 ========================= */
@@ -698,6 +747,7 @@ a{
     color:#fff;
 }
 
+
 /* =========================
    PROFILE MODAL
 ========================= */
@@ -739,6 +789,7 @@ a{
     border:1px solid #214e6c;
     background:#0a243c;
     color:#fff;
+    font-size:20px;
 }
 
 .profile-large{
@@ -751,12 +802,16 @@ a{
     height:90px;
     margin:auto;
     border-radius:50%;
-    background:linear-gradient(135deg,#087cff,#00d1ff);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:40px;
     border:3px solid #00bfff;
+    overflow:hidden;
+    background:#0a243c;
+}
+
+.avatar-large img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
 }
 
 .profile-large h2{
@@ -785,6 +840,7 @@ a{
     text-align:left;
 }
 
+
 /* =========================
    GOOGLE LOGIN
 ========================= */
@@ -805,7 +861,9 @@ a{
     font-size:10px;
     text-align:center;
     margin-top:8px;
+    line-height:1.5;
 }
+
 
 /* =========================
    MOBILE NAV
@@ -814,6 +872,42 @@ a{
 .mobile-nav{
     display:none;
 }
+
+
+/* =========================
+   LIGHT MODE
+========================= */
+
+body.light-mode{
+    background:#eef5f9;
+    color:#102333;
+}
+
+body.light-mode .main{
+    background:#eef5f9;
+}
+
+body.light-mode .panel{
+    background:#fff;
+    border-color:#c8dce8;
+}
+
+body.light-mode .search,
+body.light-mode .language,
+body.light-mode .icon-button{
+    background:#fff;
+    color:#102333;
+    border-color:#c8dce8;
+}
+
+body.light-mode .search input{
+    color:#102333;
+}
+
+body.light-mode .quick-card{
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+}
+
 
 /* =========================
    RESPONSIVE
@@ -830,6 +924,7 @@ a{
     }
 
 }
+
 
 @media(max-width:750px){
 
@@ -854,6 +949,7 @@ a{
     .search{
         height:42px;
         min-width:0;
+        padding:0 12px;
     }
 
     .search input{
@@ -868,37 +964,43 @@ a{
     .icon-button{
         width:40px;
         height:40px;
+        flex-shrink:0;
     }
 
     .profile-button{
         width:40px;
         height:40px;
+        flex-shrink:0;
     }
+
+
+    /* MOBILE HERO */
 
     .hero{
-        min-height:220px;
-    }
-
-    .hero-photo{
-        width:48%;
-        height:220px;
+        min-height:250px;
+        background-position:center;
+        align-items:flex-end;
     }
 
     .hero-content{
-        padding:13px;
+        padding:18px;
     }
 
     .hero-content h1{
-        font-size:23px;
+        font-size:29px;
     }
 
     .hero-content p{
-        font-size:10px;
+        font-size:11px;
+        line-height:1.55;
     }
 
     .hero-badge{
-        font-size:8px;
+        font-size:9px;
     }
+
+
+    /* QUICK CARDS */
 
     .quick-grid{
         grid-template-columns:repeat(2,1fr);
@@ -914,6 +1016,9 @@ a{
         font-size:15px;
     }
 
+
+    /* MUSIC */
+
     .music-list{
         grid-template-columns:repeat(2,1fr);
     }
@@ -921,6 +1026,9 @@ a{
     .content-grid{
         display:block;
     }
+
+
+    /* MOBILE NAV */
 
     .mobile-nav{
         position:fixed;
@@ -945,6 +1053,7 @@ a{
         flex-direction:column;
         align-items:center;
         gap:4px;
+        min-width:50px;
     }
 
     .mobile-nav button span{
@@ -957,22 +1066,42 @@ a{
 
 }
 
+
 /* =========================
    VERY SMALL PHONES
 ========================= */
 
 @media(max-width:400px){
 
-    .hero{
-        min-height:190px;
+    .topbar{
+        gap:5px;
     }
 
-    .hero-photo{
-        height:190px;
+    .icon-button{
+        width:37px;
+        height:37px;
+        font-size:16px;
+    }
+
+    .profile-button{
+        width:37px;
+        height:37px;
+    }
+
+    .hero{
+        min-height:215px;
+    }
+
+    .hero-content{
+        padding:14px;
     }
 
     .hero-content h1{
-        font-size:19px;
+        font-size:24px;
+    }
+
+    .hero-content p{
+        font-size:10px;
     }
 
     .quick-card{
@@ -995,9 +1124,11 @@ a{
 </style>
 </head>
 
+
 <body>
 
 <div class="app">
+
 
 <!-- =========================
      SIDEBAR
@@ -1006,13 +1137,18 @@ a{
 <aside class="sidebar">
 
     <div class="logo">
-        <div class="logo-mark">R</div>
+
+        <div class="logo-mark">
+            R
+        </div>
 
         <div class="logo-text">
             R Son
             <span>Production</span>
         </div>
+
     </div>
+
 
     <nav class="menu">
 
@@ -1058,7 +1194,8 @@ a{
 
     </nav>
 
-    <!-- CLIENT PROFILE -->
+
+    <!-- CUSTOMER PROFILE -->
 
     <div class="customer-profile"
          onclick="openLogin()"
@@ -1069,11 +1206,16 @@ a{
         </div>
 
         <div class="customer-info">
-            <strong>Mon compte</strong>
+
+            <strong>
+                Mon compte
+            </strong>
+
             <small>
                 Connexion Google
                 <span class="online-dot"></span>
             </small>
+
         </div>
 
     </div>
@@ -1087,52 +1229,507 @@ a{
 
 <main class="main">
 
-    <!-- TOPBAR -->
 
-    <div class="topbar">
+<!-- TOPBAR -->
 
-        <div class="search">
+<div class="topbar">
 
-            <span>⌕</span>
+    <div class="search">
+
+        <span>⌕</span>
+
+        <input
+            id="searchInput"
+            type="text"
+            placeholder="Rechercher une chanson, un artiste, une vidéo..."
+            onkeydown="searchContent(event)"
+        >
+
+    </div>
+
+
+    <select
+        class="language"
+        id="language"
+        onchange="changeLanguage()">
+
+        <option value="mg">🇲🇬 Malagasy</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="en">🇬🇧 English</option>
+
+    </select>
+
+
+    <div class="top-actions">
+
+        <button
+            class="icon-button"
+            onclick="showMessage('Notifications')"
+            title="Notifications">
+
+            🔔
+
+        </button>
+
+
+        <button
+            class="icon-button"
+            onclick="toggleTheme()"
+            title="Theme">
+
+            ☾
+
+        </button>
+
+
+        <!-- R SON PROFILE -->
+
+        <button
+            class="profile-button"
+            onclick="openOwnerProfile()"
+            title="R Son Production">
+
+            <img
+                src="logo.jpg"
+                alt="R Son">
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="hero-badge">
+            🎵 R SON PLATFORM
+        </div>
+
+        <h1>
+            R <span>Son</span>
+        </h1>
+
+        <p>
+            Talenta fa tsy natao ho ifaninana.
+            Hira, horonan-tsary, teknolojia ary
+            R Son AI.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     QUICK ACCESS
+========================= -->
+
+<section class="quick-grid">
+
+
+    <div
+        class="quick-card music"
+        onclick="showMessage('Musique')">
+
+        <div class="quick-icon">
+            ♫
+        </div>
+
+        <h3>
+            Musique
+        </h3>
+
+        <p>
+            Écoute tes sons préférés
+        </p>
+
+        <div class="quick-arrow">
+            ›
+        </div>
+
+    </div>
+
+
+    <div
+        class="quick-card video"
+        onclick="showMessage('Vidéos')">
+
+        <div class="quick-icon">
+            ▶
+        </div>
+
+        <h3>
+            Vidéos
+        </h3>
+
+        <p>
+            Regarde tes films et clips
+        </p>
+
+        <div class="quick-arrow">
+            ›
+        </div>
+
+    </div>
+
+
+    <div
+        class="quick-card download"
+        onclick="showMessage('Téléchargements')">
+
+        <div class="quick-icon">
+            ⇩
+        </div>
+
+        <h3>
+            Téléchargements
+        </h3>
+
+        <p>
+            Hors ligne, à tout moment
+        </p>
+
+        <div class="quick-arrow">
+            ›
+        </div>
+
+    </div>
+
+
+    <div
+        class="quick-card ai"
+        onclick="openAI()">
+
+        <div class="quick-icon">
+            🤖
+        </div>
+
+        <h3>
+            R Son AI
+        </h3>
+
+        <p>
+            Pose tes questions
+        </p>
+
+        <div class="quick-arrow">
+            ›
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CONTENT
+========================= -->
+
+<div class="content-grid">
+
+
+<div>
+
+
+<!-- RECENT MUSIC -->
+
+<section class="panel">
+
+    <div class="panel-header">
+
+        <div class="panel-title">
+            🎵 Musique récente
+        </div>
+
+        <button
+            class="view-all"
+            onclick="showMessage('Toutes les musiques')">
+
+            Voir tout →
+
+        </button>
+
+    </div>
+
+
+    <div class="music-list">
+
+
+        <div class="music-card">
+
+            <div class="cover">
+                🎵
+            </div>
+
+            <h4>
+                Rêve d'un jeune
+            </h4>
+
+            <p>
+                R Son · 03:45
+            </p>
+
+            <button
+                class="more"
+                onclick="playSong('Rêve d’un jeune')">
+
+                ⋮
+
+            </button>
+
+        </div>
+
+
+        <div class="music-card">
+
+            <div class="cover">
+                🎵
+            </div>
+
+            <h4>
+                Mamy
+            </h4>
+
+            <p>
+                R Son · 04:12
+            </p>
+
+            <button
+                class="more"
+                onclick="playSong('Mamy')">
+
+                ⋮
+
+            </button>
+
+        </div>
+
+
+        <div class="music-card">
+
+            <div class="cover">
+                🎵
+            </div>
+
+            <h4>
+                Antsika
+            </h4>
+
+            <p>
+                R Son · 05:20
+            </p>
+
+            <button
+                class="more"
+                onclick="playSong('Antsika')">
+
+                ⋮
+
+            </button>
+
+        </div>
+
+
+        <div class="music-card">
+
+            <div class="cover">
+                🎵
+            </div>
+
+            <h4>
+                Fitia vana
+            </h4>
+
+            <p>
+                R Son · 03:38
+            </p>
+
+            <button
+                class="more"
+                onclick="playSong('Fitia vana')">
+
+                ⋮
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PLAYER -->
+
+<section class="panel">
+
+    <div class="panel-header">
+
+        <div class="panel-title">
+            ▶ Lecture en cours
+        </div>
+
+        <button class="view-all">
+            Bibliothèque
+        </button>
+
+    </div>
+
+
+    <div class="player">
+
+        <div class="now-playing">
+
+            <div class="now-cover">
+                🎵
+            </div>
+
+            <div class="now-info">
+
+                <strong id="currentSong">
+                    Rêve d'un jeune
+                </strong>
+
+                <small>
+                    R Son Production
+                </small>
+
+            </div>
+
+            <button class="control">
+                ♡
+            </button>
+
+        </div>
+
+
+        <div class="progress">
 
             <input
-                id="searchInput"
-                type="text"
-                placeholder="Rechercher une chanson, un artiste, une vidéo..."
-                onkeydown="searchContent(event)"
+                type="range"
+                min="0"
+                max="100"
+                value="0"
+                id="progress"
             >
 
         </div>
 
-        <select class="language"
-                id="language"
-                onchange="changeLanguage()">
 
-            <option value="mg">🇲🇬 Malagasy</option>
-            <option value="fr">🇫🇷 Français</option>
-            <option value="en">🇬🇧 English</option>
+        <div class="time">
 
-        </select>
+            <span>
+                00:00
+            </span>
 
-        <div class="top-actions">
+            <span>
+                03:45
+            </span>
 
-            <button class="icon-button"
-                    onclick="showMessage('Notifications')">
-                🔔
+        </div>
+
+
+        <div class="player-controls">
+
+            <button class="control">
+                🔀
             </button>
 
-            <button class="icon-button"
-                    onclick="toggleTheme()">
-                ☾
+            <button class="control">
+                ◀
             </button>
 
-            <!-- R SON PROFILE -->
+            <button
+                class="play"
+                id="playButton"
+                onclick="togglePlay()">
 
-            <button class="profile-button"
-                    onclick="openOwnerProfile()"
-                    title="R Son Production">
+                ▶
 
-                R
+            </button>
+
+            <button class="control">
+                ▶
+            </button>
+
+            <button class="control">
+                🔁
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- AI -->
+
+<section
+    class="panel"
+    id="aiSection">
+
+    <div class="panel-header">
+
+        <div class="panel-title">
+            🤖 <span>R Son AI</span>
+        </div>
+
+        <small>
+            Assistant intelligent
+        </small>
+
+    </div>
+
+
+    <div class="ai-box">
+
+        <div class="ai-message">
+
+            Salama! Inona no azoko
+            anampiana anao?
+
+        </div>
+
+
+        <div class="ai-message user">
+
+            Ahoana no fomba fampiasa
+            an'i R Son?
+
+        </div>
+
+
+        <div class="ai-message">
+
+            Afaka mitady hira sy vidéo ianao,
+            mitahiry azy ireo ho an'ny offline,
+            ary mametraka fanontaniana amiko.
+
+        </div>
+
+
+        <div class="ai-input">
+
+            <input
+                id="aiInput"
+                type="text"
+                placeholder="Soraty ny fanontanianao..."
+                onkeydown="aiEnter(event)"
+            >
+
+            <button
+                class="ai-send"
+                onclick="sendAI()">
+
+                ➤
 
             </button>
 
@@ -1140,458 +1737,108 @@ a{
 
     </div>
 
+</section>
 
-    <!-- =========================
-         HERO
-    ========================= -->
 
-    <section class="hero">
+</div>
 
-        <div class="hero-photo"></div>
 
-        <div class="hero-content">
+<!-- =========================
+     ANNOUNCEMENTS
+========================= -->
 
-            <div class="hero-badge">
-                🎵 R SON PLATFORM
-            </div>
+<aside>
 
-            <h1>
-                R <span>Son</span>
-            </h1>
+<section class="panel">
 
-            <p>
-                Talenta fa tsy natao ho ifaninana.
-                Hira, horonan-tsary, teknolojia ary
-                R Son AI.
-            </p>
+    <div class="panel-header">
 
+        <div class="panel-title">
+            📢 Annonces
         </div>
 
-    </section>
+        <button
+            class="view-all"
+            onclick="showMessage('Toutes les annonces')">
+
+            Voir tout →
+
+        </button>
+
+    </div>
 
 
-    <!-- =========================
-         QUICK ACCESS
-    ========================= -->
+    <div class="announcement">
 
-    <section class="quick-grid">
-
-        <div class="quick-card music"
-             onclick="showMessage('Musique')">
-
-            <div class="quick-icon">♫</div>
-
-            <h3>Musique</h3>
-
-            <p>
-                Écoute tes sons préférés
-            </p>
-
-            <div class="quick-arrow">›</div>
-
+        <div class="announcement-icon">
+            🎵
         </div>
-
-
-        <div class="quick-card video"
-             onclick="showMessage('Vidéos')">
-
-            <div class="quick-icon">▶</div>
-
-            <h3>Vidéos</h3>
-
-            <p>
-                Regarde tes films et clips
-            </p>
-
-            <div class="quick-arrow">›</div>
-
-        </div>
-
-
-        <div class="quick-card download"
-             onclick="showMessage('Téléchargements')">
-
-            <div class="quick-icon">⇩</div>
-
-            <h3>Téléchargements</h3>
-
-            <p>
-                Hors ligne, à tout moment
-            </p>
-
-            <div class="quick-arrow">›</div>
-
-        </div>
-
-
-        <div class="quick-card ai"
-             onclick="openAI()">
-
-            <div class="quick-icon">🤖</div>
-
-            <h3>R Son AI</h3>
-
-            <p>
-                Pose tes questions
-            </p>
-
-            <div class="quick-arrow">›</div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         CONTENT
-    ========================= -->
-
-    <div class="content-grid">
 
         <div>
 
-            <!-- RECENT MUSIC -->
-
-            <section class="panel">
-
-                <div class="panel-header">
-
-                    <div class="panel-title">
-                        🎵 Musique récente
-                    </div>
-
-                    <button class="view-all"
-                            onclick="showMessage('Toutes les musiques')">
-                        Voir tout →
-                    </button>
-
-                </div>
-
-
-                <div class="music-list">
-
-                    <div class="music-card">
-
-                        <div class="cover">
-                            🎵
-                        </div>
-
-                        <h4>Rêve d'un jeune</h4>
-
-                        <p>R Son · 03:45</p>
-
-                        <button class="more"
-                                onclick="playSong('Rêve d’un jeune')">
-                            ⋮
-                        </button>
-
-                    </div>
-
-
-                    <div class="music-card">
-
-                        <div class="cover">
-                            🎵
-                        </div>
-
-                        <h4>Mamy</h4>
-
-                        <p>R Son · 04:12</p>
-
-                        <button class="more"
-                                onclick="playSong('Mamy')">
-                            ⋮
-                        </button>
-
-                    </div>
-
-
-                    <div class="music-card">
-
-                        <div class="cover">
-                            🎵
-                        </div>
-
-                        <h4>Antsika</h4>
-
-                        <p>R Son · 05:20</p>
-
-                        <button class="more"
-                                onclick="playSong('Antsika')">
-                            ⋮
-                        </button>
-
-                    </div>
-
-
-                    <div class="music-card">
-
-                        <div class="cover">
-                            🎵
-                        </div>
-
-                        <h4>Fitia vana</h4>
-
-                        <p>R Son · 03:38</p>
-
-                        <button class="more"
-                                onclick="playSong('Fitia vana')">
-                            ⋮
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- PLAYER -->
-
-            <section class="panel">
-
-                <div class="panel-header">
-
-                    <div class="panel-title">
-                        ▶ Lecture en cours
-                    </div>
-
-                    <button class="view-all">
-                        Bibliothèque
-                    </button>
-
-                </div>
-
-
-                <div class="player">
-
-                    <div class="now-playing">
-
-                        <div class="now-cover">
-                            🎵
-                        </div>
-
-                        <div class="now-info">
-
-                            <strong id="currentSong">
-                                Rêve d'un jeune
-                            </strong>
-
-                            <small>
-                                R Son Production
-                            </small>
-
-                        </div>
-
-                        <button class="control">
-                            ♡
-                        </button>
-
-                    </div>
-
-
-                    <div class="progress">
-
-                        <input
-                            type="range"
-                            min="0"
-                            max="100"
-                            value="0"
-                            id="progress"
-                        >
-
-                    </div>
-
-
-                    <div class="time">
-
-                        <span>00:00</span>
-                        <span>03:45</span>
-
-                    </div>
-
-
-                    <div class="player-controls">
-
-                        <button class="control">
-                            🔀
-                        </button>
-
-                        <button class="control">
-                            ◀
-                        </button>
-
-                        <button class="play"
-                                id="playButton"
-                                onclick="togglePlay()">
-                            ▶
-                        </button>
-
-                        <button class="control">
-                            ▶
-                        </button>
-
-                        <button class="control">
-                            🔁
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- AI -->
-
-            <section class="panel" id="aiSection">
-
-                <div class="panel-header">
-
-                    <div class="panel-title">
-                        🤖 <span>R Son AI</span>
-                    </div>
-
-                    <small>
-                        Assistant intelligent
-                    </small>
-
-                </div>
-
-
-                <div class="ai-box">
-
-                    <div class="ai-message">
-                        Salama! Inona no azoko
-                        anampiana anao?
-                    </div>
-
-                    <div class="ai-message user">
-                        Ahoana no fomba fampiasa
-                        an'i R Son?
-                    </div>
-
-                    <div class="ai-message">
-                        Afaka mitady hira sy vidéo ianao,
-                        mitahiry azy ireo ho an'ny offline,
-                        ary mametraka fanontaniana amiko.
-                    </div>
-
-
-                    <div class="ai-input">
-
-                        <input
-                            id="aiInput"
-                            type="text"
-                            placeholder="Soraty ny fanontanianao..."
-                            onkeydown="aiEnter(event)"
-                        >
-
-                        <button class="ai-send"
-                                onclick="sendAI()">
-                            ➤
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </section>
+            <h4>
+                Nouveau son disponible !
+            </h4>
+
+            <p>
+                Découvrez le dernier titre
+                de R Son.
+            </p>
 
         </div>
 
-
-        <!-- =========================
-             ANNOUNCEMENTS
-        ========================= -->
-
-        <aside>
-
-            <section class="panel">
-
-                <div class="panel-header">
-
-                    <div class="panel-title">
-                        📢 Annonces
-                    </div>
-
-                    <button class="view-all">
-                        Voir tout →
-                    </button>
-
-                </div>
+    </div>
 
 
-                <div class="announcement">
+    <div class="announcement">
 
-                    <div class="announcement-icon">
-                        🎵
-                    </div>
+        <div class="announcement-icon">
+            🎬
+        </div>
 
-                    <div>
+        <div>
 
-                        <h4>
-                            Nouveau son disponible !
-                        </h4>
+            <h4>
+                Nouvelle vidéo
+            </h4>
 
-                        <p>
-                            Découvrez le dernier titre
-                            de R Son.
-                        </p>
+            <p>
+                Le clip officiel est maintenant
+                en ligne.
+            </p>
 
-                    </div>
-
-                </div>
-
-
-                <div class="announcement">
-
-                    <div class="announcement-icon">
-                        🎬
-                    </div>
-
-                    <div>
-
-                        <h4>
-                            Nouvelle vidéo
-                        </h4>
-
-                        <p>
-                            Le clip officiel est maintenant
-                            en ligne.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="announcement">
-
-                    <div class="announcement-icon">
-                        🚀
-                    </div>
-
-                    <div>
-
-                        <h4>
-                            Mise à jour de l'app
-                        </h4>
-
-                        <p>
-                            Plus de fonctionnalités
-                            bientôt !
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-        </aside>
+        </div>
 
     </div>
+
+
+    <div class="announcement">
+
+        <div class="announcement-icon">
+            🚀
+        </div>
+
+        <div>
+
+            <h4>
+                Mise à jour de l'app
+            </h4>
+
+            <p>
+                Plus de fonctionnalités
+                bientôt !
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+</aside>
+
+
+</div>
 
 </main>
 
@@ -1604,36 +1851,45 @@ a{
 
 <nav class="mobile-nav">
 
-    <button class="active"
-            onclick="goHome()">
+    <button
+        class="active"
+        onclick="goHome()">
 
         <span>⌂</span>
         Accueil
 
     </button>
 
-    <button onclick="showMessage('Musique')">
+
+    <button
+        onclick="showMessage('Musique')">
 
         <span>♫</span>
         Musique
 
     </button>
 
-    <button onclick="showMessage('Vidéos')">
+
+    <button
+        onclick="showMessage('Vidéos')">
 
         <span>▣</span>
         Vidéos
 
     </button>
 
-    <button onclick="showMessage('Offline')">
+
+    <button
+        onclick="showMessage('Offline')">
 
         <span>⇩</span>
         Offline
 
     </button>
 
-    <button onclick="openAI()">
+
+    <button
+        onclick="openAI()">
 
         <span>🤖</span>
         AI
@@ -1647,26 +1903,41 @@ a{
      OWNER PROFILE MODAL
 ========================= -->
 
-<div class="modal" id="ownerModal">
+<div
+    class="modal"
+    id="ownerModal">
 
     <div class="modal-box">
 
-        <button class="close"
-                onclick="closeModal('ownerModal')">
+        <button
+            class="close"
+            onclick="closeModal('ownerModal')">
+
             ×
+
         </button>
+
 
         <div class="profile-large">
 
             <div class="avatar-large">
-                R
+
+                <img
+                    src="logo.jpg"
+                    alt="R Son Production">
+
             </div>
 
-            <h2>R Son</h2>
+
+            <h2>
+                R Son
+            </h2>
+
 
             <p>
                 Artiste · Producteur · Créateur
             </p>
+
 
             <p>
                 Bienvenue dans R Son Production.
@@ -1680,20 +1951,35 @@ a{
 
         <div class="profile-links">
 
-            <button onclick="showMessage('Profil R Son')">
+            <button
+                onclick="showMessage('Profil R Son')">
+
                 👤 Mon profil
+
             </button>
 
-            <button onclick="showMessage('Mes créations')">
+
+            <button
+                onclick="showMessage('Mes créations')">
+
                 🎵 Mes créations
+
             </button>
 
-            <button onclick="showMessage('À propos de R Son')">
+
+            <button
+                onclick="showMessage('À propos de R Son')">
+
                 ℹ️ À propos
+
             </button>
 
-            <button onclick="showMessage('Contact')">
+
+            <button
+                onclick="showMessage('Contact')">
+
                 ✉️ Contact
+
             </button>
 
         </div>
@@ -1707,22 +1993,34 @@ a{
      CLIENT LOGIN MODAL
 ========================= -->
 
-<div class="modal" id="loginModal">
+<div
+    class="modal"
+    id="loginModal">
 
     <div class="modal-box">
 
-        <button class="close"
-                onclick="closeModal('loginModal')">
+        <button
+            class="close"
+            onclick="closeModal('loginModal')">
+
             ×
+
         </button>
+
 
         <div class="profile-large">
 
             <div class="avatar-large">
+
                 👤
+
             </div>
 
-            <h2>Mon compte</h2>
+
+            <h2>
+                Mon compte
+            </h2>
+
 
             <p>
                 Connecte-toi pour utiliser
@@ -1732,16 +2030,20 @@ a{
         </div>
 
 
-        <button class="google-login"
-                onclick="googleLogin()">
+        <button
+            class="google-login"
+            onclick="googleLogin()">
 
             🔵 Continuer avec Google
 
         </button>
 
+
         <p class="login-note">
+
             La connexion Google sera reliée au système
             sécurisé de R Son lorsque le backend sera activé.
+
         </p>
 
     </div>
@@ -1763,6 +2065,7 @@ function goHome(){
     });
 
 }
+
 
 function showMessage(name){
 
@@ -1822,15 +2125,20 @@ function closeModal(id){
 }
 
 
-window.addEventListener("click",function(event){
+window.addEventListener(
+    "click",
+    function(event){
 
-    if(event.target.classList.contains("modal")){
+        if(
+            event.target.classList.contains("modal")
+        ){
 
-        event.target.classList.remove("show");
+            event.target.classList.remove("show");
+
+        }
 
     }
-
-});
+);
 
 
 /* =========================
@@ -1874,8 +2182,10 @@ function sendAI(){
 
     }
 
+
     const box =
         document.querySelector(".ai-box");
+
 
     const user =
         document.createElement("div");
@@ -1886,10 +2196,12 @@ function sendAI(){
     user.textContent =
         text;
 
+
     box.insertBefore(
         user,
         document.querySelector(".ai-input")
     );
+
 
     input.value = "";
 
@@ -1904,6 +2216,7 @@ function sendAI(){
 
         answer.textContent =
             "R Son AI : Mbola version prototype aho izao. Rehefa ampidirina ny backend dia afaka mamaly fanontaniana tena izy aho.";
+
 
         box.insertBefore(
             answer,
@@ -1926,8 +2239,10 @@ function togglePlay(){
 
     playing = !playing;
 
+
     const button =
         document.getElementById("playButton");
+
 
     button.textContent =
         playing ? "Ⅱ" : "▶";
@@ -1941,7 +2256,9 @@ function playSong(name){
         .getElementById("currentSong")
         .textContent = name;
 
+
     playing = true;
+
 
     document
         .getElementById("playButton")
@@ -1962,17 +2279,20 @@ function searchContent(event){
 
     }
 
+
     const value =
         document
         .getElementById("searchInput")
         .value
         .trim();
 
+
     if(!value){
 
         return;
 
     }
+
 
     alert(
         "Recherche R Son : " + value
@@ -1992,10 +2312,12 @@ function changeLanguage(){
         .getElementById("language")
         .value;
 
+
     localStorage.setItem(
         "rson_language",
         lang
     );
+
 
     if(lang === "mg"){
 
@@ -2005,6 +2327,7 @@ function changeLanguage(){
 
     }
 
+
     if(lang === "fr"){
 
         alert(
@@ -2012,6 +2335,7 @@ function changeLanguage(){
         );
 
     }
+
 
     if(lang === "en"){
 
@@ -2041,22 +2365,26 @@ function toggleTheme(){
    LOAD LANGUAGE
 ========================= */
 
-window.addEventListener("DOMContentLoaded",function(){
+window.addEventListener(
+    "DOMContentLoaded",
+    function(){
 
-    const saved =
-        localStorage.getItem(
-            "rson_language"
-        );
+        const saved =
+            localStorage.getItem(
+                "rson_language"
+            );
 
-    if(saved){
 
-        document
-        .getElementById("language")
-        .value = saved;
+        if(saved){
+
+            document
+                .getElementById("language")
+                .value = saved;
+
+        }
 
     }
-
-});
+);
 
 </script>
 
