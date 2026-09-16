@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R son Production - Site & App</title>
+    <title>R son Production - App & Site Web</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -13,10 +13,14 @@
             --card-color: #172033;
             --card-hover: #1f2c47;
             --accent-blue: #0070ff;
-            --accent-gradient: linear-gradient(135deg, #0052D4, #4364F7, #6FB1FC);
+            --gradient-blue: linear-gradient(135deg, #0052D4, #4364F7);
+            --gradient-purple: linear-gradient(135deg, #8a2387, #e94057);
+            --gradient-green: linear-gradient(135deg, #11998e, #38ef7d);
+            --gradient-orange: linear-gradient(135deg, #f2994a, #f2c94c);
             --text-main: #ffffff;
             --text-muted: #9ca3af;
             --border-color: #1e293b;
+            --glow-blue: 0 0 15px rgba(0, 112, 255, 0.4);
         }
 
         * {
@@ -34,7 +38,7 @@
             overflow: hidden;
         }
 
-        /* SIDEBAR */
+        /* SIDEBAR PC */
         sidebar {
             width: 260px;
             background-color: var(--sidebar-color);
@@ -43,13 +47,14 @@
             flex-direction: column;
             justify-content: space-between;
             padding: 20px;
+            z-index: 10;
         }
 
         .logo-area {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .logo-area img {
@@ -59,7 +64,7 @@
         }
 
         .logo-area h1 {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
             background: linear-gradient(90deg, #00c6ff, #0072ff);
             -webkit-background-clip: text;
@@ -73,25 +78,26 @@
         }
 
         .menu li {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .menu li a {
             display: flex;
             align-items: center;
             gap: 15px;
-            padding: 12px 15px;
+            padding: 11px 15px;
             color: var(--text-muted);
             text-decoration: none;
             border-radius: 10px;
             transition: 0.3s;
-            font-size: 14px;
+            font-size: 13.5px;
+            cursor: pointer;
         }
 
         .menu li.active a, .menu li a:hover {
-            background: var(--accent-gradient);
+            background: var(--gradient-blue);
             color: var(--text-main);
-            box-shadow: 0 4px 15px rgba(0, 112, 255, 0.4);
+            box-shadow: var(--glow-blue);
         }
 
         .user-profile {
@@ -110,23 +116,17 @@
             border: 2px solid var(--accent-blue);
         }
 
-        .user-info h4 {
-            font-size: 14px;
-        }
+        .user-info h4 { font-size: 13.5px; }
+        .user-info p { font-size: 11px; color: var(--text-muted); }
 
-        .user-info p {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        /* MAIN CONTENT */
+        /* MAIN CONTENT AREA */
         main {
             flex-grow: 1;
             overflow-y: auto;
-            padding: 25px 35px;
+            padding: 25px 30px;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 22px;
         }
 
         header {
@@ -137,12 +137,12 @@
 
         .search-bar {
             position: relative;
-            width: 400px;
+            width: 380px;
         }
 
         .search-bar input {
             width: 100%;
-            padding: 12px 20px 12px 45px;
+            padding: 11px 20px 11px 45px;
             background-color: var(--card-color);
             border: 1px solid var(--border-color);
             border-radius: 30px;
@@ -153,6 +153,7 @@
 
         .search-bar input:focus {
             border-color: var(--accent-blue);
+            box-shadow: var(--glow-blue);
         }
 
         .search-bar i {
@@ -166,128 +167,139 @@
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
-        .lang-btn {
+        .lang-btn, .icon-btn {
             background: var(--card-color);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 8px 15px;
             border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            font-size: 13px;
-        }
-
-        .icon-btn {
-            width: 40px;
-            height: 40px;
-            background: var(--card-color);
-            border: 1px solid var(--border-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-main);
             cursor: pointer;
             transition: 0.3s;
         }
 
-        .icon-btn:hover {
+        .lang-btn {
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-btn:hover, .lang-btn:hover {
             background: var(--card-hover);
+            border-color: var(--accent-blue);
+        }
+
+        /* VIEWS CONTAINER (TOGGLEABLE) */
+        .view-section {
+            display: none;
+            flex-direction: column;
+            gap: 22px;
+        }
+        .view-section.active {
+            display: flex;
         }
 
         /* HERO BANNER */
         .hero-banner {
-            position: relative;
             background: linear-gradient(135deg, #0c162d, #1a103c);
             border-radius: 20px;
-            padding: 30px 40px;
+            padding: 28px 35px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border: 1px solid var(--border-color);
+            position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .hero-text h2 {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
+        .hero-text h2 { font-size: 22px; margin-bottom: 6px; }
+        .hero-text p { color: var(--text-muted); font-style: italic; font-size: 13.5px; }
 
-        .hero-text p {
-            color: var(--text-muted);
-            font-style: italic;
-            font-size: 14px;
-        }
-
-        .hero-image {
+        .hero-images {
             display: flex;
             align-items: center;
+            gap: 15px;
+        }
+
+        .hero-images img {
+            height: 110px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid rgba(0, 112, 255, 0.4);
+        }
+
+        /* DASHBOARD LAYOUT (PC GRID) */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
             gap: 20px;
         }
 
-        .hero-image img.studio {
-            width: 160px;
-            border-radius: 12px;
-            object-fit: cover;
-            border: 1px solid rgba(0, 112, 255, 0.3);
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        /* GRID SECTIONS */
+        /* QUICK CARDS */
         .quick-cards {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+            gap: 15px;
         }
 
         .q-card {
             background: var(--card-color);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 20px;
+            padding: 18px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
             cursor: pointer;
             transition: 0.3s;
         }
 
         .q-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
             background: var(--card-hover);
             border-color: var(--accent-blue);
+            box-shadow: var(--glow-blue);
         }
 
         .q-card .icon-box {
-            width: 45px;
-            height: 45px;
+            width: 42px;
+            height: 42px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 18px;
             color: white;
         }
 
-        .q-card:nth-child(1) .icon-box { background: linear-gradient(135deg, #00c6ff, #0072ff); }
-        .q-card:nth-child(2) .icon-box { background: linear-gradient(135deg, #8a2387, #e94057); }
-        .q-card:nth-child(3) .icon-box { background: linear-gradient(135deg, #11998e, #38ef7d); }
-        .q-card:nth-child(4) .icon-box { background: linear-gradient(135deg, #f2994a, #f2c94c); }
+        .q-card:nth-child(1) .icon-box { background: var(--gradient-blue); }
+        .q-card:nth-child(2) .icon-box { background: var(--gradient-purple); }
+        .q-card:nth-child(3) .icon-box { background: var(--gradient-green); }
+        .q-card:nth-child(4) .icon-box { background: var(--gradient-orange); }
 
-        .q-card h3 { font-size: 16px; }
-        .q-card p { font-size: 12px; color: var(--text-muted); }
+        .q-card h3 { font-size: 15px; }
+        .q-card p { font-size: 11.5px; color: var(--text-muted); }
 
-        /* CONTENT SECTION (Music + Player sidebar) */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-        }
-
+        /* CONTENT BOXES */
         .section-box {
             background: var(--card-color);
             border: 1px solid var(--border-color);
@@ -302,73 +314,93 @@
             margin-bottom: 15px;
         }
 
-        .section-header h3 {
-            font-size: 16px;
-        }
+        .section-header h3 { font-size: 15.5px; }
+        .section-header a { font-size: 12.5px; color: var(--accent-blue); text-decoration: none; cursor: pointer; }
+        .section-header a:hover { text-decoration: underline; }
 
-        .section-header a {
-            font-size: 13px;
-            color: var(--accent-blue);
-            text-decoration: none;
-        }
-
-        .music-grid {
+        /* MUSIC & VIDEO GRIDS */
+        .media-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
+            gap: 14px;
         }
 
-        .music-item {
+        .media-card {
             background: rgba(255, 255, 255, 0.02);
             border-radius: 12px;
             padding: 10px;
             transition: 0.3s;
             cursor: pointer;
+            border: 1px solid transparent;
         }
 
-        .music-item:hover {
+        .media-card:hover {
             background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(0, 112, 255, 0.3);
         }
 
-        .music-item img {
+        .media-card img {
             width: 100%;
-            height: 120px;
+            height: 110px;
             border-radius: 8px;
             object-fit: cover;
             margin-bottom: 8px;
         }
 
-        .music-item h4 {
-            font-size: 13px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .media-card h4 { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .media-card p { font-size: 11px; color: var(--text-muted); }
+
+        /* ANNONCES (RIGHT COLUMN) */
+        .annonces-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .music-item p {
-            font-size: 11px;
-            color: var(--text-muted);
+        .annonce-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px;
+            border-radius: 10px;
+            transition: 0.3s;
+            cursor: pointer;
         }
+
+        .annonce-item:hover {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .annonce-item img {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .annonce-item h5 { font-size: 12.5px; margin-bottom: 2px; }
+        .annonce-item p { font-size: 11px; color: var(--text-muted); }
 
         /* PLAYER WIDGET */
         .player-widget {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 14px;
+            margin-top: 15px;
         }
 
         .now-playing-card {
             display: flex;
             align-items: center;
             gap: 12px;
-            background: rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.25);
             padding: 10px;
             border-radius: 10px;
         }
 
         .now-playing-card img {
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             border-radius: 8px;
             object-fit: cover;
         }
@@ -385,10 +417,11 @@
             background: var(--border-color);
             border-radius: 2px;
             position: relative;
+            cursor: pointer;
         }
 
         .progress {
-            width: 40%;
+            width: 35%;
             height: 100%;
             background: var(--accent-blue);
             border-radius: 2px;
@@ -405,47 +438,159 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            font-size: 18px;
+            gap: 18px;
+            font-size: 16px;
             color: var(--text-muted);
         }
 
+        .player-controls i { cursor: pointer; transition: 0.2s; }
+        .player-controls i:hover { color: var(--text-main); }
+
         .player-controls .play-btn {
-            width: 45px;
-            height: 45px;
-            background: var(--accent-gradient);
+            width: 42px;
+            height: 42px;
+            background: var(--gradient-blue);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 16px;
-            box-shadow: 0 4px 15px rgba(0, 112, 255,.4);
+            font-size: 15px;
+            box-shadow: var(--glow-blue);
+        }
+
+        /* AI CHAT INTERFACE */
+        .ai-chat-box {
+            display: flex;
+            flex-direction: column;
+            height: 72vh;
+            background: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .ai-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .ai-msg {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 13.5px;
+            line-align: 1.4;
+        }
+
+        .ai-msg.bot {
+            background: rgba(255,255,255,0.05);
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+
+        .ai-msg.user {
+            background: var(--gradient-blue);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .ai-input-area {
+            display: flex;
+            padding: 15px 20px;
+            background: var(--sidebar-color);
+            border-top: 1px solid var(--border-color);
+            gap: 10px;
+        }
+
+        .ai-input-area input {
+            flex-grow: 1;
+            background: var(--card-color);
+            border: 1px solid var(--border-color);
+            padding: 10px 15px;
+            border-radius: 20px;
+            color: white;
+            outline: none;
+        }
+
+        .ai-input-area button {
+            background: var(--gradient-blue);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* MOBILE BOTTOM NAV VISIBILITY (Hidden by default on PC, visible if tested as mobile view or responsive) */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--sidebar-color);
+            border-top: 1px solid var(--border-color);
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 100;
+        }
+
+        .mobile-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 10px;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .mobile-nav-item i { font-size: 16px; }
+        .mobile-nav-item.active, .mobile-nav-item:hover { color: var(--accent-blue); }
+
+        @media (max-width: 900px) {
+            sidebar { display: none; }
+            .mobile-bottom-nav { display: flex; }
+            main { padding-bottom: 70px; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .quick-cards { grid-template-columns: repeat(2, 1fr); }
+            .media-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
 
-    <!-- SIDEBAR -->
+    <!-- SIDEBAR PC -->
     <sidebar>
         <div>
             <div class="logo-area">
                 <img src="logo.png" alt="Logo">
-                <h1>R son<br><span style="font-size: 12px; font-weight: 400; color: #9ca3af;">Production</span></h1>
+                <h1>R son<br><span style="font-size: 11px; font-weight: 400; color: #9ca3af;">Production</span></h1>
             </div>
             <ul class="menu">
-                <li class="active"><a href="#"><i class="fa-solid fa-house"></i> Accueil</a></li>
-                <li><a href="#"><i class="fa-solid fa-music"></i> Musique</a></li>
-                <li><a href="#"><i class="fa-solid fa-video"></i> Vidéos</a></li>
-                <li><a href="#"><i class="fa-solid fa-download"></i> Téléchargements</a></li>
-                <li><a href="#"><i class="fa-solid fa-list-music"></i> Playlists</a></li>
-                <li><a href="#"><i class="fa-solid fa-heart"></i> Favoris</a></li>
-                <li><a href="#"><i class="fa-solid fa-robot"></i> R Son AI</a></li>
-                <li><a href="#"><i class="fa-solid fa-gear"></i> Paramètres</a></li>
+                <li class="active" onclick="switchView('accueil', this)"><a href="#"><i class="fa-solid fa-house"></i> Accueil</a></li>
+                <li onclick="switchView('musique', this)"><a href="#"><i class="fa-solid fa-music"></i> Musique</a></li>
+                <li onclick="switchView('videos', this)"><a href="#"><i class="fa-solid fa-video"></i> Vidéos</a></li>
+                <li onclick="switchView('downloads', this)"><a href="#"><i class="fa-solid fa-download"></i> Téléchargements</a></li>
+                <li onclick="switchView('playlists', this)"><a href="#"><i class="fa-solid fa-list-music"></i> Playlists</a></li>
+                <li onclick="switchView('favoris', this)"><a href="#"><i class="fa-solid fa-heart"></i> Favoris</a></li>
+                <li onclick="switchView('ai', this)"><a href="#"><i class="fa-solid fa-robot"></i> R Son AI</a></li>
+                <li onclick="switchView('parametres', this)"><a href="#"><i class="fa-solid fa-gear"></i> Paramètres</a></li>
             </ul>
         </div>
         <div class="user-profile">
-            <img src="studio.png" alt="Profile">
+            <img src="studio.jpg" alt="Profile">
             <div class="user-info">
                 <h4>R son</h4>
                 <p>Artiste • Producteur</p>
@@ -453,7 +598,7 @@
         </div>
     </sidebar>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN CONTAINER -->
     <main>
         <!-- HEADER -->
         <header>
@@ -466,112 +611,310 @@
                     <span>🇲🇬 Malagasy</span>
                     <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i>
                 </div>
-                <div class="icon-btn"><i class="fa-regular fa-bell"></i></div>
-                <div class="icon-btn"><i class="fa-regular fa-moon"></i></div>
+                <div class="icon-btn" title="Fampandrenesana"><i class="fa-regular fa-bell"></i></div>
+                <div class="icon-btn" title="Fomba maizina"><i class="fa-regular fa-moon"></i></div>
             </div>
         </header>
 
-        <!-- HERO BANNER -->
-        <div class="hero-banner">
-            <div class="hero-text">
-                <h2>Talenta fa tsy natao ho ifaminanana</h2>
-                <p>Studio fanaovana7 mozika sy famoronana fitaovana</p>
+        <!-- 1. ACCUEIL VIEW -->
+        <div id="view-accueil" class="view-section active">
+            <!-- HERO BANNER -->
+            <div class="hero-banner">
+                <div class="hero-text">
+                    <h2>Talenta fa tsy natao ho ifaminanana</h2>
+                    <p>Studio fanaovana mozika sy famoronana fitaovana an-kira</p>
+                </div>
+                <div class="hero-images">
+                    <img src="studio.jpg" alt="Studio">
+                    <img src="logo.png" alt="Logo">
+                </div>
             </div>
-            <div class="hero-image">
-                <img src="studio.png" alt="Studio" class="studio">
-                <img src="logo.png" alt="Logo Banner" style="width: 120px; object-fit: contain;">
+
+            <!-- QUICK CARDS -->
+            <div class="quick-cards">
+                <div class="q-card" onclick="switchView('musique', null)">
+                    <div class="icon-box"><i class="fa-solid fa-music"></i></div>
+                    <h3>Musique</h3>
+                    <p>Écoute tes sons préférés</p>
+                </div>
+                <div class="q-card" onclick="switchView('videos', null)">
+                    <div class="icon-box"><i class="fa-solid fa-video"></i></div>
+                    <h3>Vidéos</h3>
+                    <p>Regarde tes films et clips</p>
+                </div>
+                <div class="q-card" onclick="switchView('downloads', null)">
+                    <div class="icon-box"><i class="fa-solid fa-download"></i></div>
+                    <h3>Téléchargements</h3>
+                    <p>Hors ligne, à tout moment</p>
+                </div>
+                <div class="q-card" onclick="switchView('ai', null)">
+                    <div class="icon-box"><i class="fa-solid fa-robot"></i></div>
+                    <h3>R Son AI</h3>
+                    <p>Pose tes questions</p>
+                </div>
+            </div>
+
+            <!-- DASHBOARD GRID (LEFT CONTENT + RIGHT ANNONCES & PLAYER) -->
+            <div class="dashboard-grid">
+                <div class="left-column">
+                    <div class="section-box">
+                        <div class="section-header">
+                            <h3>Musique récente</h3>
+                            <a onclick="switchView('musique', null)">Voir tout</a>
+                        </div>
+                        <div class="media-grid">
+                            <div class="media-card" onclick="playTrack('Rêve d’un jeune', 'R Son')">
+                                <img src="studio.jpg" alt="Cover">
+                                <h4>Rêve d'un jeune</h4>
+                                <p>R Son • 03:45</p>
+                            </div>
+                            <div class="media-card" onclick="playTrack('Mamy', 'R Son')">
+                                <img src="studio.jpg" alt="Cover">
+                                <h4>Mamy</h4>
+                                <p>R Son • 04:12</p>
+                            </div>
+                            <div class="media-card" onclick="playTrack('Antsika', 'R Son')">
+                                <img src="studio.jpg" alt="Cover">
+                                <h4>Antsika</h4>
+                                <p>R Son • 05:20</p>
+                            </div>
+                            <div class="media-card" onclick="playTrack('Fitiavana', 'R Son')">
+                                <img src="studio.jpg" alt="Cover">
+                                <h4>Fitiavana</h4>
+                                <p>R Son • 03:38</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: ANNONCES & PLAYER -->
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div class="section-box">
+                        <div class="section-header">
+                            <h3>Annonces</h3>
+                            <a href="#">Voir tout</a>
+                        </div>
+                        <div class="annonces-list">
+                            <div class="annonce-item">
+                                <img src="studio.jpg" alt="Annonce">
+                                <div>
+                                    <h5>Nouveau son disponible !</h5>
+                                    <p>Découvrez le dernier titre de R Son. Hier</p>
+                                </div>
+                            </div>
+                            <div class="annonce-item">
+                                <img src="studio.jpg" alt="Annonce">
+                                <div>
+                                    <h5>Nouvelle vidéo</h5>
+                                    <p>Le clip officiel est maintenant en ligne ! Il y a 2 jours</p>
+                                </div>
+                            </div>
+                            <div class="annonce-item">
+                                <img src="studio.jpg" alt="Annonce">
+                                <div>
+                                    <h5>Mise à jour de l'app</h5>
+                                    <p>Plus de fonctionnalités bientôt ! Il y a 3 jours</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PLAYER WIDGET -->
+                    <div class="section-box player-widget">
+                        <div class="section-header">
+                            <h3 id="current-player-title">Lecture en cours</h3>
+                            <a onclick="switchView('musique', null)">Voir la playlist</a>
+                        </div>
+                        <div class="now-playing-card">
+                            <img src="studio.jpg" alt="Current">
+                            <div style="flex-grow: 1;">
+                                <h4 id="active-song-name" style="font-size: 13px;">Rêve d'un jeune</h4>
+                                <p id="active-artist-name" style="font-size: 11px; color: var(--text-muted);">R Son</p>
+                            </div>
+                            <i class="fa-regular fa-heart" style="color: var(--accent-blue); cursor: pointer;" onclick="toggleHeart(this)"></i>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress"></div>
+                            </div>
+                            <div class="time-info">
+                                <span>01:24</span>
+                                <span>03:45</span>
+                            </div>
+                        </div>
+                        <div class="player-controls">
+                            <i class="fa-solid fa-shuffle"></i>
+                            <i class="fa-solid fa-backward-step"></i>
+                            <div class="play-btn" onclick="togglePlay(this)"><i class="fa-solid fa-pause"></i></div>
+                            <i class="fa-solid fa-forward-step"></i>
+                            <i class="fa-solid fa-repeat"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- QUICK ACCESS CARDS -->
-        <div class="quick-cards">
-            <div class="q-card">
-                <div class="icon-box"><i class="fa-solid fa-music"></i></div>
-                <h3>Musique</h3>
-                <p>Écoute tes sons préférés</p>
-            </div>
-            <div class="q-card">
-                <div class="icon-box"><i class="fa-solid fa-video"></i></div>
-                <h3>Vidéos</h3>
-                <p>Regarde tes films et clips</p>
-            </div>
-            <div class="q-card">
-                <div class="icon-box"><i class="fa-solid fa-download"></i></div>
-                <h3>Téléchargements</h3>
-                <p>Hors ligne, à tout moment</p>
-            </div>
-            <div class="q-card">
-                <div class="icon-box"><i class="fa-solid fa-robot"></i></div>
-                <h3>R Son AI</h3>
-                <p>Pose tes questions</p>
-            </div>
-        </div>
-
-        <!-- LOWER SECTION GRID -->
-        <div class="main-grid">
-            <!-- Music Section -->
+        <!-- 2. MUSIQUE VIEW -->
+        <div id="view-musique" class="view-section">
             <div class="section-box">
                 <div class="section-header">
-                    <h3>Musique récente</h3>
-                    <a href="#">Voir tout</a>
+                    <h3>Tranonkala Mozika &amp; Angon-kira</h3>
                 </div>
-                <div class="music-grid">
-                    <div class="music-item">
-                        <img src="studio.png" alt="Cover">
-                        <h4>Rêve d'un jeune</h4>
-                        <p>R Son</p>
-                    </div>
-                    <div class="music-item">
-                        <img src="studio.png" alt="Cover">
-                        <h4>Mamy</h4>
-                        <p>R Son</p>
-                    </div>
-                    <div class="music-item">
-                        <img src="studio.png" alt="Cover">
-                        <h4>Antsika</h4>
-                        <p>R Son</p>
-                    </div>
-                    <div class="music-item">
-                        <img src="studio.png" alt="Cover">
-                        <h4>Fitiavana</h4>
-                        <p>R Son</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Player Widget -->
-            <div class="section-box player-widget">
-                <div class="section-header">
-                    <h3>Lecture en cours</h3>
-                    <a href="#">Voir la playlist</a>
-                </div>
-                <div class="now-playing-card">
-                    <img src="studio.png" alt="Current">
-                    <div style="flex-grow: 1;">
-                        <h4 style="font-size: 13px;">Rêve d'un jeune</h4>
-                        <p style="font-size: 11px; color: var(--text-muted);">R Son</p>
-                    </div>
-                    <i class="fa-regular fa-heart" style="color: var(--accent-blue); cursor: pointer;"></i>
-                </div>
-                <div class="progress-container">
-                    <div class="progress-bar">
-                        <div class="progress"></div>
-                    </div>
-                    <div class="time-info">
-                        <span>01:24</span>
-                        <span>03:45</span>
-                    </div>
-                </div>
-                <div class="player-controls">
-                    <i class="fa-solid fa-shuffle" style="font-size: 14px;"></i>
-                    <i class="fa-solid fa-backward-step"></i>
-                    <div class="play-btn"><i class="fa-solid fa-pause"></i></div>
-                    <i class="fa-solid fa-forward-step"></i>
-                    <i class="fa-solid fa-repeat" style="font-size: 14px;"></i>
+                <div class="media-grid">
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Rêve d'un jeune</h4><p>R Son</p></div>
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Mamy</h4><p>R Son</p></div>
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Antsika</h4><p>R Son</p></div>
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Fitiavana</h4><p>R Son</p></div>
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Hazavana Miandry</h4><p>R Son</p></div>
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Tsisy Fitovy</h4><p>R Son</p></div>
                 </div>
             </div>
         </div>
+
+        <!-- 3. VIDEOS VIEW -->
+        <div id="view-videos" class="view-section">
+            <div class="section-box">
+                <div class="section-header">
+                    <h3>Vidio sy Clips Officiels</h3>
+                </div>
+                <div class="media-grid">
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Clip - Rêve d'un jeune</h4><p>03:45 • Il y a 2 jours</p></div>
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Antsika (Official Video)</h4><p>05:20 • Il y a 2 jours</p></div>
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Fitiavana (Clip officiel)</h4><p>03:38 • Il y a 2 jours</p></div>
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Live Studio Session</h4><p>08:12 • R Son Production</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. DOWNLOADS VIEW -->
+        <div id="view-downloads" class="view-section">
+            <div class="section-box">
+                <div class="section-header">
+                    <h3>Téléchargements &amp; Bibliothèque Offline</h3>
+                </div>
+                <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;">Ireo rakitra efa voatahiry ahafahanao mihaino na mijery azy na tsy misy Internet aza:</p>
+                <div class="media-grid">
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Rêve d'un jeune (Offline)</h4><p>Voatahiry tsara</p></div>
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Antsika (Offline)</h4><p>Voatahiry tsara</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. PLAYLISTS VIEW -->
+        <div id="view-playlists" class="view-section">
+            <div class="section-box">
+                <div class="section-header">
+                    <h3>Playlists an'i R Son</h3>
+                </div>
+                <div class="media-grid">
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Ma playlist</h4><p>24 titres</p></div>
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Favoris</h4><p>18 titres</p></div>
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Ambiance</h4><p>32 titres</p></div>
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>R Son Special</h4><p>12 titres</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. FAVORIS VIEW -->
+        <div id="view-favoris" class="view-section">
+            <div class="section-box">
+                <div class="section-header">
+                    <h3>Ireo hira sy clip tianao indrindra (Favoris)</h3>
+                </div>
+                <div class="media-grid">
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Rêve d'un jeune</h4><p>R Son • ❤️</p></div>
+                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Fitiavana</h4><p>R Son • ❤️</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. R SON AI VIEW -->
+        <div id="view-ai" class="view-section">
+            <div class="ai-chat-box">
+                <div style="padding: 15px 20px; background: var(--sidebar-color); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px;">
+                    <i class="fa-solid fa-robot" style="color: var(--accent-blue); font-size: 20px;"></i>
+                    <div>
+                        <h4 style="font-size: 14px;">R Son AI</h4>
+                        <p style="font-size: 11px; color: var(--text-muted);">Ton assistant intelligent</p>
+                    </div>
+                </div>
+                <div class="ai-messages">
+                    <div class="ai-msg bot">Salama! Inona no azoko anampiana anao androany momba ny mozika na ny studio?</div>
+                    <div class="ai-msg user">Ahoana no fomba hanampiana hira vaovao amin'ny Playlist?</div>
+                    <div class="ai-msg bot">Tsotra izany!<br>1. Mandehana any amin'ny <b>Musique > Playlist</b><br>2. Tsindrio ny + na "Ajouter"<br>3. Safidio ny hira tianao.<br><br>Raha mila fanazavana hafa, aza misalasala manontany! 😊</div>
+                </div>
+                <div class="ai-input-area">
+                    <input type="text" placeholder="Soraty ny fanontanianao...">
+                    <button><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. PARAMETRES VIEW -->
+        <div id="view-parametres" class="view-section">
+            <div class="section-box">
+                <h3>Paramètres / Fikirakirana</h3>
+                <p style="color: var(--text-muted); font-size: 13px; margin-top: 10px;">Fanitsiana ny mombamomba ny kaonty, ny fiteny (Malagasy), sy ny fitaovana.</p>
+            </div>
+        </div>
+
     </main>
 
+    <!-- MOBILE BOTTOM NAVIGATION -->
+    <div class="mobile-bottom-nav">
+        <a class="mobile-nav-item active" onclick="switchView('accueil', this)"><i class="fa-solid fa-house"></i><span>Accueil</span></a>
+        <a class="mobile-nav-item" onclick="switchView('musique', this)"><i class="fa-solid fa-music"></i><span>Musique</span></a>
+        <a class="mobile-nav-item" onclick="switchView('videos', this)"><i class="fa-solid fa-video"></i><span>Vidéos</span></a>
+        <a class="mobile-nav-item" onclick="switchView('downloads', this)"><i class="fa-solid fa-download"></i><span>Télécharg.</span></a>
+        <a class="mobile-nav-item" onclick="switchView('ai', this)"><i class="fa-solid fa-robot"></i><span>R Son AI</span></a>
+    </div>
+
+    <script>
+        // FUNCTION TO SWITCH VIEWS DYNAMICALLY ON CLICK
+        function switchView(viewName, element) {
+            // Hide all views
+            const views = document.querySelectorAll('.view-section');
+            views.forEach(v => v.classList.remove('active'));
+
+            // Show selected view
+            const target = document.getElementById('view-' + viewName);
+            if(target) target.classList.add('active');
+
+            // Update sidebar active menu items if element is passed
+            if(element && element.tagName === 'LI') {
+                document.querySelectorAll('.menu li').forEach(li => li.classList.remove('active'));
+                element.classList.add('active');
+            }
+        }
+
+        // PLAYER INTERACTION SCRIPTS
+        function togglePlay(btn) {
+            const icon = btn.querySelector('i');
+            if(icon.classList.contains('fa-pause')) {
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+            } else {
+                icon.classList.remove('fa-play');
+                icon.classList.add('fa-pause');
+            }
+        }
+
+        function playTrack(songName, artistName) {
+            document.getElementById('active-song-name').innerText = songName;
+            document.getElementById('active-artist-name').innerText = artistName;
+        }
+
+        function toggleHeart(icon) {
+            if(icon.classList.contains('fa-regular')) {
+                icon.classList.remove('fa-regular');
+                icon.classList.add('fa-solid');
+                icon.style.color = '#e94057';
+            } else {
+                icon.classList.remove('fa-solid');
+                icon.classList.add('fa-regular');
+                icon.style.color = 'var(--accent-blue)';
+            }
+        }
+    </script>
 </body>
 </html>
