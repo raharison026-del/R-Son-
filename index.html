@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R son Production - App & Site Web</title>
+    <title>R son Production - App & Site Web Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -23,22 +23,20 @@
             --glow-blue: 0 0 15px rgba(0, 112, 255, 0.4);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+        [data-theme="light"] {
+            --bg-color: #f0f4f8;
+            --sidebar-color: #ffffff;
+            --card-color: #ffffff;
+            --card-hover: #e2e8f0;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
         }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; transition: 0.3s; }
 
-        /* SIDEBAR PC */
+        /* SIDEBAR */
         sidebar {
             width: 260px;
             background-color: var(--sidebar-color);
@@ -50,547 +48,184 @@
             z-index: 10;
         }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
+        .logo-area { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; cursor: pointer; }
+        .logo-area img { width: 42px; height: 42px; object-fit: contain; }
+        .logo-area h1 { font-size: 16px; font-weight: 700; background: linear-gradient(90deg, #00c6ff, #0072ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; }
 
-        .logo-area img {
-            width: 45px;
-            height: 45px;
-            object-fit: contain;
-        }
-
-        .logo-area h1 {
-            font-size: 17px;
-            font-weight: 700;
-            background: linear-gradient(90deg, #00c6ff, #0072ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.1;
-        }
-
-        .menu {
-            list-style: none;
-            flex-grow: 1;
-        }
-
-        .menu li {
-            margin-bottom: 6px;
-        }
-
+        .menu { list-style: none; flex-grow: 1; overflow-y: auto; }
+        .menu::-webkit-scrollbar { width: 4px; }
+        .menu::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+        .menu li { margin-bottom: 5px; }
         .menu li a {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 11px 15px;
-            color: var(--text-muted);
-            text-decoration: none;
-            border-radius: 10px;
-            transition: 0.3s;
-            font-size: 13.5px;
-            cursor: pointer;
+            display: flex; align-items: center; gap: 14px; padding: 10px 14px;
+            color: var(--text-muted); text-decoration: none; border-radius: 10px;
+            transition: 0.3s; font-size: 13px; cursor: pointer;
         }
-
         .menu li.active a, .menu li a:hover {
-            background: var(--gradient-blue);
-            color: var(--text-main);
-            box-shadow: var(--glow-blue);
+            background: var(--gradient-blue); color: #fff; box-shadow: var(--glow-blue);
         }
 
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding-top: 15px;
-            border-top: 1px solid var(--border-color);
-        }
+        .user-profile { display: flex; align-items: center; gap: 12px; padding-top: 12px; border-top: 1px solid var(--border-color); }
+        .user-profile img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-blue); }
+        .user-info h4 { font-size: 13px; }
+        .user-info p { font-size: 10.5px; color: var(--text-muted); }
 
-        .user-profile img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--accent-blue);
-        }
+        /* MAIN */
+        main { flex-grow: 1; overflow-y: auto; padding: 22px 28px; display: flex; flex-direction: column; gap: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; }
 
-        .user-info h4 { font-size: 13.5px; }
-        .user-info p { font-size: 11px; color: var(--text-muted); }
-
-        /* MAIN CONTENT AREA */
-        main {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 25px 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 22px;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .search-bar {
-            position: relative;
-            width: 380px;
-        }
-
+        .search-bar { position: relative; width: 360px; }
         .search-bar input {
-            width: 100%;
-            padding: 11px 20px 11px 45px;
-            background-color: var(--card-color);
-            border: 1px solid var(--border-color);
-            border-radius: 30px;
-            color: var(--text-main);
-            outline: none;
-            transition: 0.3s;
+            width: 100%; padding: 10px 18px 10px 42px; background-color: var(--card-color);
+            border: 1px solid var(--border-color); border-radius: 30px; color: var(--text-main); outline: none; transition: 0.3s;
         }
+        .search-bar input:focus { border-color: var(--accent-blue); box-shadow: var(--glow-blue); }
+        .search-bar i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
 
-        .search-bar input:focus {
-            border-color: var(--accent-blue);
-            box-shadow: var(--glow-blue);
-        }
+        .header-actions { display: flex; align-items: center; gap: 10px; }
+        .lang-select { background: var(--card-color); border: 1px solid var(--border-color); color: var(--text-main); padding: 7px 12px; border-radius: 20px; cursor: pointer; font-size: 12.5px; outline: none; }
+        .icon-btn { width: 36px; height: 36px; background: var(--card-color); border: 1px solid var(--border-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-main); cursor: pointer; transition: 0.3s; }
+        .icon-btn:hover { background: var(--card-hover); border-color: var(--accent-blue); }
 
-        .search-bar i {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-        }
+        /* VIEWS */
+        .view-section { display: none; flex-direction: column; gap: 20px; }
+        .view-section.active { display: flex; }
 
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .lang-btn, .icon-btn {
-            background: var(--card-color);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            border-radius: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .lang-btn {
-            padding: 8px 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-        }
-
-        .icon-btn {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .icon-btn:hover, .lang-btn:hover {
-            background: var(--card-hover);
-            border-color: var(--accent-blue);
-        }
-
-        /* VIEWS CONTAINER (TOGGLEABLE) */
-        .view-section {
-            display: none;
-            flex-direction: column;
-            gap: 22px;
-        }
-        .view-section.active {
-            display: flex;
-        }
-
-        /* HERO BANNER */
+        /* HERO */
         .hero-banner {
-            background: linear-gradient(135deg, #0c162d, #1a103c);
-            border-radius: 20px;
-            padding: 28px 35px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: linear-gradient(135deg, #0c162d, #1a103c); border-radius: 18px; padding: 25px 35px;
+            display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color); box-shadow: 0 10px 25px rgba(0,0,0,0.4);
         }
+        .hero-text h2 { font-size: 21px; margin-bottom: 5px; color: #fff; }
+        .hero-text p { color: #cbd5e1; font-style: italic; font-size: 13px; }
+        .hero-images { display: flex; align-items: center; gap: 12px; }
+        .hero-images img { height: 100px; border-radius: 10px; object-fit: cover; border: 1px solid rgba(0, 112, 255, 0.4); }
 
-        .hero-text h2 { font-size: 22px; margin-bottom: 6px; }
-        .hero-text p { color: var(--text-muted); font-style: italic; font-size: 13.5px; }
-
-        .hero-images {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .hero-images img {
-            height: 110px;
-            border-radius: 12px;
-            object-fit: cover;
-            border: 1px solid rgba(0, 112, 255, 0.4);
-        }
-
-        /* DASHBOARD LAYOUT (PC GRID) */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-        }
-
-        .left-column {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* QUICK CARDS */
-        .quick-cards {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-        }
-
+        /* CARDS & GRIDS */
+        .quick-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
         .q-card {
-            background: var(--card-color);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            cursor: pointer;
-            transition: 0.3s;
+            background: var(--card-color); border: 1px solid var(--border-color); border-radius: 14px; padding: 16px;
+            display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: 0.3s;
         }
-
-        .q-card:hover {
-            transform: translateY(-4px);
-            background: var(--card-hover);
-            border-color: var(--accent-blue);
-            box-shadow: var(--glow-blue);
-        }
-
-        .q-card .icon-box {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: white;
-        }
-
+        .q-card:hover { transform: translateY(-3px); background: var(--card-hover); border-color: var(--accent-blue); box-shadow: var(--glow-blue); }
+        .q-card .icon-box { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: white; }
         .q-card:nth-child(1) .icon-box { background: var(--gradient-blue); }
         .q-card:nth-child(2) .icon-box { background: var(--gradient-purple); }
         .q-card:nth-child(3) .icon-box { background: var(--gradient-green); }
         .q-card:nth-child(4) .icon-box { background: var(--gradient-orange); }
+        .q-card h3 { font-size: 14.5px; }
+        .q-card p { font-size: 11px; color: var(--text-muted); }
 
-        .q-card h3 { font-size: 15px; }
-        .q-card p { font-size: 11.5px; color: var(--text-muted); }
-
-        /* CONTENT BOXES */
-        .section-box {
-            background: var(--card-color);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 20px;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .section-header h3 { font-size: 15.5px; }
-        .section-header a { font-size: 12.5px; color: var(--accent-blue); text-decoration: none; cursor: pointer; }
+        .dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 18px; }
+        .section-box { background: var(--card-color); border: 1px solid var(--border-color); border-radius: 14px; padding: 18px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        .section-header h3 { font-size: 15px; }
+        .section-header a { font-size: 12px; color: var(--accent-blue); text-decoration: none; cursor: pointer; }
         .section-header a:hover { text-decoration: underline; }
 
-        /* MUSIC & VIDEO GRIDS */
-        .media-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 14px;
-        }
-
+        .media-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
         .media-card {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
-            padding: 10px;
-            transition: 0.3s;
-            cursor: pointer;
-            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.02); border-radius: 10px; padding: 8px; transition: 0.3s; cursor: pointer; border: 1px solid transparent; position: relative;
         }
+        .media-card:hover { background: rgba(255, 255, 255, 0.05); border-color: rgba(0, 112, 255, 0.3); }
+        .media-card img { width: 100%; height: 100px; border-radius: 8px; object-fit: cover; margin-bottom: 6px; }
+        .media-card h4 { font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .media-card p { font-size: 10.5px; color: var(--text-muted); }
 
-        .media-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(0, 112, 255, 0.3);
+        .action-tag-btn {
+            margin-top: 6px; background: var(--accent-blue); color: white; border: none; padding: 4px 8px; border-radius: 6px; font-size: 10px; cursor: pointer; width: 100%;
         }
+        .action-tag-btn:hover { background: #0056b3; }
 
-        .media-card img {
-            width: 100%;
-            height: 110px;
-            border-radius: 8px;
-            object-fit: cover;
-            margin-bottom: 8px;
-        }
-
-        .media-card h4 { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .media-card p { font-size: 11px; color: var(--text-muted); }
-
-        /* ANNONCES (RIGHT COLUMN) */
-        .annonces-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .annonce-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px;
-            border-radius: 10px;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .annonce-item:hover {
-            background: rgba(255,255,255,0.03);
-        }
-
-        .annonce-item img {
-            width: 48px;
-            height: 48px;
-            border-radius: 8px;
-            object-fit: cover;
-        }
-
-        .annonce-item h5 { font-size: 12.5px; margin-bottom: 2px; }
-        .annonce-item p { font-size: 11px; color: var(--text-muted); }
+        /* ANNONCES */
+        .annonces-list { display: flex; flex-direction: column; gap: 10px; }
+        .annonce-item { display: flex; align-items: center; gap: 10px; padding: 6px; border-radius: 8px; transition: 0.3s; cursor: pointer; }
+        .annonce-item:hover { background: rgba(255,255,255,0.03); }
+        .annonce-item img { width: 42px; height: 42px; border-radius: 6px; object-fit: cover; }
+        .annonce-item h5 { font-size: 12px; margin-bottom: 2px; }
+        .annonce-item p { font-size: 10.5px; color: var(--text-muted); }
 
         /* PLAYER WIDGET */
-        .player-widget {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-top: 15px;
-        }
+        .player-widget { display: flex; flex-direction: column; gap: 12px; margin-top: 14px; }
+        .now-playing-card { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.25); padding: 8px; border-radius: 8px; }
+        .now-playing-card img { width: 42px; height: 42px; border-radius: 6px; object-fit: cover; }
 
-        .now-playing-card {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(0,0,0,0.25);
-            padding: 10px;
-            border-radius: 10px;
-        }
+        .progress-container { display: flex; flex-direction: column; gap: 4px; }
+        .progress-bar { width: 100%; height: 4px; background: var(--border-color); border-radius: 2px; position: relative; cursor: pointer; }
+        .progress { width: 0%; height: 100%; background: var(--accent-blue); border-radius: 2px; transition: width 0.1s linear; }
+        .time-info { display: flex; justify-content: space-between; font-size: 9.5px; color: var(--text-muted); }
 
-        .now-playing-card img {
-            width: 48px;
-            height: 48px;
-            border-radius: 8px;
-            object-fit: cover;
-        }
-
-        .progress-container {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: var(--border-color);
-            border-radius: 2px;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .progress {
-            width: 35%;
-            height: 100%;
-            background: var(--accent-blue);
-            border-radius: 2px;
-        }
-
-        .time-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
-        .player-controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 18px;
-            font-size: 16px;
-            color: var(--text-muted);
-        }
-
+        .player-controls { display: flex; justify-content: center; align-items: center; gap: 15px; font-size: 15px; color: var(--text-muted); }
         .player-controls i { cursor: pointer; transition: 0.2s; }
-        .player-controls i:hover { color: var(--text-main); }
-
+        .player-controls i:hover, .player-controls i.active-mode { color: var(--accent-blue); }
         .player-controls .play-btn {
-            width: 42px;
-            height: 42px;
-            background: var(--gradient-blue);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 15px;
-            box-shadow: var(--glow-blue);
+            width: 40px; height: 40px; background: var(--gradient-blue); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; box-shadow: var(--glow-blue);
         }
+        .volume-control { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+        .volume-control input { width: 100%; accent-color: var(--accent-blue); cursor: pointer; }
 
-        /* AI CHAT INTERFACE */
-        .ai-chat-box {
-            display: flex;
-            flex-direction: column;
-            height: 72vh;
-            background: var(--card-color);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            overflow: hidden;
+        /* AI CHAT */
+        .ai-chat-box { display: flex; flex-direction: column; height: 68vh; background: var(--card-color); border: 1px solid var(--border-color); border-radius: 14px; overflow: hidden; }
+        .ai-messages { flex-grow: 1; padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .ai-msg { max-width: 75%; padding: 10px 14px; border-radius: 10px; font-size: 13px; line-height: 1.4; }
+        .ai-msg.bot { background: rgba(255,255,255,0.05); align-self: flex-start; border-bottom-left-radius: 2px; }
+        .ai-msg.user { background: var(--gradient-blue); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .ai-input-area { display: flex; padding: 12px 18px; background: var(--sidebar-color); border-top: 1px solid var(--border-color); gap: 10px; }
+        .ai-input-area input { flex-grow: q; background: var(--card-color); border: 1px solid var(--border-color); padding: 9px 14px; border-radius: 20px; color: white; outline: none; }
+        .ai-input-area button { background: var(--gradient-blue); border: none; width: 38px; height: 38px; border-radius: 50%; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+        /* ADMIN FORM */
+        .admin-form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+        .admin-form-group label { font-size: 12px; color: var(--text-muted); }
+        .admin-form-group input, .admin-form-group select {
+            padding: 9px 12px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main); font-size: 13px; outline: none;
         }
+        .admin-btn { background: var(--gradient-green); border: none; padding: 10px 16px; border-radius: 8px; color: white; font-weight: 600; cursor: pointer; font-size: 13px; }
+        .admin-btn:hover { opacity: 0.9; }
 
-        .ai-messages {
-            flex-grow: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .ai-msg {
-            max-width: 70%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            font-size: 13.5px;
-            line-align: 1.4;
-        }
-
-        .ai-msg.bot {
-            background: rgba(255,255,255,0.05);
-            align-self: flex-start;
-            border-bottom-left-radius: 2px;
-        }
-
-        .ai-msg.user {
-            background: var(--gradient-blue);
-            color: white;
-            align-self: flex-end;
-            border-bottom-right-radius: 2px;
-        }
-
-        .ai-input-area {
-            display: flex;
-            padding: 15px 20px;
-            background: var(--sidebar-color);
-            border-top: 1px solid var(--border-color);
-            gap: 10px;
-        }
-
-        .ai-input-area input {
-            flex-grow: 1;
-            background: var(--card-color);
-            border: 1px solid var(--border-color);
-            padding: 10px 15px;
-            border-radius: 20px;
-            color: white;
-            outline: none;
-        }
-
-        .ai-input-area button {
-            background: var(--gradient-blue);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* MOBILE BOTTOM NAV VISIBILITY (Hidden by default on PC, visible if tested as mobile view or responsive) */
+        /* MOBILE BOTTOM NAV */
         .mobile-bottom-nav {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: var(--sidebar-color);
-            border-top: 1px solid var(--border-color);
-            justify-content: space-around;
-            padding: 10px 0;
-            z-index: 100;
+            display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: var(--sidebar-color);
+            border-top: 1px solid var(--border-color); justify-content: space-around; padding: 8px 0; z-index: 100;
         }
-
-        .mobile-nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 10px;
-            gap: 4px;
-            cursor: pointer;
-        }
-
-        .mobile-nav-item i { font-size: 16px; }
+        .mobile-nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); text-decoration: none; font-size: 9.5px; gap: 3px; cursor: pointer; }
+        .mobile-nav-item i { font-size: 15px; }
         .mobile-nav-item.active, .mobile-nav-item:hover { color: var(--accent-blue); }
 
         @media (max-width: 900px) {
             sidebar { display: none; }
             .mobile-bottom-nav { display: flex; }
-            main { padding-bottom: 70px; }
+            main { padding-bottom: 65px; }
             .dashboard-grid { grid-template-columns: 1fr; }
             .quick-cards { grid-template-columns: repeat(2, 1fr); }
             .media-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
-<body>
+<body data-theme="dark">
 
     <!-- SIDEBAR PC -->
     <sidebar>
         <div>
-            <div class="logo-area">
+            <div class="logo-area" onclick="switchView('accueil', document.getElementById('menu-accueil'))">
                 <img src="logo.png" alt="Logo">
-                <h1>R son<br><span style="font-size: 11px; font-weight: 400; color: #9ca3af;">Production</span></h1>
+                <h1>R son<br><span style="font-size: 10.5px; font-weight: 400; color: #9ca3af;">Production</span></h1>
             </div>
             <ul class="menu">
-                <li class="active" onclick="switchView('accueil', this)"><a href="#"><i class="fa-solid fa-house"></i> Accueil</a></li>
-                <li onclick="switchView('musique', this)"><a href="#"><i class="fa-solid fa-music"></i> Musique</a></li>
-                <li onclick="switchView('videos', this)"><a href="#"><i class="fa-solid fa-video"></i> Vidéos</a></li>
-                <li onclick="switchView('downloads', this)"><a href="#"><i class="fa-solid fa-download"></i> Téléchargements</a></li>
-                <li onclick="switchView('playlists', this)"><a href="#"><i class="fa-solid fa-list-music"></i> Playlists</a></li>
-                <li onclick="switchView('favoris', this)"><a href="#"><i class="fa-solid fa-heart"></i> Favoris</a></li>
+                <li id="menu-accueil" class="active" onclick="switchView('accueil', this)"><a href="#"><i class="fa-solid fa-house"></i> <span data-i18n="home">Accueil</span></a></li>
+                <li onclick="switchView('musique', this)"><a href="#"><i class="fa-solid fa-music"></i> <span data-i18n="music">Musique & Bibliothèque</span></a></li>
+                <li onclick="switchView('videos', this)"><a href="#"><i class="fa-solid fa-video"></i> <span data-i18n="videos">Vidéos</span></a></li>
+                <li onclick="switchView('downloads', this)"><a href="#"><i class="fa-solid fa-download"></i> <span data-i18n="downloads">Téléchargements (Offline)</span></a></li>
+                <li onclick="switchView('playlists', this)"><a href="#"><i class="fa-solid fa-list-music"></i> <span data-i18n="playlists">Playlists</span></a></li>
+                <li onclick="switchView('favoris', this)"><a href="#"><i class="fa-solid fa-heart"></i> <span data-i18n="favorites">Favoris</span></a></li>
                 <li onclick="switchView('ai', this)"><a href="#"><i class="fa-solid fa-robot"></i> R Son AI</a></li>
-                <li onclick="switchView('parametres', this)"><a href="#"><i class="fa-solid fa-gear"></i> Paramètres</a></li>
+                <li onclick="switchView('parametres', this)"><a href="#"><i class="fa-solid fa-gear"></i> <span data-i18n="settings">Paramètres & Compte</span></a></li>
+                <li onclick="switchView('admin', this)" style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;"><a href="#"><i class="fa-solid fa-crown" style="color: #f2c94c;"></i> <span data-i18n="admin">Admin Dashboard</span></a></li>
             </ul>
         </div>
         <div class="user-profile">
-            <img src="studio.jpg" alt="Profile">
+            <img src="studio.png" alt="Profile" onerror="this.src='studio.jpg'">
             <div class="user-info">
                 <h4>R son</h4>
                 <p>Artiste • Producteur</p>
@@ -604,33 +239,32 @@
         <header>
             <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Rechercher une chanson, un artiste, une vidéo...">
+                <input type="text" id="global-search" placeholder="Rechercher une chanson, un artiste, une vidéo..." oninput="handleSearch(this.value)">
             </div>
             <div class="header-actions">
-                <div class="lang-btn">
-                    <span>🇲🇬 Malagasy</span>
-                    <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i>
-                </div>
-                <div class="icon-btn" title="Fampandrenesana"><i class="fa-regular fa-bell"></i></div>
-                <div class="icon-btn" title="Fomba maizina"><i class="fa-regular fa-moon"></i></div>
+                <select class="lang-select" id="lang-selector" onchange="changeLanguage(this.value)">
+                    <option value="mg">🇲🇬 Malagasy</option>
+                    <option value="fr">🇫🇷 Français</option>
+                    <option value="en">🇬🇧 English</option>
+                </select>
+                <div class="icon-btn" title="Fampandrenesana" onclick="alert('Tsy misy fampandrenesana vaovao.')"><i class="fa-regular fa-bell"></i></div>
+                <div class="icon-btn" title="Fomba maizina/mazava" onclick="toggleDarkMode()"><i class="fa-regular fa-moon" id="dark-mode-icon"></i></div>
             </div>
         </header>
 
         <!-- 1. ACCUEIL VIEW -->
         <div id="view-accueil" class="view-section active">
-            <!-- HERO BANNER -->
             <div class="hero-banner">
                 <div class="hero-text">
                     <h2>Talenta fa tsy natao ho ifaminanana</h2>
                     <p>Studio fanaovana mozika sy famoronana fitaovana an-kira</p>
                 </div>
                 <div class="hero-images">
-                    <img src="studio.jpg" alt="Studio">
+                    <img src="studio.png" alt="Studio" onerror="this.src='studio.jpg'">
                     <img src="logo.png" alt="Logo">
                 </div>
             </div>
 
-            <!-- QUICK CARDS -->
             <div class="quick-cards">
                 <div class="q-card" onclick="switchView('musique', null)">
                     <div class="icon-box"><i class="fa-solid fa-music"></i></div>
@@ -654,66 +288,38 @@
                 </div>
             </div>
 
-            <!-- DASHBOARD GRID (LEFT CONTENT + RIGHT ANNONCES & PLAYER) -->
             <div class="dashboard-grid">
-                <div class="left-column">
+                <div style="display: flex; flex-direction: column; gap: 18px;">
                     <div class="section-box">
                         <div class="section-header">
                             <h3>Musique récente</h3>
                             <a onclick="switchView('musique', null)">Voir tout</a>
                         </div>
-                        <div class="media-grid">
-                            <div class="media-card" onclick="playTrack('Rêve d’un jeune', 'R Son')">
-                                <img src="studio.jpg" alt="Cover">
-                                <h4>Rêve d'un jeune</h4>
-                                <p>R Son • 03:45</p>
-                            </div>
-                            <div class="media-card" onclick="playTrack('Mamy', 'R Son')">
-                                <img src="studio.jpg" alt="Cover">
-                                <h4>Mamy</h4>
-                                <p>R Son • 04:12</p>
-                            </div>
-                            <div class="media-card" onclick="playTrack('Antsika', 'R Son')">
-                                <img src="studio.jpg" alt="Cover">
-                                <h4>Antsika</h4>
-                                <p>R Son • 05:20</p>
-                            </div>
-                            <div class="media-card" onclick="playTrack('Fitiavana', 'R Son')">
-                                <img src="studio.jpg" alt="Cover">
-                                <h4>Fitiavana</h4>
-                                <p>R Son • 03:38</p>
-                            </div>
+                        <div class="media-grid" id="accueil-music-grid">
+                            <!-- Populated dynamically via JS -->
                         </div>
                     </div>
                 </div>
 
-                <!-- RIGHT COLUMN: ANNONCES & PLAYER -->
-                <div style="display: flex; flex-direction: column; gap: 20px;">
+                <div style="display: flex; flex-direction: column; gap: 18px;">
                     <div class="section-box">
                         <div class="section-header">
                             <h3>Annonces</h3>
                             <a href="#">Voir tout</a>
                         </div>
-                        <div class="annonces-list">
+                        <div class="annonces-list" id="annonces-container">
                             <div class="annonce-item">
-                                <img src="studio.jpg" alt="Annonce">
+                                <img src="studio.png" alt="Annonce" onerror="this.src='studio.jpg'">
                                 <div>
                                     <h5>Nouveau son disponible !</h5>
                                     <p>Découvrez le dernier titre de R Son. Hier</p>
                                 </div>
                             </div>
                             <div class="annonce-item">
-                                <img src="studio.jpg" alt="Annonce">
+                                <img src="logo.png" alt="Annonce">
                                 <div>
                                     <h5>Nouvelle vidéo</h5>
                                     <p>Le clip officiel est maintenant en ligne ! Il y a 2 jours</p>
-                                </div>
-                            </div>
-                            <div class="annonce-item">
-                                <img src="studio.jpg" alt="Annonce">
-                                <div>
-                                    <h5>Mise à jour de l'app</h5>
-                                    <p>Plus de fonctionnalités bientôt ! Il y a 3 jours</p>
                                 </div>
                             </div>
                         </div>
@@ -723,51 +329,54 @@
                     <div class="section-box player-widget">
                         <div class="section-header">
                             <h3 id="current-player-title">Lecture en cours</h3>
-                            <a onclick="switchView('musique', null)">Voir la playlist</a>
+                            <a onclick="switchView('musique', null)">Voir la bibliothèque</a>
                         </div>
                         <div class="now-playing-card">
-                            <img src="studio.jpg" alt="Current">
+                            <img id="player-cover" src="studio.png" alt="Current" onerror="this.src='studio.jpg'">
                             <div style="flex-grow: 1;">
-                                <h4 id="active-song-name" style="font-size: 13px;">Rêve d'un jeune</h4>
-                                <p id="active-artist-name" style="font-size: 11px; color: var(--text-muted);">R Son</p>
+                                <h4 id="active-song-name" style="font-size: 12.5px;">Rêve d'un jeune</h4>
+                                <p id="active-artist-name" style="font-size: 10.5px; color: var(--text-muted);">R Son</p>
                             </div>
-                            <i class="fa-regular fa-heart" style="color: var(--accent-blue); cursor: pointer;" onclick="toggleHeart(this)"></i>
+                            <i id="player-heart-icon" class="fa-regular fa-heart" style="color: var(--accent-blue); cursor: pointer;" onclick="toggleCurrentFavorite()"></i>
                         </div>
                         <div class="progress-container">
-                            <div class="progress-bar">
-                                <div class="progress"></div>
+                            <div class="progress-bar" id="progress-container" onclick="seekTrack(event)">
+                                <div class="progress" id="progress-bar-fill"></div>
                             </div>
                             <div class="time-info">
-                                <span>01:24</span>
-                                <span>03:45</span>
+                                <span id="current-time-txt">00:00</span>
+                                <span id="total-time-txt">03:45</span>
                             </div>
                         </div>
                         <div class="player-controls">
-                            <i class="fa-solid fa-shuffle"></i>
-                            <i class="fa-solid fa-backward-step"></i>
-                            <div class="play-btn" onclick="togglePlay(this)"><i class="fa-solid fa-pause"></i></div>
-                            <i class="fa-solid fa-forward-step"></i>
-                            <i class="fa-solid fa-repeat"></i>
+                            <i id="shuffle-btn" class="fa-solid fa-shuffle" onclick="toggleShuffle()" title="Shuffle"></i>
+                            <i class="fa-solid fa-backward-step" onclick="prevTrack()" title="Précédent"></i>
+                            <div class="play-btn" id="main-play-btn" onclick="togglePlay()"><i class="fa-solid fa-play" id="play-pause-icon"></i></div>
+                            <i class="fa-solid fa-forward-step" onclick="nextTrack()" title="Suivant"></i>
+                            <i id="repeat-btn" class="fa-solid fa-repeat" onclick="toggleRepeat()" title="Repeat"></i>
+                        </div>
+                        <div class="volume-control">
+                            <i class="fa-solid fa-volume-high"></i>
+                            <input type="range" min="0" max="1" step="0.05" value="1" oninput="changeVolume(this.value)">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 2. MUSIQUE VIEW -->
+        <!-- 2. MUSIQUE VIEW (BIBLIOTHEQUE) -->
         <div id="view-musique" class="view-section">
             <div class="section-box">
                 <div class="section-header">
-                    <h3>Tranonkala Mozika &amp; Angon-kira</h3>
+                    <h3>Bibliothèque Musicale &amp; Filtres</h3>
                 </div>
-                <div class="media-grid">
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Rêve d'un jeune</h4><p>R Son</p></div>
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Mamy</h4><p>R Son</p></div>
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Antsika</h4><p>R Son</p></div>
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Fitiavana</h4><p>R Son</p></div>
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Hazavana Miandry</h4><p>R Son</p></div>
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Tsisy Fitovy</h4><p>R Son</p></div>
+                <div style="display: flex; gap: 10px; margin-bottom: 14px;">
+                    <button class="admin-btn" style="padding: 6px 12px; font-size: 11px;" onclick="filterLibrary('all')">Tous</button>
+                    <button class="admin-btn" style="padding: 6px 12px; font-size: 11px; background: var(--gradient-blue);" onclick="filterLibrary('artist')">Artistes</button>
+                    <button class="admin-btn" style="padding: 6px 12px; font-size: 11px; background: var(--gradient-purple);" onclick="filterLibrary('album')">Albums</button>
+                    <button class="admin-btn" style="padding: 6px 12px; font-size: 11px; background: var(--gradient-orange);" onclick="filterLibrary('genre')">Genres (Afro/Neo-Soul)</button>
                 </div>
+                <div class="media-grid" id="library-music-grid"></div>
             </div>
         </div>
 
@@ -775,28 +384,20 @@
         <div id="view-videos" class="view-section">
             <div class="section-box">
                 <div class="section-header">
-                    <h3>Vidio sy Clips Officiels</h3>
+                    <h3>Vidéos &amp; Clips Officiels</h3>
                 </div>
-                <div class="media-grid">
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Clip - Rêve d'un jeune</h4><p>03:45 • Il y a 2 jours</p></div>
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Antsika (Official Video)</h4><p>05:20 • Il y a 2 jours</p></div>
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Fitiavana (Clip officiel)</h4><p>03:38 • Il y a 2 jours</p></div>
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Live Studio Session</h4><p>08:12 • R Son Production</p></div>
-                </div>
+                <div class="media-grid" id="videos-grid"></div>
             </div>
         </div>
 
-        <!-- 4. DOWNLOADS VIEW -->
+        <!-- 4. DOWNLOADS VIEW (OFFLINE) -->
         <div id="view-downloads" class="view-section">
             <div class="section-box">
                 <div class="section-header">
                     <h3>Téléchargements &amp; Bibliothèque Offline</h3>
                 </div>
-                <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;">Ireo rakitra efa voatahiry ahafahanao mihaino na mijery azy na tsy misy Internet aza:</p>
-                <div class="media-grid">
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Rêve d'un jeune (Offline)</h4><p>Voatahiry tsara</p></div>
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Antsika (Offline)</h4><p>Voatahiry tsara</p></div>
-                </div>
+                <p style="color: var(--text-muted); font-size: 12.5px; margin-bottom: 12px;">Ireo rakitra efa voatahiry ao amin'ny fitaovanao ahafahanao mihaino na mijery azy na tsy misy Internet aza (Tsy very na mivoaka aza):</p>
+                <div class="media-grid" id="offline-grid"></div>
             </div>
         </div>
 
@@ -804,14 +405,13 @@
         <div id="view-playlists" class="view-section">
             <div class="section-box">
                 <div class="section-header">
-                    <h3>Playlists an'i R Son</h3>
+                    <h3>Mamorona sy Mitantana Playlists</h3>
                 </div>
-                <div class="media-grid">
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Ma playlist</h4><p>24 titres</p></div>
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Favoris</h4><p>18 titres</p></div>
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Ambiance</h4><p>32 titres</p></div>
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>R Son Special</h4><p>12 titres</p></div>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <input type="text" id="new-playlist-name" placeholder="Anaran'ny playlist vaovao..." style="padding: 8px 12px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; color: white; outline: none; flex-grow: 1; font-size: 12.5px;">
+                    <button class="admin-btn" onclick="createPlaylist()">Mamorona</button>
                 </div>
+                <div class="media-grid" id="playlists-grid"></div>
             </div>
         </div>
 
@@ -821,31 +421,26 @@
                 <div class="section-header">
                     <h3>Ireo hira sy clip tianao indrindra (Favoris)</h3>
                 </div>
-                <div class="media-grid">
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Rêve d'un jeune</h4><p>R Son • ❤️</p></div>
-                    <div class="media-card"><img src="studio.jpg" alt=""><h4>Fitiavana</h4><p>R Son • ❤️</p></div>
-                </div>
+                <div class="media-grid" id="favorites-grid"></div>
             </div>
         </div>
 
         <!-- 7. R SON AI VIEW -->
         <div id="view-ai" class="view-section">
             <div class="ai-chat-box">
-                <div style="padding: 15px 20px; background: var(--sidebar-color); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px;">
-                    <i class="fa-solid fa-robot" style="color: var(--accent-blue); font-size: 20px;"></i>
+                <div style="padding: 14px 18px; background: var(--sidebar-color); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px;">
+                    <i class="fa-solid fa-robot" style="color: var(--accent-blue); font-size: 18px;"></i>
                     <div>
-                        <h4 style="font-size: 14px;">R Son AI</h4>
-                        <p style="font-size: 11px; color: var(--text-muted);">Ton assistant intelligent</p>
+                        <h4 style="font-size: 13.5px;">R Son AI Assistant</h4>
+                        <p style="font-size: 10.5px; color: var(--text-muted);">Malagasy / Français / English</p>
                     </div>
                 </div>
-                <div class="ai-messages">
-                    <div class="ai-msg bot">Salama! Inona no azoko anampiana anao androany momba ny mozika na ny studio?</div>
-                    <div class="ai-msg user">Ahoana no fomba hanampiana hira vaovao amin'ny Playlist?</div>
-                    <div class="ai-msg bot">Tsotra izany!<br>1. Mandehana any amin'ny <b>Musique > Playlist</b><br>2. Tsindrio ny + na "Ajouter"<br>3. Safidio ny hira tianao.<br><br>Raha mila fanazavana hafa, aza misalasala manontany! 😊</div>
+                <div class="ai-messages" id="ai-messages-container">
+                    <div class="ai-msg bot">Salama! Izaho no R Son AI. Afaka manampy anao amin'ny famoronana mozika, fanazavana momba ny app, na fandaminana hira aho. Inona no azoko atao androany?</div>
                 </div>
                 <div class="ai-input-area">
-                    <input type="text" placeholder="Soraty ny fanontanianao...">
-                    <button><i class="fa-solid fa-paper-plane"></i></button>
+                    <input type="text" id="ai-input-field" placeholder="Soraty ny fanontanianao eto..." onkeypress="if(event.key === 'Enter') sendAIMessage()">
+                    <button onclick="sendAIMessage()"><i class="fa-solid fa-paper-plane"></i></button>
                 </div>
             </div>
         </div>
@@ -853,11 +448,59 @@
         <!-- 8. PARAMETRES VIEW -->
         <div id="view-parametres" class="view-section">
             <div class="section-box">
-                <h3>Paramètres / Fikirakirana</h3>
-                <p style="color: var(--text-muted); font-size: 13px; margin-top: 10px;">Fanitsiana ny mombamomba ny kaonty, ny fiteny (Malagasy), sy ny fitaovana.</p>
+                <h3>Paramètres &amp; Compte</h3>
+                <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: var(--bg-color); border-radius: 8px;">
+                        <span>Fomba Maizina (Dark Mode)</span>
+                        <button class="admin-btn" style="padding: 6px 12px; font-size: 11px;" onclick="toggleDarkMode()">Alefa / Vonoy</button>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: var(--bg-color); border-radius: 8px;">
+                        <span>Fafao ny tahiry (Clear Storage Offline)</span>
+                        <button class="admin-btn" style="padding: 6px 12px; font-size: 11px; background: var(--gradient-purple);" onclick="clearLocalStorageData()">Fafao</button>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- 9. ADMIN DASHBOARD -->
+        <div id="view-admin" class="view-section">
+            <div class="section-box">
+                <h3>👑 Admin Dashboard - Mitantana ny App</h3>
+                <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 15px;">Manampy hira, vidéo, na annonces mivantana eto amin'ny rafitra.</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4 style="font-size: 13.5px; margin-bottom: 10px; color: var(--accent-blue);">+ Manampy Hira Vaovao</h4>
+                        <div class="admin-form-group">
+                            <label>Anaran'ny Hira (Titre)</label>
+                            <input type="text" id="admin-song-title" placeholder="Ohatra: Hazavana Miandry">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Mpanakanto (Artiste)</label>
+                            <input type="text" id="admin-song-artist" value="R Son">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Sary Cover (URL na anaran-drakitra ohatra: studio.png)</label>
+                            <input type="text" id="admin-song-cover" value="studio.png">
+                        </div>
+                        <button class="admin-btn" onclick="adminAddSong()">Ampio Hira</button>
+                    </div>
+
+                    <div>
+                        <h4 style="font-size: 13.5px; margin-bottom: 10px; color: var(--gradient-purple);">- Manampy Annonce Vaovao</h4>
+                        <div class="admin-form-group">
+                            <label>Lohatenin'ny Annonce</label>
+                            <input type="text" id="admin-ann-title" placeholder="Ohatra: Tournée malagasy vaovao">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Famaritana fohy</label>
+                            <input type="text" id="admin-ann-desc" placeholder="Ohatra: Manomboka amin'ny herinandro izao...">
+                        </div>
+                        <button class="admin-btn" style="background: var(--gradient-purple);" onclick="adminAddAnnonce()">Ampio Annonce</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- MOBILE BOTTOM NAVIGATION -->
@@ -866,54 +509,434 @@
         <a class="mobile-nav-item" onclick="switchView('musique', this)"><i class="fa-solid fa-music"></i><span>Musique</span></a>
         <a class="mobile-nav-item" onclick="switchView('videos', this)"><i class="fa-solid fa-video"></i><span>Vidéos</span></a>
         <a class="mobile-nav-item" onclick="switchView('downloads', this)"><i class="fa-solid fa-download"></i><span>Télécharg.</span></a>
-        <a class="mobile-nav-item" onclick="switchView('ai', this)"><i class="fa-solid fa-robot"></i><span>R Son AI</span></a>
+        <a class="mobile-nav-item" onclick="switchView('ai', this)"><i class="fa-solid fa-robot"></i><span>AI</span></a>
     </div>
 
-    <script>
-        // FUNCTION TO SWITCH VIEWS DYNAMICALLY ON CLICK
-        function switchView(viewName, element) {
-            // Hide all views
-            const views = document.querySelectorAll('.view-section');
-            views.forEach(v => v.classList.remove('active'));
+    <!-- AUDIO ELEMENT SYSTEM -->
+    <audio id="audio-player" ontimeupdate="updateAudioProgress()" onended="nextTrack()"></audio>
 
-            // Show selected view
+    <script>
+        // APP STATE & DATA INITIALIZATION
+        let songs = JSON.parse(localStorage.getItem('rson_songs')) || [
+            { id: 1, title: "Rêve d'un jeune", artist: "R Son", cover: "studio.png", duration: "03:45", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", type: "music" },
+            { id: 2, title: "Mamy", artist: "R Son", cover: "studio.png", duration: "04:12", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", type: "music" },
+            { id: 3, title: "Antsika", artist: "R Son", cover: "studio.png", duration: "05:20", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3", type: "music" },
+            { id: 4, title: "Fitiavana", artist: "R Son", cover: "studio.png", duration: "03:38", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3", type: "music" }
+        ];
+
+        let videos = JSON.parse(localStorage.getItem('rson_videos')) || [
+            { id: 1, title: "Clip - Rêve d'un jeune", info: "03:45 • Il y a 2 jours", cover: "studio.png", src: "https://www.w3schools.com/html/mov_bbb.mp4" },
+            { id: 2, title: "Antsika (Official Video)", info: "05:20 • Il y a 2 jours", cover: "studio.png", src: "https://www.w3schools.com/html/mov_bbb.mp4" },
+            { id: 3, title: "Fitiavana (Clip officiel)", info: "03:38 • Il y a 2 jours", cover: "studio.png", src: "https://www.w3schools.com/html/mov_bbb.mp4" },
+            { id: 4, title: "Live Studio Session", info: "08:12 • R Son Production", cover: "studio.png", src: "https://www.w3schools.com/html/mov_bbb.mp4" }
+        ];
+
+        let downloads = JSON.parse(localStorage.getItem('rson_downloads')) || [];
+        let favorites = JSON.parse(localStorage.getItem('rson_favorites')) || [];
+        let playlists = JSON.parse(localStorage.getItem('rson_playlists')) || [
+            { name: "Ma playlist", count: 24 },
+            { name: "Favoris", count: 18 },
+            { name: "Ambiance", count: 32 }
+        ];
+        let annonces = JSON.parse(localStorage.getItem('rson_annonces')) || [];
+
+        let currentTrackIndex = 0;
+        let isPlaying = false;
+        let isShuffle = false;
+        let isRepeat = false;
+        const audioElement = document.getElementById('audio-player');
+
+        // TRANSLATIONS DICTIONARY
+        const i18n = {
+            mg: { home: "Accueil", music: "Musique & Bibliothèque", videos: "Vidéos", downloads: "Téléchargements", playlists: "Playlists", favorites: "Favoris", settings: "Paramètres", admin: "Admin Dashboard" },
+            fr: { home: "Accueil", music: "Musique & Bibliothèque", videos: "Vidéos", downloads: "Téléchargements", playlists: "Playlists", favorites: "Favoris", settings: "Paramètres", admin: "Admin Dashboard" },
+            en: { home: "Home", music: "Music & Library", videos: "Videos", downloads: "Downloads", playlists: "Playlists", favorites: "Favorites", settings: "Settings", admin: "Admin Dashboard" }
+        };
+
+        // INITIAL RENDER
+        window.onload = function() {
+            renderAll();
+            loadTrackToPlayer(0);
+        };
+
+        function renderAll() {
+            renderAccueilMusic();
+            renderLibrary();
+            renderVideos();
+            renderDownloads();
+            renderPlaylists();
+            renderFavorites();
+            renderAnnonces();
+            localStorage.setItem('rson_songs', JSON.stringify(songs));
+            localStorage.setItem('rson_videos', JSON.stringify(videos));
+            localStorage.setItem('rson_downloads', JSON.stringify(downloads));
+            localStorage.setItem('rson_favorites', JSON.stringify(favorites));
+            localStorage.setItem('rson_playlists', JSON.stringify(playlists));
+            localStorage.setItem('rson_annonces', JSON.stringify(annonces));
+        }
+
+        // NAVIGATION VIEW SWITCHER
+        function switchView(viewName, element) {
+            document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
             const target = document.getElementById('view-' + viewName);
             if(target) target.classList.add('active');
 
-            // Update sidebar active menu items if element is passed
             if(element && element.tagName === 'LI') {
                 document.querySelectorAll('.menu li').forEach(li => li.classList.remove('active'));
                 element.classList.add('active');
             }
         }
 
-        // PLAYER INTERACTION SCRIPTS
-        function togglePlay(btn) {
-            const icon = btn.querySelector('i');
-            if(icon.classList.contains('fa-pause')) {
-                icon.classList.remove('fa-pause');
-                icon.classList.add('fa-play');
+        // RENDER FUNCTIONS
+        function renderAccueilMusic() {
+            const container = document.getElementById('accueil-music-grid');
+            container.innerHTML = songs.slice(0, 4).map((s, idx) => `
+                <div class="media-card" onclick="playSong(${idx})">
+                    <img src="${s.cover}" alt="Cover" onerror="this.src='studio.png'">
+                    <h4>${s.title}</h4>
+                    <p>${s.artist} • ${s.duration || '03:45'}</p>
+                    <button class="action-tag-btn" onclick="event.stopPropagation(); downloadTrack(${s.id})"><i class="fa-solid fa-download"></i> Télécharger</button>
+                </div>
+            `).join('');
+        }
+
+        function renderLibrary() {
+            const container = document.getElementById('library-music-grid');
+            container.innerHTML = songs.map((s, idx) => `
+                <div class="media-card" onclick="playSong(${idx})">
+                    <img src="${s.cover}" alt="Cover" onerror="this.src='studio.png'">
+                    <h4>${s.title}</h4>
+                    <p>${s.artist}</p>
+                    <button class="action-tag-btn" onclick="event.stopPropagation(); downloadTrack(${s.id})">Télécharger (Offline)</button>
+                </div>
+            `).join('');
+        }
+
+        function renderVideos() {
+            const container = document.getElementById('videos-grid');
+            container.innerHTML = videos.map(v => `
+                <div class="media-card" onclick="alert('Mijery ny vidéo: ${v.title}')">
+                    <img src="${v.cover}" alt="Video" onerror="this.src='studio.png'">
+                    <h4>${v.title}</h4>
+                    <p>${v.info}</p>
+                    <button class="action-tag-btn" style="background: var(--gradient-purple);" onclick="event.stopPropagation(); alert('Voatahiry ho an\'ny fijerena offline!')">Télécharger Vidéo</button>
+                </div>
+            `).join('');
+        }
+
+        function renderDownloads() {
+            const container = document.getElementById('offline-grid');
+            if(downloads.length === 0) {
+                container.innerHTML = `<p style="color: var(--text-muted); font-size: 12px;">Tsy misy hira na vidéo voatahiry an-tserasera (offline) aty anaty fitaovanao hatreto.</p>`;
+                return;
+            }
+            container.innerHTML = downloads.map(d => `
+                <div class="media-card">
+                    <img src="${d.cover}" alt="Offline" onerror="this.src='studio.png'">
+                    <h4>${d.title} (Offline)</h4>
+                    <p>${d.artist || 'R Son'} • Voatahiry tsara</p>
+                </div>
+            `).join('');
+        }
+
+        function renderPlaylists() {
+            const container = document.getElementById('playlists-grid');
+            container.innerHTML = playlists.map(p => `
+                <div class="media-card" onclick="alert('Mamoha ny playlist: ${p.name}')">
+                    <img src="studio.png" alt="Playlist">
+                    <h4>${p.name}</h4>
+                    <p>${p.count || 0} titres</p>
+                </div>
+            `).join('');
+        }
+
+        function renderFavorites() {
+            const container = document.getElementById('favorites-grid');
+            if(favorites.length === 0) {
+                container.innerHTML = `<p style="color: var(--text-muted); font-size: 12px;">Mbola tsy nisy hira na vidéo natsindrinao ho ao amin'ny Favoris (❤️).</p>`;
+                return;
+            }
+            container.innerHTML = favorites.map(f => `
+                <div class="media-card">
+                    <img src="${f.cover}" alt="Fav" onerror="this.src='studio.png'">
+                    <h4>${f.title}</h4>
+                    <p>${f.artist} • ❤️</p>
+                </div>
+            `).join('');
+        }
+
+        function renderAnnonces() {
+            const container = document.getElementById('annonces-container');
+            let customHtml = annonces.map(a => `
+                <div class="annonce-item">
+                    <img src="studio.png" alt="Annonce">
+                    <div>
+                        <h5>${a.title}</h5>
+                        <p>${a.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+            container.innerHTML = customHtml + `
+                <div class="annonce-item">
+                    <img src="studio.png" alt="Annonce" onerror="this.src='studio.jpg'">
+                    <div>
+                        <h5>Nouveau son disponible !</h5>
+                        <p>Découvrez le dernier titre de R Son. Hier</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // MUSIC PLAYER LOGIC
+        function loadTrackToPlayer(index) {
+            currentTrackIndex = index;
+            const track = songs[currentTrackIndex];
+            if(!track) return;
+            document.getElementById('active-song-name').innerText = track.title;
+            document.getElementById('active-artist-name').innerText = track.artist;
+            document.getElementById('player-cover').src = track.cover;
+            audioElement.src = track.src;
+
+            // Check if favorite
+            const isFav = favorites.some(f => f.id === track.id);
+            const heartIcon = document.getElementById('player-heart-icon');
+            if(isFav) {
+                heartIcon.classList.remove('fa-regular');
+                heartIcon.classList.add('fa-solid');
+                heartIcon.style.color = '#e94057';
             } else {
+                heartIcon.classList.remove('fa-solid');
+                heartIcon.classList.add('fa-regular');
+                heartIcon.style.color = 'var(--accent-blue)';
+            }
+        }
+
+        function playSong(index) {
+            loadTrackToPlayer(index);
+            audioElement.play();
+            isPlaying = true;
+            updatePlayButtonUI();
+        }
+
+        function togglePlay() {
+            if(audioElement.paused) {
+                audioElement.play();
+                isPlaying = true;
+            } else {
+                audioElement.pause();
+                isPlaying = false;
+            }
+            updatePlayButtonUI();
+        }
+
+        function updatePlayButtonUI() {
+            const icon = document.getElementById('play-pause-icon');
+            if(isPlaying) {
                 icon.classList.remove('fa-play');
                 icon.classList.add('fa-pause');
-            }
-        }
-
-        function playTrack(songName, artistName) {
-            document.getElementById('active-song-name').innerText = songName;
-            document.getElementById('active-artist-name').innerText = artistName;
-        }
-
-        function toggleHeart(icon) {
-            if(icon.classList.contains('fa-regular')) {
-                icon.classList.remove('fa-regular');
-                icon.classList.add('fa-solid');
-                icon.style.color = '#e94057';
             } else {
-                icon.classList.remove('fa-solid');
-                icon.classList.add('fa-regular');
-                icon.style.color = 'var(--accent-blue)';
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
             }
+        }
+
+        function nextTrack() {
+            if(isShuffle) {
+                currentTrackIndex = Math.floor(Math.random() * songs.length);
+            } else {
+                currentTrackIndex = (currentTrackIndex + 1) % songs.length;
+            }
+            playSong(currentTrackIndex);
+        }
+
+        function prevTrack() {
+            currentTrackIndex = (currentTrackIndex - 1 + songs.length) % songs.length;
+            playSong(currentTrackIndex);
+        }
+
+        function toggleShuffle() {
+            isShuffle = !isShuffle;
+            document.getElementById('shuffle-btn').classList.toggle('active-mode', isShuffle);
+        }
+
+        function toggleRepeat() {
+            isRepeat = !isRepeat;
+            audioElement.loop = isRepeat;
+            document.getElementById('repeat-btn').classList.toggle('active-mode', isRepeat);
+        }
+
+        function updateAudioProgress() {
+            if(isNaN(audioElement.duration)) return;
+            const progressPercent = (audioElement.currentTime / audioElement.duration) * 100;
+            document.getElementById('progress-bar-fill').style.width = progressPercent + '%';
+            
+            // Format time
+            document.getElementById('current-time-txt').innerText = formatTime(audioElement.currentTime);
+            document.getElementById('total-time-txt').innerText = formatTime(audioElement.duration);
+        }
+
+        function seekTrack(event) {
+            const width = event.currentTarget.clientWidth;
+            const clickX = event.offsetX;
+            const duration = audioElement.duration;
+            audioElement.currentTime = (clickX / width) * duration;
+        }
+
+        function changeVolume(val) {
+            audioElement.volume = val;
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function toggleCurrentFavorite() {
+            const track = songs[currentTrackIndex];
+            const index = favorites.findIndex(f => f.id === track.id);
+            const heartIcon = document.getElementById('player-heart-icon');
+            if(index > -1) {
+                favorites.splice(index, 1);
+                heartIcon.classList.remove('fa-solid');
+                heartIcon.classList.add('fa-regular');
+                heartIcon.style.color = 'var(--accent-blue)';
+            } else {
+                favorites.push(track);
+                heartIcon.classList.remove('fa-regular');
+                heartIcon.classList.add('fa-solid');
+                heartIcon.style.color = '#e94057';
+            }
+            renderFavorites();
+            localStorage.setItem('rson_favorites', JSON.stringify(favorites));
+        }
+
+        function downloadTrack(id) {
+            const track = songs.find(s => s.id === id);
+            if(track && !downloads.some(d => d.id === id)) {
+                downloads.push(track);
+                localStorage.setItem('rson_downloads', JSON.stringify(downloads));
+                renderDownloads();
+                alert(`Voatahiry soa aman-tsara anaty fitaovana (Offline): ${track.title}`);
+            } else {
+                alert('Efa voatahiry tao amin’ny téléchargements sahady ity hira ity.');
+            }
+        }
+
+        // PLAYLISTS MANAGEMENT
+        function createPlaylist() {
+            const nameInput = document.getElementById('new-playlist-name');
+            const name = nameInput.value.trim();
+            if(name) {
+                playlists.push({ name: name, count: 0 });
+                nameInput.value = '';
+                renderPlaylists();
+                localStorage.setItem('rson_playlists', JSON.stringify(playlists));
+            }
+        }
+
+        // R SON AI CHATBOT
+        function sendAIMessage() {
+            const input = document.getElementById('ai-input-field');
+            const msg = input.value.trim();
+            if(!msg) return;
+
+            const container = document.getElementById('ai-messages');
+            container.innerHTML += `<div class="ai-msg user">${msg}</div>`;
+            input.value = '';
+            container.scrollTop = container.scrollHeight;
+
+            setTimeout(() => {
+                let botReply = "Misaotra tamin'ny fanontaniana. Azonao atao ny manitsy hira, mamorona playlist, na mitantana izany rehetra izany ao amin'ny Admin Dashboard.";
+                const lower = msg.toLowerCase();
+                if(lower.includes('hira') || lower.includes('music')) {
+                    botReply = "Afaka mihaino hira vaovao ao amin'ny fizarana Musique & Bibliothèque ianao na mampiasa ny Player eo ankavanana.";
+                } else if(lower.includes('offline') || lower.includes('telecharge')) {
+                    botReply = "Tsindrio ny bokotra 'Télécharger' amin'ny hira tianao mba hahafahanao mihaino azy na tsy misy Internet aza.";
+                }
+                container.innerHTML += `<div class="ai-msg bot">${botReply}</div>`;
+                container.scrollTop = container.scrollHeight;
+            }, 600);
+        }
+
+        // ADMIN FUNCTIONS
+        function adminAddSong() {
+            const title = document.getElementById('admin-song-title').value.trim();
+            const artist = document.getElementById('admin-song-artist').value.trim();
+            const cover = document.getElementById('admin-song-cover').value.trim() || 'studio.png';
+
+            if(title) {
+                const newSong = {
+                    id: Date.now(),
+                    title: title,
+                    artist: artist || 'R Son',
+                    cover: cover,
+                    duration: "03:30",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+                    type: "music"
+                };
+                songs.push(newSong);
+                renderAll();
+                document.getElementById('admin-song-title').value = '';
+                alert('Tafiditra soa aman-tsara ny hira vaovao!');
+            }
+        }
+
+        function adminAddAnnonce() {
+            const title = document.getElementById('admin-ann-title').value.trim();
+            const desc = document.getElementById('admin-ann-desc').value.trim();
+            if(title) {
+                annonces.push({ title: title, desc: desc || 'Vao haingana' });
+                renderAnnonces();
+                document.getElementById('admin-ann-title').value = '';
+                document.getElementById('admin-ann-desc').value = '';
+                alert('Tafiditra ny annonce vaovao!');
+            }
+        }
+
+        // SETTINGS / UTILS
+        function toggleDarkMode() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            document.getElementById('dark-mode-icon').className = newTheme === 'dark' ? 'fa-regular fa-moon' : 'fa-solid fa-sun';
+        }
+
+        function clearLocalStorageData() {
+            if(confirm('Tena tianao fafana ve ny tahiry rehetra (offline/favoris)?')) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+
+        function changeLanguage(lang) {
+            const texts = i18n[lang] || i18n.mg;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(texts[key]) el.innerText = texts[key];
+            });
+        }
+
+        function handleSearch(query) {
+            const q = query.toLowerCase();
+            if(!q) {
+                renderLibrary();
+                return;
+            }
+            const filtered = songs.filter(s => s.title.toLowerCase().includes(q) || s.artist.toLowerCase().includes(q));
+            const container = document.getElementById('library-music-grid');
+            container.innerHTML = filtered.map((s, idx) => `
+                <div class="media-card" onclick="playSong(${idx})">
+                    <img src="${s.cover}" alt="Cover" onerror="this.src='studio.png'">
+                    <h4>${s.title}</h4>
+                    <p>${s.artist}</p>
+                </div>
+            `).join('');
+        }
+
+        function filterLibrary(type) {
+            renderLibrary();
         }
     </script>
 </body>
