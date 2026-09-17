@@ -9,10 +9,6 @@
 
 <style>
 
-/* =========================
-   RESET
-========================= */
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -26,9 +22,7 @@ body{
     padding-bottom:80px;
 }
 
-button,
-input,
-select{
+button,input,select{
     font-family:inherit;
 }
 
@@ -41,9 +35,7 @@ button{
     min-height:100vh;
 }
 
-/* =========================
-   SIDEBAR
-========================= */
+/* SIDEBAR */
 
 .sidebar{
     position:fixed;
@@ -115,9 +107,7 @@ button{
     font-size:19px;
 }
 
-/* =========================
-   CLIENT PROFILE
-========================= */
+/* CUSTOMER PROFILE DESKTOP */
 
 .customer-profile{
     position:absolute;
@@ -131,12 +121,10 @@ button{
     border-radius:12px;
     background:#102235;
     border:1px solid #183b55;
-    transition:.2s;
 }
 
 .customer-profile:hover{
     border-color:#20bfff;
-    background:#132c41;
 }
 
 .customer-avatar{
@@ -186,18 +174,14 @@ button{
     margin-left:3px;
 }
 
-/* =========================
-   MAIN
-========================= */
+/* MAIN */
 
 .main{
     margin-left:250px;
     min-height:100vh;
 }
 
-/* =========================
-   TOPBAR
-========================= */
+/* TOPBAR */
 
 .topbar{
     height:75px;
@@ -258,7 +242,8 @@ button{
 }
 
 .icon-button,
-.profile-button{
+.profile-button,
+.client-top-button{
     width:42px;
     height:42px;
     border-radius:50%;
@@ -268,7 +253,8 @@ button{
 }
 
 .icon-button:hover,
-.profile-button:hover{
+.profile-button:hover,
+.client-top-button:hover{
     border-color:#20bfff;
 }
 
@@ -283,20 +269,20 @@ button{
     object-fit:cover;
 }
 
-/* =========================
-   HERO
-========================= */
+.client-top-button{
+    font-size:21px;
+}
+
+/* HERO */
 
 .hero{
     margin:25px;
     min-height:310px;
     border-radius:20px;
     overflow:hidden;
-    position:relative;
     background:#0c1c2c;
     border:1px solid #183b55;
     display:flex;
-    align-items:stretch;
 }
 
 .hero-photo{
@@ -346,9 +332,7 @@ button{
     max-width:520px;
 }
 
-/* =========================
-   QUICK ACCESS
-========================= */
+/* QUICK */
 
 .quick-grid{
     display:grid;
@@ -395,9 +379,7 @@ button{
     color:#20bfff;
 }
 
-/* =========================
-   CONTENT
-========================= */
+/* CONTENT */
 
 .content-grid{
     display:grid;
@@ -432,9 +414,7 @@ button{
     font-size:12px;
 }
 
-/* =========================
-   MUSIC
-========================= */
+/* MUSIC */
 
 .music-list{
     display:grid;
@@ -480,9 +460,7 @@ button{
     font-size:18px;
 }
 
-/* =========================
-   PLAYER
-========================= */
+/* PLAYER */
 
 .player{
     background:#081622;
@@ -559,9 +537,7 @@ button{
     margin-top:12px;
 }
 
-/* =========================
-   AI
-========================= */
+/* AI */
 
 .ai-box{
     background:#081622;
@@ -607,9 +583,7 @@ button{
     background:#20bfff;
 }
 
-/* =========================
-   ANNOUNCEMENTS
-========================= */
+/* ANNOUNCEMENTS */
 
 .announcement{
     display:flex;
@@ -644,9 +618,7 @@ button{
     color:#8399ac;
 }
 
-/* =========================
-   MODALS
-========================= */
+/* MODALS */
 
 .modal{
     position:fixed;
@@ -686,11 +658,6 @@ button{
     background:#10283c;
     color:#fff;
     font-size:22px;
-    z-index:2;
-}
-
-.close:hover{
-    background:#183852;
 }
 
 .profile-large{
@@ -759,10 +726,6 @@ button{
     margin-bottom:10px;
 }
 
-.google-login:hover{
-    background:#e8e8e8;
-}
-
 .account-input{
     width:100%;
     padding:13px;
@@ -792,10 +755,6 @@ button{
     border-radius:9px;
 }
 
-.switch-account:hover{
-    background:#10283c;
-}
-
 .login-action{
     margin-top:8px;
 }
@@ -819,17 +778,13 @@ button{
     line-height:1.5;
 }
 
-/* =========================
-   MOBILE NAV
-========================= */
+/* MOBILE NAV */
 
 .mobile-nav{
     display:none;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* RESPONSIVE */
 
 @media(max-width:1100px){
 
@@ -879,6 +834,14 @@ button{
 
     .top-actions{
         order:3;
+    }
+
+    /* CUSTOMER LOGIN IS VISIBLE ON MOBILE */
+
+    .client-top-button{
+        display:flex;
+        align-items:center;
+        justify-content:center;
     }
 
     .hero{
@@ -966,6 +929,28 @@ button{
 
 }
 
+/* VERY SMALL PHONES */
+
+@media(max-width:400px){
+
+    .top-actions{
+        gap:4px;
+    }
+
+    .icon-button,
+    .profile-button,
+    .client-top-button{
+        width:38px;
+        height:38px;
+    }
+
+    .language{
+        padding:8px 5px;
+        font-size:11px;
+    }
+
+}
+
 </style>
 
 </head>
@@ -974,9 +959,7 @@ button{
 
 <div class="app">
 
-<!-- =========================
-     SIDEBAR
-========================= -->
+<!-- SIDEBAR -->
 
 <aside class="sidebar">
 
@@ -1039,14 +1022,12 @@ button{
 
     </nav>
 
-
-    <!-- CLIENT PROFILE -->
+    <!-- CUSTOMER PROFILE -->
 
     <div
         class="customer-profile"
         onclick="openLogin()"
         style="cursor:pointer"
-        id="customerProfile"
     >
 
         <div class="customer-avatar" id="customerAvatar">
@@ -1061,7 +1042,6 @@ button{
 
             <small id="customerStatus">
                 Se connecter / S'inscrire
-                <span class="online-dot"></span>
             </small>
 
         </div>
@@ -1071,9 +1051,7 @@ button{
 </aside>
 
 
-<!-- =========================
-     MAIN
-========================= -->
+<!-- MAIN -->
 
 <main class="main">
 
@@ -1094,7 +1072,6 @@ button{
 
         </div>
 
-
         <select
             class="language"
             id="language"
@@ -1106,7 +1083,6 @@ button{
             <option value="en">🇬🇧 English</option>
 
         </select>
-
 
         <div class="top-actions">
 
@@ -1126,8 +1102,18 @@ button{
                 ☾
             </button>
 
+            <!-- CLIENT ACCOUNT -->
 
-            <!-- R SON PROFILE -->
+            <button
+                class="client-top-button"
+                onclick="openLogin()"
+                title="Mon compte"
+                id="clientTopButton"
+            >
+                👤
+            </button>
+
+            <!-- R SON OWNER PROFILE -->
 
             <button
                 class="profile-button"
@@ -1147,9 +1133,7 @@ button{
     </div>
 
 
-    <!-- =========================
-         HERO
-    ========================= -->
+    <!-- HERO -->
 
     <section class="hero">
 
@@ -1161,7 +1145,6 @@ button{
             >
 
         </div>
-
 
         <div class="hero-content">
 
@@ -1184,14 +1167,12 @@ button{
     </section>
 
 
-    <!-- =========================
-         QUICK ACCESS
-    ========================= -->
+    <!-- QUICK ACCESS -->
 
     <section class="quick-grid">
 
         <div
-            class="quick-card music"
+            class="quick-card"
             onclick="showMessage('Musique')"
         >
 
@@ -1209,7 +1190,7 @@ button{
 
 
         <div
-            class="quick-card video"
+            class="quick-card"
             onclick="showMessage('Vidéos')"
         >
 
@@ -1227,7 +1208,7 @@ button{
 
 
         <div
-            class="quick-card download"
+            class="quick-card"
             onclick="showMessage('Téléchargements')"
         >
 
@@ -1245,7 +1226,7 @@ button{
 
 
         <div
-            class="quick-card ai"
+            class="quick-card"
             onclick="openAI()"
         >
 
@@ -1264,9 +1245,7 @@ button{
     </section>
 
 
-    <!-- =========================
-         CONTENT
-    ========================= -->
+    <!-- CONTENT -->
 
     <div class="content-grid">
 
@@ -1453,13 +1432,8 @@ button{
 
                     <div class="time">
 
-                        <span>
-                            00:00
-                        </span>
-
-                        <span>
-                            03:45
-                        </span>
+                        <span>00:00</span>
+                        <span>03:45</span>
 
                     </div>
 
@@ -1507,7 +1481,7 @@ button{
                 <div class="panel-header">
 
                     <div class="panel-title">
-                        🤖 <span>R Son AI</span>
+                        🤖 R Son AI
                     </div>
 
                     <small>
@@ -1561,9 +1535,7 @@ button{
         </div>
 
 
-        <!-- =========================
-             ANNOUNCEMENTS
-        ========================= -->
+        <!-- ANNOUNCEMENTS -->
 
         <aside>
 
@@ -1656,44 +1628,31 @@ button{
 </main>
 
 
-<!-- =========================
-     MOBILE NAV
-========================= -->
+<!-- MOBILE NAV -->
 
 <nav class="mobile-nav">
 
-    <button
-        class="active"
-        onclick="goHome()"
-    >
+    <button class="active" onclick="goHome()">
         <span>⌂</span>
         Accueil
     </button>
 
-    <button
-        onclick="showMessage('Musique')"
-    >
+    <button onclick="showMessage('Musique')">
         <span>♫</span>
         Musique
     </button>
 
-    <button
-        onclick="showMessage('Vidéos')"
-    >
+    <button onclick="showMessage('Vidéos')">
         <span>▣</span>
         Vidéos
     </button>
 
-    <button
-        onclick="showMessage('Offline')"
-    >
+    <button onclick="showMessage('Offline')">
         <span>⇩</span>
         Offline
     </button>
 
-    <button
-        onclick="openAI()"
-    >
+    <button onclick="openAI()">
         <span>🤖</span>
         AI
     </button>
@@ -1701,14 +1660,9 @@ button{
 </nav>
 
 
-<!-- =========================
-     R SON PROFILE MODAL
-========================= -->
+<!-- R SON OWNER PROFILE -->
 
-<div
-    class="modal"
-    id="ownerModal"
->
+<div class="modal" id="ownerModal">
 
     <div class="modal-box">
 
@@ -1749,27 +1703,19 @@ button{
 
         <div class="profile-links">
 
-            <button
-                onclick="showMessage('Profil R Son')"
-            >
+            <button onclick="showMessage('Profil R Son')">
                 👤 Mon profil
             </button>
 
-            <button
-                onclick="showMessage('Mes créations')"
-            >
+            <button onclick="showMessage('Mes créations')">
                 🎵 Mes créations
             </button>
 
-            <button
-                onclick="showMessage('À propos de R Son')"
-            >
+            <button onclick="showMessage('À propos de R Son')">
                 ℹ️ À propos
             </button>
 
-            <button
-                onclick="showMessage('Contact')"
-            >
+            <button onclick="showMessage('Contact')">
                 ✉️ Contact
             </button>
 
@@ -1780,14 +1726,9 @@ button{
 </div>
 
 
-<!-- =========================
-     CLIENT ACCOUNT MODAL
-========================= -->
+<!-- CLIENT ACCOUNT -->
 
-<div
-    class="modal"
-    id="loginModal"
->
+<div class="modal" id="loginModal">
 
     <div class="modal-box">
 
@@ -1851,14 +1792,9 @@ button{
 </div>
 
 
-<!-- =========================
-     REGISTER MODAL
-========================= -->
+<!-- REGISTER -->
 
-<div
-    class="modal"
-    id="registerModal"
->
+<div class="modal" id="registerModal">
 
     <div class="modal-box">
 
@@ -1881,8 +1817,7 @@ button{
             </h2>
 
             <p>
-                Crée ton compte R Son pour accéder
-                aux fonctionnalités réservées aux utilisateurs.
+                Crée ton compte R Son.
             </p>
 
         </div>
@@ -1932,8 +1867,7 @@ button{
 
 
         <p class="login-note">
-            La sécurité réelle du compte sera connectée
-            au backend lors de la prochaine étape.
+            Cette version est encore un prototype local.
         </p>
 
     </div>
@@ -1941,14 +1875,9 @@ button{
 </div>
 
 
-<!-- =========================
-     LOGIN FORM MODAL
-========================= -->
+<!-- LOGIN -->
 
-<div
-    class="modal"
-    id="loginFormModal"
->
+<div class="modal" id="loginFormModal">
 
     <div class="modal-box">
 
@@ -2010,25 +1939,14 @@ button{
             Créer un compte
         </button>
 
-
-        <p class="login-note">
-            La connexion sécurisée réelle sera connectée
-            au backend lors de la prochaine étape.
-        </p>
-
     </div>
 
 </div>
 
 
-<!-- =========================
-     CLIENT PROFILE MODAL
-========================= -->
+<!-- CLIENT PROFILE -->
 
-<div
-    class="modal"
-    id="clientProfileModal"
->
+<div class="modal" id="clientProfileModal">
 
     <div class="modal-box">
 
@@ -2061,8 +1979,7 @@ button{
 
 
         <div class="account-message">
-            Ton profil client est enregistré sur cet appareil
-            pour cette version prototype.
+            Tongasoa ao amin'ny kaontinao R Son.
         </div>
 
 
@@ -2093,15 +2010,11 @@ button{
 
 <script>
 
-/* =========================
-   BASIC FUNCTIONS
-========================= */
+/* BASIC */
 
 function showMessage(message){
 
-    alert(
-        message + " — fonctionnalité en préparation."
-    );
+    alert(message + " — fonctionnalité en préparation.");
 
 }
 
@@ -2132,6 +2045,8 @@ function openAI(){
 }
 
 
+/* OWNER PROFILE */
+
 function openOwnerProfile(){
 
     const modal =
@@ -2146,9 +2061,40 @@ function openOwnerProfile(){
 }
 
 
-/* =========================
-   CLIENT ACCOUNT
-========================= */
+/* MODAL */
+
+function closeModal(id){
+
+    const modal =
+        document.getElementById(id);
+
+    if(modal){
+
+        modal.classList.remove("show");
+
+    }
+
+}
+
+
+document
+.querySelectorAll(".modal")
+.forEach(function(modal){
+
+    modal.addEventListener("click",function(event){
+
+        if(event.target === modal){
+
+            modal.classList.remove("show");
+
+        }
+
+    });
+
+});
+
+
+/* CLIENT ACCOUNT */
 
 function openLogin(){
 
@@ -2219,60 +2165,18 @@ function openClientProfile(){
 }
 
 
-function closeModal(id){
-
-    const modal =
-        document.getElementById(id);
-
-    if(modal){
-
-        modal.classList.remove("show");
-
-    }
-
-}
-
-
-/* =========================
-   CLOSE MODAL OUTSIDE
-========================= */
-
-document
-    .querySelectorAll(".modal")
-    .forEach(function(modal){
-
-        modal.addEventListener(
-            "click",
-            function(event){
-
-                if(event.target === modal){
-
-                    modal.classList.remove("show");
-
-                }
-
-            }
-        );
-
-    });
-
-
-/* =========================
-   GOOGLE LOGIN
-========================= */
+/* GOOGLE */
 
 function googleLogin(){
 
     alert(
-        "Google Sign-In réel sera connecté au système d'authentification avec le backend."
+        "Google Sign-In réel sera connecté au backend."
     );
 
 }
 
 
-/* =========================
-   REGISTER
-========================= */
+/* REGISTER */
 
 function showRegister(){
 
@@ -2292,35 +2196,14 @@ function showRegister(){
 
 function registerAccount(){
 
-    const nameElement =
-        document.getElementById("registerName");
-
-    const emailElement =
-        document.getElementById("registerEmail");
-
-    const passwordElement =
-        document.getElementById("registerPassword");
-
-
-    if(
-        !nameElement ||
-        !emailElement ||
-        !passwordElement
-    ){
-
-        return;
-
-    }
-
-
     const name =
-        nameElement.value.trim();
+        document.getElementById("registerName").value.trim();
 
     const email =
-        emailElement.value.trim();
+        document.getElementById("registerEmail").value.trim();
 
     const password =
-        passwordElement.value.trim();
+        document.getElementById("registerPassword").value.trim();
 
 
     if(!name || !email || !password){
@@ -2348,17 +2231,10 @@ function registerAccount(){
     const user = {
 
         name:name,
-
         email:email
 
     };
 
-
-    /*
-       Prototype local uniquement.
-       Le vrai compte sécurisé sera créé
-       avec le backend plus tard.
-    */
 
     localStorage.setItem(
         "rson_user",
@@ -2379,9 +2255,7 @@ function registerAccount(){
 }
 
 
-/* =========================
-   LOGIN
-========================= */
+/* LOGIN */
 
 function showLogin(){
 
@@ -2401,28 +2275,11 @@ function showLogin(){
 
 function loginAccount(){
 
-    const emailElement =
-        document.getElementById("loginEmail");
-
-    const passwordElement =
-        document.getElementById("loginPassword");
-
-
-    if(
-        !emailElement ||
-        !passwordElement
-    ){
-
-        return;
-
-    }
-
-
     const email =
-        emailElement.value.trim();
+        document.getElementById("loginEmail").value.trim();
 
     const password =
-        passwordElement.value.trim();
+        document.getElementById("loginPassword").value.trim();
 
 
     if(!email || !password){
@@ -2487,16 +2344,9 @@ function loginAccount(){
     }
 
 
-    /*
-       Prototype uniquement.
-       Le vrai contrôle email/mot de passe
-       sera effectué par le backend.
-    */
-
     const demoUser = {
 
         name:"Utilisateur R Son",
-
         email:email
 
     };
@@ -2521,9 +2371,7 @@ function loginAccount(){
 }
 
 
-/* =========================
-   SWITCH LOGIN / REGISTER
-========================= */
+/* SWITCH */
 
 function openRegisterFromLogin(){
 
@@ -2543,9 +2391,7 @@ function openLoginFromRegister(){
 }
 
 
-/* =========================
-   UPDATE CUSTOMER PROFILE
-========================= */
+/* UPDATE PROFILE */
 
 function updateCustomerProfile(){
 
@@ -2570,9 +2416,8 @@ function updateCustomerProfile(){
 
         if(statusElement){
 
-            statusElement.innerHTML =
-                "Se connecter / S'inscrire " +
-                '<span class="online-dot"></span>';
+            statusElement.textContent =
+                "Se connecter / S'inscrire";
 
         }
 
@@ -2612,9 +2457,7 @@ function updateCustomerProfile(){
 }
 
 
-/* =========================
-   LOGOUT
-========================= */
+/* LOGOUT */
 
 function logoutAccount(){
 
@@ -2635,9 +2478,7 @@ function logoutAccount(){
 }
 
 
-/* =========================
-   MUSIC
-========================= */
+/* MUSIC */
 
 function playSong(song){
 
@@ -2673,28 +2514,16 @@ function togglePlay(){
     }
 
 
-    playing =
-        !playing;
+    playing = !playing;
 
 
-    if(playing){
-
-        button.textContent =
-            "Ⅱ";
-
-    }else{
-
-        button.textContent =
-            "▶";
-
-    }
+    button.textContent =
+        playing ? "Ⅱ" : "▶";
 
 }
 
 
-/* =========================
-   SEARCH
-========================= */
+/* SEARCH */
 
 function searchContent(event){
 
@@ -2706,9 +2535,7 @@ function searchContent(event){
 
 
     const input =
-        document.getElementById(
-            "searchInput"
-        );
+        document.getElementById("searchInput");
 
 
     if(!input){
@@ -2733,9 +2560,7 @@ function searchContent(event){
 }
 
 
-/* =========================
-   AI
-========================= */
+/* AI */
 
 function aiEnter(event){
 
@@ -2751,14 +2576,10 @@ function aiEnter(event){
 function sendAI(){
 
     const input =
-        document.getElementById(
-            "aiInput"
-        );
+        document.getElementById("aiInput");
 
     const box =
-        document.querySelector(
-            ".ai-box"
-        );
+        document.querySelector(".ai-box");
 
 
     if(!input || !box){
@@ -2780,10 +2601,7 @@ function sendAI(){
 
 
     const userMessage =
-        document.createElement(
-            "div"
-        );
-
+        document.createElement("div");
 
     userMessage.className =
         "ai-message user";
@@ -2793,9 +2611,7 @@ function sendAI(){
 
 
     const aiInput =
-        box.querySelector(
-            ".ai-input"
-        );
+        box.querySelector(".ai-input");
 
 
     box.insertBefore(
@@ -2805,14 +2621,10 @@ function sendAI(){
 
 
     const answer =
-        document.createElement(
-            "div"
-        );
-
+        document.createElement("div");
 
     answer.className =
         "ai-message";
-
 
     answer.textContent =
         "Salama! R Son AI dia vonona hanampy anao. Ny AI tena izy dia hampifandraisina amin'ny backend rehefa vita ny système.";
@@ -2829,16 +2641,12 @@ function sendAI(){
 }
 
 
-/* =========================
-   LANGUAGE
-========================= */
+/* LANGUAGE */
 
 function changeLanguage(){
 
     const language =
-        document.getElementById(
-            "language"
-        );
+        document.getElementById("language");
 
 
     if(!language){
@@ -2866,7 +2674,6 @@ function changeLanguage(){
 
     }
 
-
     if(value === "fr"){
 
         alert(
@@ -2874,7 +2681,6 @@ function changeLanguage(){
         );
 
     }
-
 
     if(value === "en"){
 
@@ -2887,9 +2693,7 @@ function changeLanguage(){
 }
 
 
-/* =========================
-   THEME
-========================= */
+/* THEME */
 
 function toggleTheme(){
 
@@ -2900,24 +2704,18 @@ function toggleTheme(){
 }
 
 
-/* =========================
-   LOAD SAVED DATA
-========================= */
+/* LOAD */
 
 window.addEventListener(
     "DOMContentLoaded",
     function(){
 
         const savedLanguage =
-            localStorage.getItem(
-                "rson_language"
-            );
+            localStorage.getItem("rson_language");
 
 
         const language =
-            document.getElementById(
-                "language"
-            );
+            document.getElementById("language");
 
 
         if(
