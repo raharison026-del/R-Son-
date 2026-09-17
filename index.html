@@ -930,29 +930,22 @@ button{
     </nav>
 
     <!-- CLIENT PROFILE -->
+<div class="customer-profile"
+     onclick="openLogin()"
+     style="cursor:pointer">
 
-    <div class="customer-profile"
-         onclick="openLogin()"
-         style="cursor:pointer">
-
-        <div class="customer-avatar">
-            👤
-        </div>
-
-        <div class="customer-info">
-
-            <strong>Mon compte</strong>
-
-            <small>
-                Se connecter / S'inscrire
-                <span class="online-dot"></span>
-            </small>
-
-        </div>
-
+    <div class="customer-avatar">
+        👤
     </div>
 
-</aside>
+    <div class="customer-info">
+        <strong>Mon compte</strong>
+        <small>
+            Se connecter / S'inscrire
+        </small>
+    </div>
+
+</div>
 
 
 <!-- =========================
@@ -1604,7 +1597,7 @@ button{
             </p>
 
             <p>
-                tsy hifaninagna fa mba hizara talenta namian-jagnahary.
+                Tsy hifaninagna fa mba hizara talenta namian-jagnahary🤗.
             </p>
 
         </div>
@@ -1715,6 +1708,48 @@ button{
 
 
 <script>
+
+  function openLogin(){
+
+    document
+        .getElementById("loginModal")
+        .classList
+        .add("show");
+
+}
+
+function closeModal(id){
+
+    document
+        .getElementById(id)
+        .classList
+        .remove("show");
+
+}
+
+function googleLogin(){
+
+    alert(
+        "Google Sign-In sera activé avec le système de compte R Son."
+    );
+
+}
+
+function showRegister(){
+
+    alert(
+        "La page d'inscription sera activée avec le système de compte R Son."
+    );
+
+}
+
+function showLogin(){
+
+    alert(
+        "La page de connexion sera activée avec le système de compte R Son."
+    );
+
+}
 
 /* =========================
    BASIC FUNCTIONS
