@@ -1052,7 +1052,7 @@ button{
             </h1>
 
             <p>
-                tsy hifaninagna fa mba hizara talenta namian-jagnahary.
+                tsy hifaninagna fa mba hizara talenta namian-jagnahary🤗.
                 Hira, horonan-tsary, teknolojia ary R Son AI.
             </p>
 
@@ -1604,7 +1604,7 @@ button{
             </p>
 
             <p>
-                tsy hifaninagna fa mba hizara talenta namian-jagnahary.
+                tsy hifaninagna fa mba hizara talenta namian-jagnahary🤗.
             </p>
 
         </div>
@@ -1713,7 +1713,76 @@ button{
 
 </div>
 
+function registerAccount(){
 
+    const name =
+        document.getElementById("registerName").value.trim();
+
+    const email =
+        document.getElementById("registerEmail").value.trim();
+
+    const password =
+        document.getElementById("registerPassword").value.trim();
+
+    if(!name || !email || !password){
+
+        alert("Veuillez remplir tous les champs.");
+
+        return;
+    }
+
+    alert(
+        "Compte créé avec succès. Le système sécurisé sera connecté au backend."
+    );
+
+}
+
+
+function loginAccount(){
+
+    const email =
+        document.getElementById("loginEmail").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value.trim();
+
+    if(!email || !password){
+
+        alert("Veuillez remplir tous les champs.");
+
+        return;
+    }
+
+    alert(
+        "Connexion réussie. Le système sécurisé sera connecté au backend."
+    );
+
+}
+
+
+function openRegisterFromLogin(){
+
+    closeModal("loginFormModal");
+
+    document
+        .getElementById("registerModal")
+        .classList
+        .add("show");
+
+}
+
+
+function openLoginFromRegister(){
+
+    closeModal("registerModal");
+
+    document
+        .getElementById("loginFormModal")
+        .classList
+        .add("show");
+
+}
+    
 <script>
 
 /* =========================
