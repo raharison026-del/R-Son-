@@ -1,2645 +1,2717 @@
-<!DOCTYPE html>
-<html lang="mg">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>R Son Production</title>
-
-<style>
-
-/* ============================= */
-/* RESET */
-/* ============================= */
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-body{
-    font-family:Arial,sans-serif;
-    background:#07111d;
-    color:#fff;
-    padding-bottom:80px;
-}
-
-button,
-input,
-select{
-    font-family:inherit;
-}
-
-button{
-    cursor:pointer;
-    border:none;
-}
-
-.app{
-    min-height:100vh;
-}
-
-
-/* ============================= */
-/* SIDEBAR */
-/* ============================= */
-
-.sidebar{
-    position:fixed;
-    left:0;
-    top:0;
-    bottom:0;
-    width:250px;
-    background:#0a1725;
-    border-right:1px solid #183149;
-    padding:22px 15px;
-    z-index:100;
-}
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:5px 10px 25px;
-}
-
-.logo-image{
-    width:45px;
-    height:45px;
-    border-radius:50%;
-    object-fit:cover;
-    border:2px solid #20bfff;
-}
-
-.logo-text{
-    font-size:21px;
-    font-weight:bold;
-}
-
-.logo-text span{
-    display:block;
-    font-size:12px;
-    color:#20bfff;
-    margin-top:2px;
-}
-
-.menu{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-}
-
-.menu button{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    width:100%;
-    padding:13px 15px;
-    border-radius:10px;
-    background:transparent;
-    color:#b8c8d8;
-    text-align:left;
-    font-size:15px;
-}
-
-.menu button:hover,
-.menu button.active{
-    background:#10283c;
-    color:#20bfff;
-}
-
-.menu-icon{
-    width:25px;
-    text-align:center;
-    font-size:19px;
-}
-
-
-/* ============================= */
-/* CUSTOMER PROFILE */
-/* ============================= */
-
-.customer-profile{
-    position:absolute;
-    left:15px;
-    right:15px;
-    bottom:20px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:12px;
-    border-radius:12px;
-    background:#102235;
-    border:1px solid #183b55;
-}
-
-.customer-profile:hover{
-    border-color:#20bfff;
-}
-
-.customer-avatar{
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    background:#183149;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:20px;
-    flex-shrink:0;
-    overflow:hidden;
-}
-
-.customer-avatar img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.customer-info{
-    min-width:0;
-}
-
-.customer-info strong{
-    display:block;
-    font-size:13px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.customer-info small{
-    display:block;
-    color:#8ca1b4;
-    font-size:10px;
-    margin-top:3px;
-}
-
-.online-dot{
-    display:inline-block;
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:#20d47b;
-    margin-left:3px;
-}
-
-
-/* ============================= */
-/* MAIN */
-/* ============================= */
-
-.main{
-    margin-left:250px;
-    min-height:100vh;
-}
-
-
-/* ============================= */
-/* TOPBAR */
-/* ============================= */
-
-.topbar{
-    height:75px;
-    display:flex;
-    align-items:center;
-    gap:15px;
-    padding:12px 25px;
-    background:rgba(7,17,29,.95);
-    border-bottom:1px solid #183149;
-    position:sticky;
-    top:0;
-    z-index:90;
-}
-
-.search{
-    flex:1;
-    max-width:650px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    background:#0d2031;
-    border:1px solid #183b55;
-    border-radius:12px;
-    padding:0 14px;
-}
-
-.search span{
-    font-size:23px;
-    color:#8ba4b8;
-}
-
-.search input{
-    width:100%;
-    height:45px;
-    border:none;
-    outline:none;
-    background:transparent;
-    color:#fff;
-}
-
-.search input::placeholder{
-    color:#71869a;
-}
-
-.language{
-    background:#0d2031;
-    color:#fff;
-    border:1px solid #183b55;
-    border-radius:9px;
-    padding:10px;
-    outline:none;
-}
-
-.top-actions{
-    display:flex;
-    gap:8px;
-    margin-left:auto;
-}
-
-.icon-button,
-.profile-button,
-.client-top-button{
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    background:#102235;
-    color:#fff;
-    border:1px solid #183b55;
-}
-
-.icon-button:hover,
-.profile-button:hover,
-.client-top-button:hover{
-    border-color:#20bfff;
-}
-
-.profile-button{
-    padding:0;
-    overflow:hidden;
-}
-
-.profile-button img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.client-top-button{
-    font-size:21px;
-}
-
-
-/* ============================= */
-/* HERO */
-/* ============================= */
-
-.hero{
-    margin:25px;
-    min-height:310px;
-    border-radius:20px;
-    overflow:hidden;
-    background:#0c1c2c;
-    border:1px solid #183b55;
-    display:flex;
-}
-
-.hero-photo{
-    width:50%;
-    min-height:310px;
-}
-
-.hero-photo img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-}
-
-.hero-content{
-    width:50%;
-    padding:45px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-}
-
-.hero-badge{
-    display:inline-block;
-    width:max-content;
-    padding:8px 12px;
-    border-radius:20px;
-    background:#102f47;
-    color:#20bfff;
-    font-size:12px;
-    margin-bottom:15px;
-}
-
-.hero h1{
-    font-size:55px;
-    margin-bottom:15px;
-}
-
-.hero h1 span{
-    color:#20bfff;
-}
-
-.hero p{
-    color:#b5c6d5;
-    line-height:1.7;
-    font-size:16px;
-    max-width:520px;
-}
-
-
-/* ============================= */
-/* QUICK */
-/* ============================= */
-
-.quick-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
-    padding:0 25px 25px;
-}
-
-.quick-card{
-    position:relative;
-    min-height:145px;
-    padding:20px;
-    border-radius:15px;
-    border:1px solid #183b55;
-    background:#0c1c2c;
-    transition:.2s;
-    cursor:pointer;
-}
-
-.quick-card:hover{
-    transform:translateY(-3px);
-    border-color:#20bfff;
-}
-
-.quick-icon{
-    font-size:28px;
-    margin-bottom:12px;
-}
-
-.quick-card h3{
-    margin-bottom:7px;
-}
-
-.quick-card p{
-    color:#8ea4b7;
-    font-size:12px;
-}
-
-.quick-arrow{
-    position:absolute;
-    right:18px;
-    bottom:15px;
-    font-size:25px;
-    color:#20bfff;
-}
-
-
-/* ============================= */
-/* CONTENT */
-/* ============================= */
-
-.content-grid{
-    display:grid;
-    grid-template-columns:minmax(0,1fr) 320px;
-    gap:20px;
-    padding:0 25px;
-}
-
-.panel{
-    background:#0c1c2c;
-    border:1px solid #183b55;
-    border-radius:15px;
-    padding:20px;
-    margin-bottom:20px;
-}
-
-.panel-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:18px;
-}
-
-.panel-title{
-    font-size:18px;
-    font-weight:bold;
-}
-
-.view-all{
-    background:transparent;
-    color:#20bfff;
-    font-size:12px;
-}
-
-
-/* ============================= */
-/* MUSIC */
-/* ============================= */
-
-.music-list{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
-}
-
-.music-card{
-    position:relative;
-    background:#102235;
-    border-radius:12px;
-    padding:10px;
-    overflow:hidden;
-}
-
-.cover{
-    height:130px;
-    border-radius:9px;
-    background:#183149;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:40px;
-    margin-bottom:10px;
-}
-
-.music-card h4{
-    font-size:13px;
-    margin-bottom:5px;
-}
-
-.music-card p{
-    font-size:11px;
-    color:#8399ac;
-}
-
-.more{
-    position:absolute;
-    right:8px;
-    bottom:8px;
-    background:transparent;
-    color:#fff;
-    font-size:18px;
-}
-
-
-/* ============================= */
-/* PLAYER */
-/* ============================= */
-
-.player{
-    background:#081622;
-    border-radius:12px;
-    padding:18px;
-}
-
-.now-playing{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.now-cover{
-    width:55px;
-    height:55px;
-    border-radius:9px;
-    background:#183149;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:25px;
-}
-
-.now-info{
-    flex:1;
-}
-
-.now-info strong{
-    display:block;
-    margin-bottom:4px;
-}
-
-.now-info small{
-    color:#8297a9;
-}
-
-.control,
-.play{
-    border-radius:50%;
-    background:#10283c;
-    color:#fff;
-    width:38px;
-    height:38px;
-}
-
-.play{
-    background:#20bfff;
-    color:#00131e;
-    width:48px;
-    height:48px;
-}
-
-.progress{
-    margin-top:20px;
-}
-
-.progress input{
-    width:100%;
-}
-
-.time{
-    display:flex;
-    justify-content:space-between;
-    color:#71869a;
-    font-size:11px;
-}
-
-.player-controls{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:15px;
-    margin-top:12px;
-}
-
-
-/* ============================= */
-/* AI */
-/* ============================= */
-
-.ai-box{
-    background:#081622;
-    border-radius:12px;
-    padding:15px;
-}
-
-.ai-message{
-    display:block;
-    max-width:80%;
-    background:#10283c;
-    padding:10px 12px;
-    border-radius:10px;
-    margin-bottom:10px;
-    font-size:13px;
-    line-height:1.5;
-}
-
-.ai-message.user{
-    margin-left:auto;
-    background:#12476a;
-}
-
-.ai-input{
-    display:flex;
-    gap:8px;
-    margin-top:15px;
-}
-
-.ai-input input{
-    flex:1;
-    background:#102235;
-    border:1px solid #183b55;
-    color:#fff;
-    border-radius:9px;
-    padding:12px;
-    outline:none;
-}
-
-.ai-send{
-    width:45px;
-    border-radius:9px;
-    background:#20bfff;
-}
-
-
-/* ============================= */
-/* ANNOUNCEMENTS */
-/* ============================= */
-
-.announcement{
-    display:flex;
-    gap:12px;
-    padding:13px 0;
-    border-bottom:1px solid #183149;
-}
-
-.announcement:last-child{
-    border-bottom:none;
-}
-
-.announcement-icon{
-    width:40px;
-    height:40px;
-    flex-shrink:0;
-    border-radius:10px;
-    background:#10283c;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.announcement h4{
-    font-size:13px;
-    margin-bottom:5px;
-}
-
-.announcement p{
-    font-size:11px;
-    line-height:1.5;
-    color:#8399ac;
-}
-
-
-/* ============================= */
-/* MODALS */
-/* ============================= */
-
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.78);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    z-index:500;
-}
-
-.modal.show{
-    display:flex;
-}
-
-.modal-box{
-    position:relative;
-    width:100%;
-    max-width:430px;
-    max-height:90vh;
-    overflow-y:auto;
-    background:#0c1c2c;
-    border:1px solid #20506f;
-    border-radius:18px;
-    padding:28px;
-    box-shadow:0 20px 60px rgba(0,0,0,.5);
-}
-
-.close{
-    position:absolute;
-    right:15px;
-    top:12px;
-    width:35px;
-    height:35px;
-    border-radius:50%;
-    background:#10283c;
-    color:#fff;
-    font-size:22px;
-}
-
-.profile-large{
-    text-align:center;
-    padding:10px 10px 20px;
-}
-
-.avatar-large{
-    width:90px;
-    height:90px;
-    margin:0 auto 15px;
-    border-radius:50%;
-    background:#183149;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:40px;
-    overflow:hidden;
-    border:2px solid #20bfff;
-}
-
-.avatar-large img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.profile-large h2{
-    margin-bottom:7px;
-}
-
-.profile-large p{
-    color:#9db0c1;
-    font-size:13px;
-    line-height:1.6;
-    margin-top:8px;
-}
-
-.profile-links{
-    display:grid;
-    gap:8px;
-}
-
-.profile-links button,
-.login-action{
-    width:100%;
-    padding:12px;
-    background:#10283c;
-    color:#fff;
-    border-radius:9px;
-    text-align:center;
-}
-
-.profile-links button:hover,
-.login-action:hover{
-    background:#163852;
-}
-
-.google-login{
-    width:100%;
-    padding:13px;
-    border-radius:9px;
-    background:#fff;
-    color:#111;
-    font-weight:bold;
-    margin-bottom:10px;
-}
-
-.account-input{
-    width:100%;
-    padding:13px;
-    margin-bottom:10px;
-    background:#081622;
-    border:1px solid #183b55;
-    border-radius:9px;
-    color:#fff;
-    outline:none;
-}
-
-.account-input:focus{
-    border-color:#20bfff;
-}
-
-.account-input::placeholder{
-    color:#71869a;
-}
-
-.switch-account{
-    width:100%;
-    padding:12px;
-    margin-top:9px;
-    background:transparent;
-    color:#20bfff;
-    border:1px solid #183b55;
-    border-radius:9px;
-}
-
-.login-action{
-    margin-top:8px;
-}
-
-.login-note{
-    color:#71869a;
-    font-size:11px;
-    line-height:1.5;
-    text-align:center;
-    margin-top:15px;
-}
-
-.account-message{
-    background:#10283c;
-    border:1px solid #183b55;
-    border-radius:10px;
-    padding:12px;
-    margin-bottom:12px;
-    color:#b8c8d8;
-    font-size:12px;
-    line-height:1.5;
-}
-
-
-/* ============================= */
-/* MOBILE NAV */
-/* ============================= */
-
-.mobile-nav{
-    display:none;
-}
-
-
-/* ============================= */
-/* RESPONSIVE */
-/* ============================= */
-
-@media(max-width:1100px){
-
-    .quick-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .music-list{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .content-grid{
-        grid-template-columns:1fr;
-    }
-
-}
-
-@media(max-width:750px){
-
-    body{
-        padding-bottom:75px;
-    }
-
-    .sidebar{
-        display:none;
-    }
-
-    .main{
-        margin-left:0;
-    }
-
-    .topbar{
-        padding:10px;
-        height:auto;
-        flex-wrap:wrap;
-    }
-
-    .search{
-        order:1;
-        flex-basis:100%;
-        max-width:none;
-    }
-
-    .language{
-        order:2;
-    }
-
-    .top-actions{
-        order:3;
-    }
-
-    .client-top-button{
-        display:flex;
-        align-items:center;
-        justify-content:center;
-    }
-
-    .hero{
-        margin:15px;
-        display:block;
-    }
-
-    .hero-photo{
-        width:100%;
-        height:210px;
-        min-height:210px;
-    }
-
-    .hero-content{
-        width:100%;
-        padding:25px;
-    }
-
-    .hero h1{
-        font-size:40px;
-    }
-
-    .quick-grid{
-        padding:0 15px 15px;
-        grid-template-columns:repeat(2,1fr);
-        gap:10px;
-    }
-
-    .quick-card{
-        min-height:130px;
-        padding:15px;
-    }
-
-    .content-grid{
-        padding:0 15px;
-    }
-
-    .music-list{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .cover{
-        height:105px;
-    }
-
-    .mobile-nav{
-        position:fixed;
-        left:0;
-        right:0;
-        bottom:0;
-        height:65px;
-        background:#0a1725;
-        border-top:1px solid #183149;
-        display:flex;
-        justify-content:space-around;
-        align-items:center;
-        z-index:200;
-    }
-
-    .mobile-nav button{
-        background:transparent;
-        color:#8298aa;
-        font-size:10px;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        gap:3px;
-    }
-
-    .mobile-nav button span{
-        font-size:20px;
-    }
-
-    .mobile-nav button.active{
-        color:#20bfff;
-    }
-
-    .modal{
-        padding:12px;
-    }
-
-    .modal-box{
-        padding:22px;
-    }
-
-}
-
-@media(max-width:400px){
-
-    .top-actions{
-        gap:4px;
-    }
-
-    .icon-button,
-    .profile-button,
-    .client-top-button{
-        width:38px;
-        height:38px;
-    }
-
-    .language{
-        padding:8px 5px;
-        font-size:11px;
-    }
-
-}
-
-</style>
-
-</head>
-
-
-<body>
-
-<div class="app">
-
-
-<!-- ============================= -->
-<!-- SIDEBAR -->
-<!-- ============================= -->
-
-<aside class="sidebar">
-
-    <div class="logo">
-
-        <img
-            src="logo.png"
-            alt="R Son Production"
-            class="logo-image"
-        >
-
-        <div class="logo-text">
-            R Son
-            <span>Production</span>
-        </div>
-
-    </div>
-
-
-    <nav class="menu">
-
-        <button class="active" onclick="goHome()">
-            <span class="menu-icon">⌂</span>
-            Accueil
-        </button>
-
-        <button onclick="showMessage('Musique')">
-            <span class="menu-icon">♫</span>
-            Musique
-        </button>
-
-        <button onclick="showMessage('Vidéos')">
-            <span class="menu-icon">▣</span>
-            Vidéos
-        </button>
-
-        <button onclick="showMessage('Téléchargements')">
-            <span class="menu-icon">⇩</span>
-            Téléchargements
-        </button>
-
-        <button onclick="showMessage('Playlists')">
-            <span class="menu-icon">☷</span>
-            Playlists
-        </button>
-
-        <button onclick="showMessage('Favoris')">
-            <span class="menu-icon">♡</span>
-            Favoris
-        </button>
-
-        <button onclick="openAI()">
-            <span class="menu-icon">🤖</span>
-            R Son AI
-        </button>
-
-        <button onclick="showMessage('Paramètres')">
-            <span class="menu-icon">⚙</span>
-            Paramètres
-        </button>
-
-    </nav>
-
-
-    <div
-        class="customer-profile"
-        onclick="openLogin()"
-        style="cursor:pointer"
-    >
-
-        <div class="customer-avatar" id="customerAvatar">
-            👤
-        </div>
-
-        <div class="customer-info">
-
-            <strong id="customerName">
-                Mon compte
-            </strong>
-
-            <small id="customerStatus">
-                Se connecter / S'inscrire
-            </small>
-
-        </div>
-
-    </div>
-
-</aside>
-
-
-<!-- ============================= -->
-<!-- MAIN -->
-<!-- ============================= -->
-
-<main class="main">
-
-
-<!-- TOPBAR -->
-
-<div class="topbar">
-
-    <div class="search">
-
-        <span>⌕</span>
-
-        <input
-            id="searchInput"
-            type="text"
-            placeholder="Rechercher une chanson, un artiste, une vidéo..."
-            onkeydown="searchContent(event)"
-        >
-
-    </div>
-
-
-    <select
-        class="language"
-        id="language"
-        onchange="changeLanguage()"
-    >
-
-        <option value="mg">🇲🇬 Malagasy</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="en">🇬🇧 English</option>
-
-    </select>
-
-
-    <div class="top-actions">
-
-        <button
-            class="icon-button"
-            onclick="showMessage('Notifications')"
-            title="Notifications"
-        >
-            🔔
-        </button>
-
-        <button
-            class="icon-button"
-            onclick="toggleTheme()"
-            title="Theme"
-        >
-            ☾
-        </button>
-
-        <button
-            class="client-top-button"
-            onclick="openLogin()"
-            title="Mon compte"
-            id="clientTopButton"
-        >
-            👤
-        </button>
-
-        <button
-            class="profile-button"
-            onclick="openOwnerProfile()"
-            title="R Son Production"
-        >
-
-            <img
-                src="logo.png"
-                alt="R Son"
-            >
-
-        </button>
-
-    </div>
+<!DOCTYPE html>  <html lang="mg">  
+<head>  <meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>R Son Production</title>  <style>  
+  
+*{  
+    box-sizing:border-box;  
+    margin:0;  
+    padding:0;  
+}  
+  
+body{  
+    font-family:Arial,sans-serif;  
+    background:#07111d;  
+    color:#fff;  
+    padding-bottom:80px;  
+}  
+  
+button,input,select{  
+    font-family:inherit;  
+}  
+  
+button{  
+    cursor:pointer;  
+    border:none;  
+}  
+  
+.app{  
+    min-height:100vh;  
+}  
+  
+/* SIDEBAR */  
+  
+.sidebar{  
+    position:fixed;  
+    left:0;  
+    top:0;  
+    bottom:0;  
+    width:250px;  
+    background:#0a1725;  
+    border-right:1px solid #183149;  
+    padding:22px 15px;  
+    z-index:100;  
+}  
+  
+.logo{  
+    display:flex;  
+    align-items:center;  
+    gap:10px;  
+    padding:5px 10px 25px;  
+}  
+  
+.logo-image{  
+    width:45px;  
+    height:45px;  
+    border-radius:50%;  
+    object-fit:cover;  
+    border:2px solid #20bfff;  
+}  
+  
+.logo-text{  
+    font-size:21px;  
+    font-weight:bold;  
+}  
+  
+.logo-text span{  
+    display:block;  
+    font-size:12px;  
+    color:#20bfff;  
+    margin-top:2px;  
+}  
+  
+.menu{  
+    display:flex;  
+    flex-direction:column;  
+    gap:6px;  
+}  
+  
+.menu button{  
+    display:flex;  
+    align-items:center;  
+    gap:15px;  
+    width:100%;  
+    padding:13px 15px;  
+    border-radius:10px;  
+    background:transparent;  
+    color:#b8c8d8;  
+    text-align:left;  
+    font-size:15px;  
+}  
+  
+.menu button:hover,  
+.menu button.active{  
+    background:#10283c;  
+    color:#20bfff;  
+}  
+  
+.menu-icon{  
+    width:25px;  
+    text-align:center;  
+    font-size:19px;  
+}  
+  
+/* CUSTOMER PROFILE DESKTOP */  
+  
+.customer-profile{  
+    position:absolute;  
+    left:15px;  
+    right:15px;  
+    bottom:20px;  
+    display:flex;  
+    align-items:center;  
+    gap:10px;  
+    padding:12px;  
+    border-radius:12px;  
+    background:#102235;  
+    border:1px solid #183b55;  
+}  
+  
+.customer-profile:hover{  
+    border-color:#20bfff;  
+}  
+  
+.customer-avatar{  
+    width:40px;  
+    height:40px;  
+    border-radius:50%;  
+    background:#183149;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    font-size:20px;  
+    flex-shrink:0;  
+    overflow:hidden;  
+}  
+  
+.customer-avatar img{  
+    width:100%;  
+    height:100%;  
+    object-fit:cover;  
+}  
+  
+.customer-info{  
+    min-width:0;  
+}  
+  
+.customer-info strong{  
+    display:block;  
+    font-size:13px;  
+    white-space:nowrap;  
+    overflow:hidden;  
+    text-overflow:ellipsis;  
+}  
+  
+.customer-info small{  
+    display:block;  
+    color:#8ca1b4;  
+    font-size:10px;  
+    margin-top:3px;  
+}  
+  
+.online-dot{  
+    display:inline-block;  
+    width:7px;  
+    height:7px;  
+    border-radius:50%;  
+    background:#20d47b;  
+    margin-left:3px;  
+}  
+  
+/* MAIN */  
+  
+.main{  
+    margin-left:250px;  
+    min-height:100vh;  
+}  
+  
+/* TOPBAR */  
+  
+.topbar{  
+    height:75px;  
+    display:flex;  
+    align-items:center;  
+    gap:15px;  
+    padding:12px 25px;  
+    background:rgba(7,17,29,.95);  
+    border-bottom:1px solid #183149;  
+    position:sticky;  
+    top:0;  
+    z-index:90;  
+}  
+  
+.search{  
+    flex:1;  
+    max-width:650px;  
+    display:flex;  
+    align-items:center;  
+    gap:10px;  
+    background:#0d2031;  
+    border:1px solid #183b55;  
+    border-radius:12px;  
+    padding:0 14px;  
+}  
+  
+.search span{  
+    font-size:23px;  
+    color:#8ba4b8;  
+}  
+  
+.search input{  
+    width:100%;  
+    height:45px;  
+    border:none;  
+    outline:none;  
+    background:transparent;  
+    color:#fff;  
+}  
+  
+.search input::placeholder{  
+    color:#71869a;  
+}  
+  
+.language{  
+    background:#0d2031;  
+    color:#fff;  
+    border:1px solid #183b55;  
+    border-radius:9px;  
+    padding:10px;  
+    outline:none;  
+}  
+  
+.top-actions{  
+    display:flex;  
+    gap:8px;  
+    margin-left:auto;  
+}  
+  
+.icon-button,  
+.profile-button,  
+.client-top-button{  
+    width:42px;  
+    height:42px;  
+    border-radius:50%;  
+    background:#102235;  
+    color:#fff;  
+    border:1px solid #183b55;  
+}  
+  
+.icon-button:hover,  
+.profile-button:hover,  
+.client-top-button:hover{  
+    border-color:#20bfff;  
+}  
+  
+.profile-button{  
+    padding:0;  
+    overflow:hidden;  
+}  
+  
+.profile-button img{  
+    width:100%;  
+    height:100%;  
+    object-fit:cover;  
+}  
+  
+.client-top-button{  
+    font-size:21px;  
+}  
+  
+/* HERO */  
+  
+.hero{  
+    margin:25px;  
+    min-height:310px;  
+    border-radius:20px;  
+    overflow:hidden;  
+    background:#0c1c2c;  
+    border:1px solid #183b55;  
+    display:flex;  
+}  
+  
+.hero-photo{  
+    width:50%;  
+    min-height:310px;  
+}  
+  
+.hero-photo img{  
+    width:100%;  
+    height:100%;  
+    object-fit:cover;  
+    display:block;  
+}  
+  
+.hero-content{  
+    width:50%;  
+    padding:45px;  
+    display:flex;  
+    flex-direction:column;  
+    justify-content:center;  
+}  
+  
+.hero-badge{  
+    display:inline-block;  
+    width:max-content;  
+    padding:8px 12px;  
+    border-radius:20px;  
+    background:#102f47;  
+    color:#20bfff;  
+    font-size:12px;  
+    margin-bottom:15px;  
+}  
+  
+.hero h1{  
+    font-size:55px;  
+    margin-bottom:15px;  
+}  
+  
+.hero h1 span{  
+    color:#20bfff;  
+}  
+  
+.hero p{  
+    color:#b5c6d5;  
+    line-height:1.7;  
+    font-size:16px;  
+    max-width:520px;  
+}  
+  
+/* QUICK */  
+  
+.quick-grid{  
+    display:grid;  
+    grid-template-columns:repeat(4,1fr);  
+    gap:15px;  
+    padding:0 25px 25px;  
+}  
+  
+.quick-card{  
+    position:relative;  
+    min-height:145px;  
+    padding:20px;  
+    border-radius:15px;  
+    border:1px solid #183b55;  
+    background:#0c1c2c;  
+    transition:.2s;  
+    cursor:pointer;  
+}  
+  
+.quick-card:hover{  
+    transform:translateY(-3px);  
+    border-color:#20bfff;  
+}  
+  
+.quick-icon{  
+    font-size:28px;  
+    margin-bottom:12px;  
+}  
+  
+.quick-card h3{  
+    margin-bottom:7px;  
+}  
+  
+.quick-card p{  
+    color:#8ea4b7;  
+    font-size:12px;  
+}  
+  
+.quick-arrow{  
+    position:absolute;  
+    right:18px;  
+    bottom:15px;  
+    font-size:25px;  
+    color:#20bfff;  
+}  
+  
+/* CONTENT */  
+  
+.content-grid{  
+    display:grid;  
+    grid-template-columns:minmax(0,1fr) 320px;  
+    gap:20px;  
+    padding:0 25px;  
+}  
+  
+.panel{  
+    background:#0c1c2c;  
+    border:1px solid #183b55;  
+    border-radius:15px;  
+    padding:20px;  
+    margin-bottom:20px;  
+}  
+  
+.panel-header{  
+    display:flex;  
+    align-items:center;  
+    justify-content:space-between;  
+    margin-bottom:18px;  
+}  
+  
+.panel-title{  
+    font-size:18px;  
+    font-weight:bold;  
+}  
+  
+.view-all{  
+    background:transparent;  
+    color:#20bfff;  
+    font-size:12px;  
+}  
+  
+/* MUSIC */  
+  
+.music-list{  
+    display:grid;  
+    grid-template-columns:repeat(4,1fr);  
+    gap:12px;  
+}  
+  
+.music-card{  
+    position:relative;  
+    background:#102235;  
+    border-radius:12px;  
+    padding:10px;  
+    overflow:hidden;  
+}  
+  
+.cover{  
+    height:130px;  
+    border-radius:9px;  
+    background:#183149;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    font-size:40px;  
+    margin-bottom:10px;  
+}  
+  
+.music-card h4{  
+    font-size:13px;  
+    margin-bottom:5px;  
+}  
+  
+.music-card p{  
+    font-size:11px;  
+    color:#8399ac;  
+}  
+  
+.more{  
+    position:absolute;  
+    right:8px;  
+    bottom:8px;  
+    background:transparent;  
+    color:#fff;  
+    font-size:18px;  
+}  
+  
+/* PLAYER */  
+  
+.player{  
+    background:#081622;  
+    border-radius:12px;  
+    padding:18px;  
+}  
+  
+.now-playing{  
+    display:flex;  
+    align-items:center;  
+    gap:12px;  
+}  
+  
+.now-cover{  
+    width:55px;  
+    height:55px;  
+    border-radius:9px;  
+    background:#183149;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    font-size:25px;  
+}  
+  
+.now-info{  
+    flex:1;  
+}  
+  
+.now-info strong{  
+    display:block;  
+    margin-bottom:4px;  
+}  
+  
+.now-info small{  
+    color:#8297a9;  
+}  
+  
+.control,  
+.play{  
+    border-radius:50%;  
+    background:#10283c;  
+    color:#fff;  
+    width:38px;  
+    height:38px;  
+}  
+  
+.play{  
+    background:#20bfff;  
+    color:#00131e;  
+    width:48px;  
+    height:48px;  
+}  
+  
+.progress{  
+    margin-top:20px;  
+}  
+  
+.progress input{  
+    width:100%;  
+}  
+  
+.time{  
+    display:flex;  
+    justify-content:space-between;  
+    color:#71869a;  
+    font-size:11px;  
+}  
+  
+.player-controls{  
+    display:flex;  
+    justify-content:center;  
+    align-items:center;  
+    gap:15px;  
+    margin-top:12px;  
+}  
+  
+/* AI */  
+  
+.ai-box{  
+    background:#081622;  
+    border-radius:12px;  
+    padding:15px;  
+}  
+  
+.ai-message{  
+    display:block;  
+    max-width:80%;  
+    background:#10283c;  
+    padding:10px 12px;  
+    border-radius:10px;  
+    margin-bottom:10px;  
+    font-size:13px;  
+    line-height:1.5;  
+}  
+  
+.ai-message.user{  
+    margin-left:auto;  
+    background:#12476a;  
+}  
+  
+.ai-input{  
+    display:flex;  
+    gap:8px;  
+    margin-top:15px;  
+}  
+  
+.ai-input input{  
+    flex:1;  
+    background:#102235;  
+    border:1px solid #183b55;  
+    color:#fff;  
+    border-radius:9px;  
+    padding:12px;  
+    outline:none;  
+}  
+  
+.ai-send{  
+    width:45px;  
+    border-radius:9px;  
+    background:#20bfff;  
+}  
+  
+/* ANNOUNCEMENTS */  
+  
+.announcement{  
+    display:flex;  
+    gap:12px;  
+    padding:13px 0;  
+    border-bottom:1px solid #183149;  
+}  
+  
+.announcement:last-child{  
+    border-bottom:none;  
+}  
+  
+.announcement-icon{  
+    width:40px;  
+    height:40px;  
+    flex-shrink:0;  
+    border-radius:10px;  
+    background:#10283c;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+}  
+  
+.announcement h4{  
+    font-size:13px;  
+    margin-bottom:5px;  
+}  
+  
+.announcement p{  
+    font-size:11px;  
+    line-height:1.5;  
+    color:#8399ac;  
+}  
+  
+/* MODALS */  
+  
+.modal{  
+    position:fixed;  
+    inset:0;  
+    background:rgba(0,0,0,.78);  
+    display:none;  
+    align-items:center;  
+    justify-content:center;  
+    padding:20px;  
+    z-index:500;  
+}  
+  
+.modal.show{  
+    display:flex;  
+}  
+  
+.modal-box{  
+    position:relative;  
+    width:100%;  
+    max-width:430px;  
+    max-height:90vh;  
+    overflow-y:auto;  
+    background:#0c1c2c;  
+    border:1px solid #20506f;  
+    border-radius:18px;  
+    padding:28px;  
+    box-shadow:0 20px 60px rgba(0,0,0,.5);  
+}  
+  
+.close{  
+    position:absolute;  
+    right:15px;  
+    top:12px;  
+    width:35px;  
+    height:35px;  
+    border-radius:50%;  
+    background:#10283c;  
+    color:#fff;  
+    font-size:22px;  
+}  
+  
+.profile-large{  
+    text-align:center;  
+    padding:10px 10px 20px;  
+}  
+  
+.avatar-large{  
+    width:90px;  
+    height:90px;  
+    margin:0 auto 15px;  
+    border-radius:50%;  
+    background:#183149;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    font-size:40px;  
+    overflow:hidden;  
+    border:2px solid #20bfff;  
+}  
+  
+.avatar-large img{  
+    width:100%;  
+    height:100%;  
+    object-fit:cover;  
+}  
+  
+.profile-large h2{  
+    margin-bottom:7px;  
+}  
+  
+.profile-large p{  
+    color:#9db0c1;  
+    font-size:13px;  
+    line-height:1.6;  
+    margin-top:8px;  
+}  
+  
+.profile-links{  
+    display:grid;  
+    gap:8px;  
+}  
+  
+.profile-links button,  
+.login-action{  
+    width:100%;  
+    padding:12px;  
+    background:#10283c;  
+    color:#fff;  
+    border-radius:9px;  
+    text-align:center;  
+}  
+  
+.profile-links button:hover,  
+.login-action:hover{  
+    background:#163852;  
+}  
+  
+.google-login{  
+    width:100%;  
+    padding:13px;  
+    border-radius:9px;  
+    background:#fff;  
+    color:#111;  
+    font-weight:bold;  
+    margin-bottom:10px;  
+}  
+  
+.account-input{  
+    width:100%;  
+    padding:13px;  
+    margin-bottom:10px;  
+    background:#081622;  
+    border:1px solid #183b55;  
+    border-radius:9px;  
+    color:#fff;  
+    outline:none;  
+}  
+  
+.account-input:focus{  
+    border-color:#20bfff;  
+}  
+  
+.account-input::placeholder{  
+    color:#71869a;  
+}  
+  
+.switch-account{  
+    width:100%;  
+    padding:12px;  
+    margin-top:9px;  
+    background:transparent;  
+    color:#20bfff;  
+    border:1px solid #183b55;  
+    border-radius:9px;  
+}  
+  
+.login-action{  
+    margin-top:8px;  
+}  
+  
+.login-note{  
+    color:#71869a;  
+    font-size:11px;  
+    line-height:1.5;  
+    text-align:center;  
+    margin-top:15px;  
+}  
+  
+.account-message{  
+    background:#10283c;  
+    border:1px solid #183b55;  
+    border-radius:10px;  
+    padding:12px;  
+    margin-bottom:12px;  
+    color:#b8c8d8;  
+    font-size:12px;  
+    line-height:1.5;  
+}  
+  
+/* MOBILE NAV */  
+  
+.mobile-nav{  
+    display:none;  
+}  
+  
+/* RESPONSIVE */  
+  
+@media(max-width:1100px){  
+  
+    .quick-grid{  
+        grid-template-columns:repeat(2,1fr);  
+    }  
+  
+    .music-list{  
+        grid-template-columns:repeat(2,1fr);  
+    }  
+  
+    .content-grid{  
+        grid-template-columns:1fr;  
+    }  
+  
+}  
+  
+@media(max-width:750px){  
+  
+    body{  
+        padding-bottom:75px;  
+    }  
+  
+    .sidebar{  
+        display:none;  
+    }  
+  
+    .main{  
+        margin-left:0;  
+    }  
+  
+    .topbar{  
+        padding:10px;  
+        height:auto;  
+        flex-wrap:wrap;  
+    }  
+  
+    .search{  
+        order:1;  
+        flex-basis:100%;  
+        max-width:none;  
+    }  
+  
+    .language{  
+        order:2;  
+    }  
+  
+    .top-actions{  
+        order:3;  
+    }  
+  
+    /* CUSTOMER LOGIN IS VISIBLE ON MOBILE */  
+  
+    .client-top-button{  
+        display:flex;  
+        align-items:center;  
+        justify-content:center;  
+    }  
+  
+    .hero{  
+        margin:15px;  
+        display:block;  
+    }  
+  
+    .hero-photo{  
+        width:100%;  
+        height:210px;  
+        min-height:210px;  
+    }  
+  
+    .hero-content{  
+        width:100%;  
+        padding:25px;  
+    }  
+  
+    .hero h1{  
+        font-size:40px;  
+    }  
+  
+    .quick-grid{  
+        padding:0 15px 15px;  
+        grid-template-columns:repeat(2,1fr);  
+        gap:10px;  
+    }  
+  
+    .quick-card{  
+        min-height:130px;  
+        padding:15px;  
+    }  
+  
+    .content-grid{  
+        padding:0 15px;  
+    }  
+  
+    .music-list{  
+        grid-template-columns:repeat(2,1fr);  
+    }  
+  
+    .cover{  
+        height:105px;  
+    }  
+  
+    .mobile-nav{  
+        position:fixed;  
+        left:0;  
+        right:0;  
+        bottom:0;  
+        height:65px;  
+        background:#0a1725;  
+        border-top:1px solid #183149;  
+        display:flex;  
+        justify-content:space-around;  
+        align-items:center;  
+        z-index:200;  
+    }  
+  
+    .mobile-nav button{  
+        background:transparent;  
+        color:#8298aa;  
+        font-size:10px;  
+        display:flex;  
+        flex-direction:column;  
+        align-items:center;  
+        gap:3px;  
+    }  
+  
+    .mobile-nav button span{  
+        font-size:20px;  
+    }  
+  
+    .mobile-nav button.active{  
+        color:#20bfff;  
+    }  
+  
+    .modal{  
+        padding:12px;  
+    }  
+  
+    .modal-box{  
+        padding:22px;  
+    }  
+  
+}  
+  
+/* VERY SMALL PHONES */  
+  
+@media(max-width:400px){  
+  
+    .top-actions{  
+        gap:4px;  
+    }  
+  
+    .icon-button,  
+    .profile-button,  
+    .client-top-button{  
+        width:38px;  
+        height:38px;  
+    }  
+  
+    .language{  
+        padding:8px 5px;  
+        font-size:11px;  
+    }  
+  
+}  
+  
+</style>  </head>  <body>  <div class="app">  <!-- SIDEBAR -->  <aside class="sidebar">  <div class="logo">  
+
+    <img  
+        src="logo.png"  
+        alt="R Son Production"  
+        class="logo-image"  
+    >  
+
+    <div class="logo-text">  
+        R Son  
+        <span>Production</span>  
+    </div>  
+
+</div>  
+
+<nav class="menu">  
+
+    <button class="active" onclick="goHome()">  
+        <span class="menu-icon">⌂</span>  
+        Accueil  
+    </button>  
+
+    <button onclick="showMessage('Musique')">  
+        <span class="menu-icon">♫</span>  
+        Musique  
+    </button>  
+
+    <button onclick="showMessage('Vidéos')">  
+        <span class="menu-icon">▣</span>  
+        Vidéos  
+    </button>  
+
+    <button onclick="showMessage('Téléchargements')">  
+        <span class="menu-icon">⇩</span>  
+        Téléchargements  
+    </button>  
+
+    <button onclick="showMessage('Playlists')">  
+        <span class="menu-icon">☷</span>  
+        Playlists  
+    </button>  
+
+    <button onclick="showMessage('Favoris')">  
+        <span class="menu-icon">♡</span>  
+        Favoris  
+    </button>  
+
+    <button onclick="openAI()">  
+        <span class="menu-icon">🤖</span>  
+        R Son AI  
+    </button>  
+
+    <button onclick="showMessage('Paramètres')">  
+        <span class="menu-icon">⚙</span>  
+        Paramètres  
+    </button>  
+
+</nav>  
+
+<!-- CUSTOMER PROFILE -->  
+
+<div  
+    class="customer-profile"  
+    onclick="openLogin()"  
+    style="cursor:pointer"  
+>  
+
+    <div class="customer-avatar" id="customerAvatar">  
+        👤  
+    </div>  
+
+    <div class="customer-info">  
+
+        <strong id="customerName">  
+            Mon compte  
+        </strong>  
+
+        <small id="customerStatus">  
+            Se connecter / S'inscrire  
+        </small>  
+
+    </div>  
 
 </div>
 
+</aside>  <!-- MAIN -->  <main class="main">  <!-- TOPBAR -->  
 
-<!-- HERO -->
+<div class="topbar">  
 
-<section class="hero">
+    <div class="search">  
 
-    <div class="hero-photo">
+        <span>⌕</span>  
 
-        <img
-            src="studio.jpg"
-            alt="R Son Studio"
-        >
+        <input  
+            id="searchInput"  
+            type="text"  
+            placeholder="Rechercher une chanson, un artiste, une vidéo..."  
+            onkeydown="searchContent(event)"  
+        >  
 
-    </div>
+    </div>  
 
+    <select  
+        class="language"  
+        id="language"  
+        onchange="changeLanguage()"  
+    >  
 
-    <div class="hero-content">
+        <option value="mg">🇲🇬 Malagasy</option>  
+        <option value="fr">🇫🇷 Français</option>  
+        <option value="en">🇬🇧 English</option>  
 
-        <div class="hero-badge">
-            🎵 R SON PLATFORM
-        </div>
+    </select>  
 
-        <h1>
-            R <span>Son</span>
-        </h1>
+    <div class="top-actions">  
 
-        <p>
-            tsy hifaninagna fa mba hizara talenta
-            namian-jagnahary🤗.
-            Hira, horonan-tsary, teknolojia ary R Son AI.
-        </p>
+        <button  
+            class="icon-button"  
+            onclick="showMessage('Notifications')"  
+            title="Notifications"  
+        >  
+            🔔  
+        </button>  
 
-    </div>
+        <button  
+            class="icon-button"  
+            onclick="toggleTheme()"  
+            title="Theme"  
+        >  
+            ☾  
+        </button>  
 
-</section>
+        <!-- CLIENT ACCOUNT -->  
 
+        <button  
+            class="client-top-button"  
+            onclick="openLogin()"  
+            title="Mon compte"  
+            id="clientTopButton"  
+        >  
+            👤  
+        </button>  
 
-<!-- QUICK ACCESS -->
+        <!-- R SON OWNER PROFILE -->  
 
-<section class="quick-grid">
+        <button  
+            class="profile-button"  
+            onclick="openOwnerProfile()"  
+            title="R Son Production"  
+        >  
 
-    <div
-        class="quick-card"
-        onclick="showMessage('Musique')"
-    >
+            <img  
+                src="logo.png"  
+                alt="R Son"  
+            >  
 
-        <div class="quick-icon">♫</div>
+        </button>  
 
-        <h3>Musique</h3>
+    </div>  
 
-        <p>
-            Écoute tes sons préférés
-        </p>
+</div>  
 
-        <div class="quick-arrow">›</div>
 
-    </div>
+<!-- HERO -->  
 
+<section class="hero">  
 
-    <div
-        class="quick-card"
-        onclick="showMessage('Vidéos')"
-    >
+    <div class="hero-photo">  
 
-        <div class="quick-icon">▶</div>
+        <img  
+            src="studio.jpg"  
+            alt="R Son Studio"  
+        >  
 
-        <h3>Vidéos</h3>
+    </div>  
 
-        <p>
-            Regarde tes films et clips
-        </p>
+    <div class="hero-content">  
 
-        <div class="quick-arrow">›</div>
+        <div class="hero-badge">  
+            🎵 R SON PLATFORM  
+        </div>  
 
-    </div>
+        <h1>  
+            R <span>Son</span>  
+        </h1>  
 
+        <p>  
+            tsy hifaninagna fa mba hizara talenta  
+            namian-jagnahary🤗.  
+            Hira, horonan-tsary, teknolojia ary R Son AI.  
+        </p>  
 
-    <div
-        class="quick-card"
-        onclick="showMessage('Téléchargements')"
-    >
+    </div>  
 
-        <div class="quick-icon">⇩</div>
+</section>  
 
-        <h3>Téléchargements</h3>
 
-        <p>
-            Hors ligne, à tout moment
-        </p>
+<!-- QUICK ACCESS -->  
 
-        <div class="quick-arrow">›</div>
+<section class="quick-grid">  
 
-    </div>
+    <div  
+        class="quick-card"  
+        onclick="showMessage('Musique')"  
+    >  
 
+        <div class="quick-icon">♫</div>  
 
-    <div
-        class="quick-card"
-        onclick="openAI()"
-    >
+        <h3>Musique</h3>  
 
-        <div class="quick-icon">🤖</div>
+        <p>  
+            Écoute tes sons préférés  
+        </p>  
 
-        <h3>R Son AI</h3>
+        <div class="quick-arrow">›</div>  
 
-        <p>
-            Pose tes questions
-        </p>
+    </div>  
 
-        <div class="quick-arrow">›</div>
 
-    </div>
+    <div  
+        class="quick-card"  
+        onclick="showMessage('Vidéos')"  
+    >  
 
-</section>
+        <div class="quick-icon">▶</div>  
 
+        <h3>Vidéos</h3>  
 
-<!-- CONTENT -->
+        <p>  
+            Regarde tes films et clips  
+        </p>  
 
-<div class="content-grid">
+        <div class="quick-arrow">›</div>  
 
-    <div>
+    </div>  
 
 
-        <!-- RECENT MUSIC -->
+    <div  
+        class="quick-card"  
+        onclick="showMessage('Téléchargements')"  
+    >  
 
-        <section class="panel">
+        <div class="quick-icon">⇩</div>  
 
-            <div class="panel-header">
+        <h3>Téléchargements</h3>  
 
-                <div class="panel-title">
-                    🎵 Musique récente
-                </div>
+        <p>  
+            Hors ligne, à tout moment  
+        </p>  
 
-                <button
-                    class="view-all"
-                    onclick="showMessage('Toutes les musiques')"
-                >
-                    Voir tout →
-                </button>
+        <div class="quick-arrow">›</div>  
 
-            </div>
+    </div>  
 
 
-            <div class="music-list">
+    <div  
+        class="quick-card"  
+        onclick="openAI()"  
+    >  
 
+        <div class="quick-icon">🤖</div>  
 
-                <div class="music-card">
+        <h3>R Son AI</h3>  
 
-                    <div class="cover">
-                        🎵
-                    </div>
+        <p>  
+            Pose tes questions  
+        </p>  
 
-                    <h4>
-                        Rêve d'un jeune
-                    </h4>
+        <div class="quick-arrow">›</div>  
 
-                    <p>
-                        R Son · 03:45
-                    </p>
+    </div>  
 
-                    <button
-                        class="more"
-                        onclick="playSong('Rêve d’un jeune')"
-                    >
-                        ⋮
-                    </button>
+</section>  
 
-                </div>
 
+<!-- CONTENT -->  
 
-                <div class="music-card">
+<div class="content-grid">  
 
-                    <div class="cover">
-                        🎵
-                    </div>
+    <div>  
 
-                    <h4>
-                        Mamy
-                    </h4>
+        <!-- RECENT MUSIC -->  
 
-                    <p>
-                        R Son · 04:12
-                    </p>
+        <section class="panel">  
 
-                    <button
-                        class="more"
-                        onclick="playSong('Mamy')"
-                    >
-                        ⋮
-                    </button>
+            <div class="panel-header">  
 
-                </div>
+                <div class="panel-title">  
+                    🎵 Musique récente  
+                </div>  
 
+                <button  
+                    class="view-all"  
+                    onclick="showMessage('Toutes les musiques')"  
+                >  
+                    Voir tout →  
+                </button>  
 
-                <div class="music-card">
+            </div>  
 
-                    <div class="cover">
-                        🎵
-                    </div>
 
-                    <h4>
-                        Antsika
-                    </h4>
+            <div class="music-list">  
 
-                    <p>
-                        R Son · 05:20
-                    </p>
+                <div class="music-card">  
 
-                    <button
-                        class="more"
-                        onclick="playSong('Antsika')"
-                    >
-                        ⋮
-                    </button>
+                    <div class="cover">  
+                        🎵  
+                    </div>  
 
-                </div>
+                    <h4>  
+                        Rêve d'un jeune  
+                    </h4>  
 
+                    <p>  
+                        R Son · 03:45  
+                    </p>  
 
-                <div class="music-card">
+                    <button  
+                        class="more"  
+                        onclick="playSong('Rêve d’un jeune')"  
+                    >  
+                        ⋮  
+                    </button>  
 
-                    <div class="cover">
-                        🎵
-                    </div>
+                </div>  
 
-                    <h4>
-                        Fitia vana
-                    </h4>
 
-                    <p>
-                        R Son · 03:38
-                    </p>
+                <div class="music-card">  
 
-                    <button
-                        class="more"
-                        onclick="playSong('Fitia vana')"
-                    >
-                        ⋮
-                    </button>
+                    <div class="cover">  
+                        🎵  
+                    </div>  
 
-                </div>
+                    <h4>  
+                        Mamy  
+                    </h4>  
 
+                    <p>  
+                        R Son · 04:12  
+                    </p>  
 
-            </div>
+                    <button  
+                        class="more"  
+                        onclick="playSong('Mamy')"  
+                    >  
+                        ⋮  
+                    </button>  
 
-        </section>
+                </div>  
 
 
-        <!-- PLAYER -->
+                <div class="music-card">  
 
-        <section class="panel">
+                    <div class="cover">  
+                        🎵  
+                    </div>  
 
-            <div class="panel-header">
+                    <h4>  
+                        Antsika  
+                    </h4>  
 
-                <div class="panel-title">
-                    ▶ Lecture en cours
-                </div>
+                    <p>  
+                        R Son · 05:20  
+                    </p>  
 
-                <button class="view-all">
-                    Bibliothèque
-                </button>
+                    <button  
+                        class="more"  
+                        onclick="playSong('Antsika')"  
+                    >  
+                        ⋮  
+                    </button>  
 
-            </div>
+                </div>  
 
 
-            <div class="player">
+                <div class="music-card">  
 
-                <div class="now-playing">
+                    <div class="cover">  
+                        🎵  
+                    </div>  
 
-                    <div class="now-cover">
-                        🎵
-                    </div>
+                    <h4>  
+                        Fitia vana  
+                    </h4>  
 
-                    <div class="now-info">
+                    <p>  
+                        R Son · 03:38  
+                    </p>  
 
-                        <strong id="currentSong">
-                            Rêve d'un jeune
-                        </strong>
+                    <button  
+                        class="more"  
+                        onclick="playSong('Fitia vana')"  
+                    >  
+                        ⋮  
+                    </button>  
 
-                        <small>
-                            R Son Production
-                        </small>
+                </div>  
 
-                    </div>
+            </div>  
 
-                    <button class="control">
-                        ♡
-                    </button>
+        </section>  
 
-                </div>
 
+        <!-- PLAYER -->  
 
-                <div class="progress">
+        <section class="panel">  
 
-                    <input
-                        type="range"
-                        min="0"
-                        max="100"
-                        value="0"
-                        id="progress"
-                    >
+            <div class="panel-header">  
 
-                </div>
+                <div class="panel-title">  
+                    ▶ Lecture en cours  
+                </div>  
 
+                <button class="view-all">  
+                    Bibliothèque  
+                </button>  
 
-                <div class="time">
+            </div>  
 
-                    <span>00:00</span>
-                    <span>03:45</span>
 
-                </div>
+            <div class="player">  
 
+                <div class="now-playing">  
 
-                <div class="player-controls">
+                    <div class="now-cover">  
+                        🎵  
+                    </div>  
 
-                    <button class="control">
-                        🔀
-                    </button>
+                    <div class="now-info">  
 
-                    <button class="control">
-                        ◀
-                    </button>
+                        <strong id="currentSong">  
+                            Rêve d'un jeune  
+                        </strong>  
 
-                    <button
-                        class="play"
-                        id="playButton"
-                        onclick="togglePlay()"
-                    >
-                        ▶
-                    </button>
+                        <small>  
+                            R Son Production  
+                        </small>  
 
-                    <button class="control">
-                        ▶
-                    </button>
+                    </div>  
 
-                    <button class="control">
-                        🔁
-                    </button>
+                    <button class="control">  
+                        ♡  
+                    </button>  
 
-                </div>
+                </div>  
 
-            </div>
 
-        </section>
+                <div class="progress">  
 
+                    <input  
+                        type="range"  
+                        min="0"  
+                        max="100"  
+                        value="0"  
+                        id="progress"  
+                    >  
 
-        <!-- AI -->
+                </div>  
 
-        <section
-            class="panel"
-            id="aiSection"
-        >
 
-            <div class="panel-header">
+                <div class="time">  
 
-                <div class="panel-title">
-                    🤖 R Son AI
-                </div>
+                    <span>00:00</span>  
+                    <span>03:45</span>  
 
-                <small>
-                    Assistant intelligent
-                </small>
+                </div>  
 
-            </div>
 
+                <div class="player-controls">  
 
-            <div class="ai-box">
+                    <button class="control">  
+                        🔀  
+                    </button>  
 
-                <div class="ai-message">
-                    Salama! Inona no azoko
-                    anampiana anao?
-                </div>
+                    <button class="control">  
+                        ◀  
+                    </button>  
 
-                <div class="ai-message user">
-                    Ahoana no fomba fampiasa
-                    an'i R Son?
-                </div>
+                    <button  
+                        class="play"  
+                        id="playButton"  
+                        onclick="togglePlay()"  
+                    >  
+                        ▶  
+                    </button>  
 
-                <div class="ai-message">
-                    Afaka mitady hira sy vidéo ianao,
-                    mitahiry azy ireo ho an'ny offline,
-                    ary mametraka fanontaniana amiko.
-                </div>
+                    <button class="control">  
+                        ▶  
+                    </button>  
 
+                    <button class="control">  
+                        🔁  
+                    </button>  
 
-                <div class="ai-input">
+                </div>  
 
-                    <input
-                        id="aiInput"
-                        type="text"
-                        placeholder="Soraty ny fanontanianao..."
-                        onkeydown="aiEnter(event)"
-                    >
+            </div>  
 
-                    <button
-                        class="ai-send"
-                        onclick="sendAI()"
-                    >
-                        ➤
-                    </button>
+        </section>  
 
-                </div>
 
-            </div>
+        <!-- AI -->  
 
-        </section>
+        <section  
+            class="panel"  
+            id="aiSection"  
+        >  
 
-    </div>
+            <div class="panel-header">  
 
+                <div class="panel-title">  
+                    🤖 R Son AI  
+                </div>  
 
-    <!-- ANNOUNCEMENTS -->
+                <small>  
+                    Assistant intelligent  
+                </small>  
 
-    <aside>
+            </div>  
 
-        <section class="panel">
 
-            <div class="panel-header">
+            <div class="ai-box">  
 
-                <div class="panel-title">
-                    📢 Annonces
-                </div>
+                <div class="ai-message">  
+                    Salama! Inona no azoko  
+                    anampiana anao?  
+                </div>  
 
-                <button class="view-all">
-                    Voir tout →
-                </button>
+                <div class="ai-message user">  
+                    Ahoana no fomba fampiasa  
+                    an'i R Son?  
+                </div>  
 
-            </div>
+                <div class="ai-message">  
+                    Afaka mitady hira sy vidéo ianao,  
+                    mitahiry azy ireo ho an'ny offline,  
+                    ary mametraka fanontaniana amiko.  
+                </div>  
 
 
-            <div class="announcement">
+                <div class="ai-input">  
 
-                <div class="announcement-icon">
-                    🎵
-                </div>
+                    <input  
+                        id="aiInput"  
+                        type="text"  
+                        placeholder="Soraty ny fanontanianao..."  
+                        onkeydown="aiEnter(event)"  
+                    >  
 
-                <div>
+                    <button  
+                        class="ai-send"  
+                        onclick="sendAI()"  
+                    >  
+                        ➤  
+                    </button>  
 
-                    <h4>
-                        Nouveau son disponible !
-                    </h4>
+                </div>  
 
-                    <p>
-                        Découvrez le dernier titre
-                        de R Son.
-                    </p>
+            </div>  
 
-                </div>
+        </section>  
 
-            </div>
+    </div>  
 
 
-            <div class="announcement">
+    <!-- ANNOUNCEMENTS -->  
 
-                <div class="announcement-icon">
-                    🎬
-                </div>
+    <aside>  
 
-                <div>
+        <section class="panel">  
 
-                    <h4>
-                        Nouvelle vidéo
-                    </h4>
+            <div class="panel-header">  
 
-                    <p>
-                        Le clip officiel est maintenant
-                        en ligne.
-                    </p>
+                <div class="panel-title">  
+                    📢 Annonces  
+                </div>  
 
-                </div>
+                <button class="view-all">  
+                    Voir tout →  
+                </button>  
 
-            </div>
+            </div>  
 
 
-            <div class="announcement">
+            <div class="announcement">  
 
-                <div class="announcement-icon">
-                    🚀
-                </div>
+                <div class="announcement-icon">  
+                    🎵  
+                </div>  
 
-                <div>
+                <div>  
 
-                    <h4>
-                        Mise à jour de l'app
-                    </h4>
+                    <h4>  
+                        Nouveau son disponible !  
+                    </h4>  
 
-                    <p>
-                        Plus de fonctionnalités
-                        bientôt !
-                    </p>
+                    <p>  
+                        Découvrez le dernier titre  
+                        de R Son.  
+                    </p>  
 
-                </div>
+                </div>  
 
-            </div>
+            </div>  
 
-        </section>
 
-    </aside>
+            <div class="announcement">  
+
+                <div class="announcement-icon">  
+                    🎬  
+                </div>  
+
+                <div>  
+
+                    <h4>  
+                        Nouvelle vidéo  
+                    </h4>  
+
+                    <p>  
+                        Le clip officiel est maintenant  
+                        en ligne.  
+                    </p>  
+
+                </div>  
+
+            </div>  
+
+
+            <div class="announcement">  
+
+                <div class="announcement-icon">  
+                    🚀  
+                </div>  
+
+                <div>  
+
+                    <h4>  
+                        Mise à jour de l'app  
+                    </h4>  
+
+                    <p>  
+                        Plus de fonctionnalités  
+                        bientôt !  
+                    </p>  
+
+                </div>  
+
+            </div>  
+
+        </section>  
+
+    </aside>  
 
 </div>
 
-</main>
+</main>  <!-- MOBILE NAV -->  <nav class="mobile-nav">  <button class="active" onclick="goHome()">  
+    <span>⌂</span>  
+    Accueil  
+</button>  
+
+<button onclick="showMessage('Musique')">  
+    <span>♫</span>  
+    Musique  
+</button>  
+
+<button onclick="showMessage('Vidéos')">  
+    <span>▣</span>  
+    Vidéos  
+</button>  
+
+<button onclick="showMessage('Offline')">  
+    <span>⇩</span>  
+    Offline  
+</button>  
+
+<button onclick="openAI()">  
+    <span>🤖</span>  
+    AI  
+</button>
+
+</nav>  <!-- R SON OWNER PROFILE -->  <div class="modal" id="ownerModal">  <div class="modal-box">  
+
+    <button  
+        class="close"  
+        onclick="closeModal('ownerModal')"  
+    >  
+        ×  
+    </button>  
 
 
-<!-- ============================= -->
-<!-- MOBILE NAV -->
-<!-- ============================= -->
+    <div class="profile-large">  
 
-<nav class="mobile-nav">
+        <div class="avatar-large">  
 
-    <button class="active" onclick="goHome()">
-        <span>⌂</span>
-        Accueil
-    </button>
+            <img  
+                src="logo.png"  
+                alt="R Son"  
+            >  
 
-    <button onclick="showMessage('Musique')">
-        <span>♫</span>
-        Musique
-    </button>
+        </div>  
 
-    <button onclick="showMessage('Vidéos')">
-        <span>▣</span>
-        Vidéos
-    </button>
+        <h2>  
+            R Son  
+        </h2>  
 
-    <button onclick="showMessage('Offline')">
-        <span>⇩</span>
-        Offline
-    </button>
+        <p>  
+            Artiste · Producteur · Créateur  
+        </p>  
 
-    <button onclick="openAI()">
-        <span>🤖</span>
-        AI
-    </button>
+        <p>  
+            tsy hifaninagna fa mba hizara talenta  
+            namian-jagnahary🤗.  
+        </p>  
 
-</nav>
+    </div>  
 
 
-<!-- ============================= -->
-<!-- OWNER PROFILE -->
-<!-- ============================= -->
+    <div class="profile-links">  
 
-<div class="modal" id="ownerModal">
+        <button onclick="showMessage('Profil R Son')">  
+            👤 Mon profil  
+        </button>  
 
-    <div class="modal-box">
+        <button onclick="showMessage('Mes créations')">  
+            🎵 Mes créations  
+        </button>  
 
-        <button
-            class="close"
-            onclick="closeModal('ownerModal')"
-        >
-            ×
-        </button>
+        <button onclick="showMessage('À propos de R Son')">  
+            ℹ️ À propos  
+        </button>  
 
+        <button onclick="showMessage('Contact')">  
+            ✉️ Contact  
+        </button>  
 
-        <div class="profile-large">
-
-            <div class="avatar-large">
-
-                <img
-                    src="logo.png"
-                    alt="R Son"
-                >
-
-            </div>
-
-            <h2>
-                R Son
-            </h2>
-
-            <p>
-                Artiste · Producteur · Créateur
-            </p>
-
-            <p>
-                tsy hifaninagna fa mba hizara talenta
-                namian-jagnahary🤗.
-            </p>
-
-        </div>
-
-
-        <div class="profile-links">
-
-            <button onclick="showMessage('Profil R Son')">
-                👤 Mon profil
-            </button>
-
-            <button onclick="showMessage('Mes créations')">
-                🎵 Mes créations
-            </button>
-
-            <button onclick="showMessage('À propos de R Son')">
-                ℹ️ À propos
-            </button>
-
-            <button onclick="showMessage('Contact')">
-                ✉️ Contact
-            </button>
-
-        </div>
-
-    </div>
+    </div>  
 
 </div>
 
+</div>  <!-- CLIENT ACCOUNT -->  <div class="modal" id="loginModal">  <div class="modal-box">  
 
-<!-- ============================= -->
-<!-- CLIENT LOGIN -->
-<!-- ============================= -->
-
-<div class="modal" id="loginModal">
-
-    <div class="modal-box">
-
-        <button
-            class="close"
-            onclick="closeModal('loginModal')"
-        >
-            ×
-        </button>
+    <button  
+        class="close"  
+        onclick="closeModal('loginModal')"  
+    >  
+        ×  
+    </button>  
 
 
-        <div class="profile-large">
+    <div class="profile-large">  
 
-            <div class="avatar-large">
-                👤
-            </div>
+        <div class="avatar-large">  
+            👤  
+        </div>  
 
-            <h2>
-                Mon compte
-            </h2>
+        <h2>  
+            Mon compte  
+        </h2>  
 
-            <p>
-                Connecte-toi ou inscris-toi pour utiliser
-                toutes les fonctionnalités de R Son.
-            </p>
+        <p>  
+            Connecte-toi ou inscris-toi pour utiliser  
+            toutes les fonctionnalités de R Son.  
+        </p>  
 
-        </div>
-
-
-        <button
-            class="google-login"
-            onclick="googleLogin()"
-        >
-            🔵 Continuer avec Google
-        </button>
+    </div>  
 
 
-        <button
-            class="login-action"
-            onclick="showRegister()"
-        >
-            S'inscrire
-        </button>
+    <button  
+        class="google-login"  
+        onclick="googleLogin()"  
+    >  
+        🔵 Continuer avec Google  
+    </button>  
 
 
-        <button
-            class="login-action"
-            onclick="showLogin()"
-        >
-            Se connecter
-        </button>
+    <button  
+        class="login-action"  
+        onclick="showRegister()"  
+    >  
+        S'inscrire  
+    </button>  
 
 
-        <p class="login-note">
-            Ton compte permet d'utiliser R Son AI,
-            les téléchargements, les playlists et les favoris.
-        </p>
+    <button  
+        class="login-action"  
+        onclick="showLogin()"  
+    >  
+        Se connecter  
+    </button>  
 
-    </div>
+
+    <p class="login-note">  
+        Ton compte permettra d'utiliser R Son AI,  
+        les téléchargements, les playlists et les favoris.  
+    </p>  
 
 </div>
 
+</div>  <!-- REGISTER -->  <div class="modal" id="registerModal">  <div class="modal-box">  
 
-<!-- ============================= -->
-<!-- REGISTER -->
-<!-- ============================= -->
-
-<div class="modal" id="registerModal">
-
-    <div class="modal-box">
-
-        <button
-            class="close"
-            onclick="closeModal('registerModal')"
-        >
-            ×
-        </button>
+    <button  
+        class="close"  
+        onclick="closeModal('registerModal')"  
+    >  
+        ×  
+    </button>  
 
 
-        <div class="profile-large">
+    <div class="profile-large">  
 
-            <div class="avatar-large">
-                👤
-            </div>
+        <div class="avatar-large">  
+            👤  
+        </div>  
 
-            <h2>
-                Créer un compte
-            </h2>
+        <h2>  
+            Créer un compte  
+        </h2>  
 
-            <p>
-                Crée ton compte R Son.
-            </p>
+        <p>  
+            Crée ton compte R Son.  
+        </p>  
 
-        </div>
-
-
-        <input
-            type="text"
-            id="registerName"
-            class="account-input"
-            placeholder="Nom complet"
-            autocomplete="name"
-        >
+    </div>  
 
 
-        <input
-            type="email"
-            id="registerEmail"
-            class="account-input"
-            placeholder="Adresse e-mail"
-            autocomplete="email"
-        >
+    <input  
+        type="text"  
+        id="registerName"  
+        class="account-input"  
+        placeholder="Nom complet"  
+        autocomplete="name"  
+    >  
 
 
-        <input
-            type="password"
-            id="registerPassword"
-            class="account-input"
-            placeholder="Mot de passe"
-            autocomplete="new-password"
-        >
+    <input  
+        type="email"  
+        id="registerEmail"  
+        class="account-input"  
+        placeholder="Adresse e-mail"  
+        autocomplete="email"  
+    >  
 
 
-        <button
-            class="login-action"
-            onclick="registerAccount()"
-        >
-            S'inscrire
-        </button>
+    <input  
+        type="password"  
+        id="registerPassword"  
+        class="account-input"  
+        placeholder="Mot de passe"  
+        autocomplete="new-password"  
+    >  
 
 
-        <button
-            class="switch-account"
-            onclick="openLoginFromRegister()"
-        >
-            J'ai déjà un compte
-        </button>
+    <button  
+        class="login-action"  
+        onclick="registerAccount()"  
+    >  
+        S'inscrire  
+    </button>  
 
 
-        <p class="login-note">
-            Ton compte est enregistré avec Firebase.
-        </p>
+    <button  
+        class="switch-account"  
+        onclick="openLoginFromRegister()"  
+    >  
+        J'ai déjà un compte  
+    </button>  
 
-    </div>
+
+    <p class="login-note">  
+        Cette version est encore un prototype local.  
+    </p>  
 
 </div>
 
+</div>  <!-- LOGIN -->  <div class="modal" id="loginFormModal">  <div class="modal-box">  
 
-<!-- ============================= -->
-<!-- LOGIN -->
-<!-- ============================= -->
-
-<div class="modal" id="loginFormModal">
-
-    <div class="modal-box">
-
-        <button
-            class="close"
-            onclick="closeModal('loginFormModal')"
-        >
-            ×
-        </button>
+    <button  
+        class="close"  
+        onclick="closeModal('loginFormModal')"  
+    >  
+        ×  
+    </button>  
 
 
-        <div class="profile-large">
+    <div class="profile-large">  
 
-            <div class="avatar-large">
-                👤
-            </div>
+        <div class="avatar-large">  
+            👤  
+        </div>  
 
-            <h2>
-                Se connecter
-            </h2>
+        <h2>  
+            Se connecter  
+        </h2>  
 
-            <p>
-                Connecte-toi à ton compte R Son.
-            </p>
+        <p>  
+            Connecte-toi à ton compte R Son.  
+        </p>  
 
-        </div>
-
-
-        <input
-            type="email"
-            id="loginEmail"
-            class="account-input"
-            placeholder="Adresse e-mail"
-            autocomplete="email"
-        >
+    </div>  
 
 
-        <input
-            type="password"
-            id="loginPassword"
-            class="account-input"
-            placeholder="Mot de passe"
-            autocomplete="current-password"
-        >
+    <input  
+        type="email"  
+        id="loginEmail"  
+        class="account-input"  
+        placeholder="Adresse e-mail"  
+        autocomplete="email"  
+    >  
 
 
-        <button
-            class="login-action"
-            onclick="loginAccount()"
-        >
-            Se connecter
-        </button>
+    <input  
+        type="password"  
+        id="loginPassword"  
+        class="account-input"  
+        placeholder="Mot de passe"  
+        autocomplete="current-password"  
+    >  
 
 
-        <button
-            class="switch-account"
-            onclick="openRegisterFromLogin()"
-        >
-            Créer un compte
-        </button>
+    <button  
+        class="login-action"  
+        onclick="loginAccount()"  
+    >  
+        Se connecter  
+    </button>  
 
-    </div>
+
+    <button  
+        class="switch-account"  
+        onclick="openRegisterFromLogin()"  
+    >  
+        Créer un compte  
+    </button>  
 
 </div>
 
+</div>  <!-- CLIENT PROFILE -->  <div class="modal" id="clientProfileModal">  <div class="modal-box">  
 
-<!-- ============================= -->
-<!-- CLIENT PROFILE -->
-<!-- ============================= -->
-
-<div class="modal" id="clientProfileModal">
-
-    <div class="modal-box">
-
-        <button
-            class="close"
-            onclick="closeModal('clientProfileModal')"
-        >
-            ×
-        </button>
+    <button  
+        class="close"  
+        onclick="closeModal('clientProfileModal')"  
+    >  
+        ×  
+    </button>  
 
 
-        <div class="profile-large">
+    <div class="profile-large">  
 
-            <div
-                class="avatar-large"
-                id="clientLargeAvatar"
-            >
-                👤
-            </div>
+        <div  
+            class="avatar-large"  
+            id="clientLargeAvatar"  
+        >  
+            👤  
+        </div>  
 
-            <h2 id="clientLargeName">
-                Mon compte
-            </h2>
+        <h2 id="clientLargeName">  
+            Mon compte  
+        </h2>  
 
-            <p id="clientLargeEmail">
-                Utilisateur R Son
-            </p>
+        <p id="clientLargeEmail">  
+            Utilisateur R Son  
+        </p>  
 
-        </div>
-
-
-        <div class="account-message">
-            Tongasoa ao amin'ny kaontinao R Son.
-        </div>
+    </div>  
 
 
-        <div class="profile-links">
+    <div class="account-message">  
+        Tongasoa ao amin'ny kaontinao R Son.  
+    </div>  
 
-            <button onclick="showMessage('Mes téléchargements')">
-                ⇩ Mes téléchargements
-            </button>
 
-            <button onclick="showMessage('Mes playlists')">
-                ☷ Mes playlists
-            </button>
+    <div class="profile-links">  
 
-            <button onclick="showMessage('Mes favoris')">
-                ♡ Mes favoris
-            </button>
+        <button onclick="showMessage('Mes téléchargements')">  
+            ⇩ Mes téléchargements  
+        </button>  
 
-            <button onclick="logoutAccount()">
-                ↪ Se déconnecter
-            </button>
+        <button onclick="showMessage('Mes playlists')">  
+            ☷ Mes playlists  
+        </button>  
 
-        </div>
+        <button onclick="showMessage('Mes favoris')">  
+            ♡ Mes favoris  
+        </button>  
 
-    </div>
+        <button onclick="logoutAccount()">  
+            ↪ Se déconnecter  
+        </button>  
+
+    </div>  
 
 </div>
 
-
-<!-- ============================= -->
-<!-- BASIC JAVASCRIPT -->
-<!-- ============================= -->
-
-<script>
-
-/* BASIC */
-
-function showMessage(message){
-
-    alert(
-        message +
-        " — fonctionnalité en préparation."
-    );
-
-}
-
-
-function goHome(){
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-}
-
-
-function openAI(){
-
-    const ai =
-        document.getElementById("aiSection");
-
-    if(ai){
-
-        ai.scrollIntoView({
-            behavior:"smooth"
-        });
-
-    }
-
-}
-
-
-/* OWNER PROFILE */
-
-function openOwnerProfile(){
-
-    const modal =
-        document.getElementById("ownerModal");
-
-    if(modal){
-
-        modal.classList.add("show");
-
-    }
-
-}
-
-
-/* MODAL */
-
-function closeModal(id){
-
-    const modal =
-        document.getElementById(id);
-
-    if(modal){
-
-        modal.classList.remove("show");
-
-    }
-
-}
-
-
-document
-.querySelectorAll(".modal")
-.forEach(function(modal){
-
-    modal.addEventListener(
-        "click",
-        function(event){
-
-            if(event.target === modal){
-
-                modal.classList.remove("show");
-
-            }
-
-        }
-    );
-
-});
-
-
-/* REGISTER / LOGIN SWITCH */
-
-function showRegister(){
-
-    closeModal("loginModal");
-
-    const modal =
-        document.getElementById("registerModal");
-
-    if(modal){
-
-        modal.classList.add("show");
-
-    }
-
-}
-
-
-function showLogin(){
-
-    closeModal("loginModal");
-
-    const modal =
-        document.getElementById("loginFormModal");
-
-    if(modal){
-
-        modal.classList.add("show");
-
-    }
-
-}
-
-
-function openRegisterFromLogin(){
-
-    closeModal("loginFormModal");
-
-    showRegister();
-
-}
-
-
-function openLoginFromRegister(){
-
-    closeModal("registerModal");
-
-    showLogin();
-
-}
-
-
-/* MUSIC */
-
-function playSong(song){
-
-    const current =
-        document.getElementById("currentSong");
-
-    if(current){
-
-        current.textContent =
-            song;
-
-    }
-
-    alert(
-        "Lecture : " + song
-    );
-
-}
-
-
-let playing = false;
-
-
-function togglePlay(){
-
-    const button =
-        document.getElementById("playButton");
-
-    if(!button){
-
-        return;
-
-    }
-
-    playing = !playing;
-
-    button.textContent =
-        playing ? "Ⅱ" : "▶";
-
-}
-
-
-/* SEARCH */
-
-function searchContent(event){
-
-    if(event.key !== "Enter"){
-
-        return;
-
-    }
-
-    const input =
-        document.getElementById("searchInput");
-
-    if(!input){
-
-        return;
-
-    }
-
-    const value =
-        input.value.trim();
-
-    if(value){
-
-        alert(
-            "Recherche : " + value
-        );
-
-    }
-
-}
-
-
-/* AI */
-
-function aiEnter(event){
-
-    if(event.key === "Enter"){
-
-        sendAI();
-
-    }
-
-}
-
-
-function sendAI(){
-
-    const input =
-        document.getElementById("aiInput");
-
-    const box =
-        document.querySelector(".ai-box");
-
-    if(!input || !box){
-
-        return;
-
-    }
-
-    const text =
-        input.value.trim();
-
-    if(!text){
-
-        return;
-
-    }
-
-    const userMessage =
-        document.createElement("div");
-
-    userMessage.className =
-        "ai-message user";
-
-    userMessage.textContent =
-        text;
-
-    const aiInput =
-        box.querySelector(".ai-input");
-
-    box.insertBefore(
-        userMessage,
-        aiInput
-    );
-
-
-    const answer =
-        document.createElement("div");
-
-    answer.className =
-        "ai-message";
-
-    answer.textContent =
-        "Salama! R Son AI dia vonona hanampy anao. Ny AI tena izy dia hampifandraisina amin'ny backend rehefa vita ny système.";
-
-    box.insertBefore(
-        answer,
-        aiInput
-    );
-
-    input.value = "";
-
-}
-
-
-/* LANGUAGE */
-
-function changeLanguage(){
-
-    const language =
-        document.getElementById("language");
-
-    if(!language){
-
-        return;
-
-    }
-
-    const value =
-        language.value;
-
-    localStorage.setItem(
-        "rson_language",
-        value
-    );
-
-
-    if(value === "mg"){
-
-        alert(
-            "Fiteny Malagasy voafidy."
-        );
-
-    }
-
-    if(value === "fr"){
-
-        alert(
-            "Français sélectionné."
-        );
-
-    }
-
-    if(value === "en"){
-
-        alert(
-            "English selected."
-        );
-
-    }
-
-}
-
-
-/* THEME */
-
-function toggleTheme(){
-
-    alert(
-        "Mode clair / sombre : fonctionnalité en préparation."
-    );
-
-}
-
-
-/* LOAD */
-
-window.addEventListener(
-    "DOMContentLoaded",
-    function(){
-
-        const savedLanguage =
-            localStorage.getItem(
-                "rson_language"
-            );
-
-        const language =
-            document.getElementById(
-                "language"
-            );
-
-        if(
-            savedLanguage &&
-            language
-        ){
-
-            language.value =
-                savedLanguage;
-
-        }
-
-    }
-);
-
-</script>
-
-
-<!-- ============================= -->
-<!-- FIREBASE -->
-<!-- ============================= -->
-
-<script type="module">
-
-/* ============================= */
-/* FIREBASE APP */
-/* ============================= */
+</div>  <script>  
+  
+/* BASIC */  
+  
+function showMessage(message){  
+  
+    alert(message + " — fonctionnalité en préparation.");  
+  
+}  
+  
+  
+function goHome(){  
+  
+    window.scrollTo({  
+        top:0,  
+        behavior:"smooth"  
+    });  
+  
+}  
+  
+  
+function openAI(){  
+  
+    const ai =  
+        document.getElementById("aiSection");  
+  
+    if(ai){  
+  
+        ai.scrollIntoView({  
+            behavior:"smooth"  
+        });  
+  
+    }  
+  
+}  
+  
+  
+/* OWNER PROFILE */  
+  
+function openOwnerProfile(){  
+  
+    const modal =  
+        document.getElementById("ownerModal");  
+  
+    if(modal){  
+  
+        modal.classList.add("show");  
+  
+    }  
+  
+}  
+  
+  
+/* MODAL */  
+  
+function closeModal(id){  
+  
+    const modal =  
+        document.getElementById(id);  
+  
+    if(modal){  
+  
+        modal.classList.remove("show");  
+  
+    }  
+  
+}  
+  
+  
+document  
+.querySelectorAll(".modal")  
+.forEach(function(modal){  
+  
+    modal.addEventListener("click",function(event){  
+  
+        if(event.target === modal){  
+  
+            modal.classList.remove("show");  
+  
+        }  
+  
+    });  
+  
+});  
+  
+  
+/* CLIENT ACCOUNT */  
+  
+function openLogin(){  
+  
+    const savedUser =  
+        localStorage.getItem("rson_user");  
+  
+    if(savedUser){  
+  
+        openClientProfile();  
+  
+        return;  
+  
+    }  
+  
+    const modal =  
+        document.getElementById("loginModal");  
+  
+    if(modal){  
+  
+        modal.classList.add("show");  
+  
+    }  
+  
+}  
+  
+  
+function openClientProfile(){  
+  
+    const modal =  
+        document.getElementById("clientProfileModal");  
+  
+    if(!modal){  
+  
+        return;  
+  
+    }  
+  
+    const savedUser =  
+        localStorage.getItem("rson_user");  
+  
+    if(savedUser){  
+  
+        try{  
+  
+            const user =  
+                JSON.parse(savedUser);  
+  
+            document.getElementById(  
+                "clientLargeName"  
+            ).textContent =  
+                user.name || "Mon compte";  
+  
+            document.getElementById(  
+                "clientLargeEmail"  
+            ).textContent =  
+                user.email || "Utilisateur R Son";  
+  
+        }catch(error){  
+  
+            console.log(error);  
+  
+        }  
+  
+    }  
+  
+    modal.classList.add("show");  
+  
+}  
+  
+  
+/* GOOGLE */  
+  
+function googleLogin(){  
+  
+    alert(  
+        "Google Sign-In réel sera connecté au backend."  
+    );  
+  
+}  
+  
+  
+/* REGISTER */  
+  
+function showRegister(){  
+  
+    closeModal("loginModal");  
+  
+    const modal =  
+        document.getElementById("registerModal");  
+  
+    if(modal){  
+  
+        modal.classList.add("show");  
+  
+    }  
+  
+}  
+  
+  
+function registerAccount(){  
+  
+    const name =  
+        document.getElementById("registerName").value.trim();  
+  
+    const email =  
+        document.getElementById("registerEmail").value.trim();  
+  
+    const password =  
+        document.getElementById("registerPassword").value.trim();  
+  
+  
+    if(!name || !email || !password){  
+  
+        alert(  
+            "Veuillez remplir tous les champs."  
+        );  
+  
+        return;  
+  
+    }  
+  
+  
+    if(password.length < 6){  
+  
+        alert(  
+            "Le mot de passe doit contenir au moins 6 caractères."  
+        );  
+  
+        return;  
+  
+    }  
+  
+  
+    const user = {  
+  
+        name:name,  
+        email:email  
+  
+    };  
+  
+  
+    localStorage.setItem(  
+        "rson_user",  
+        JSON.stringify(user)  
+    );  
+  
+  
+    closeModal("registerModal");  
+  
+    updateCustomerProfile();  
+  
+    alert(  
+        "Compte créé avec succès."  
+    );  
+  
+    openClientProfile();  
+  
+}  
+  
+  
+/* LOGIN */  
+  
+function showLogin(){  
+  
+    closeModal("loginModal");  
+  
+    const modal =  
+        document.getElementById("loginFormModal");  
+  
+    if(modal){  
+  
+        modal.classList.add("show");  
+  
+    }  
+  
+}  
+  
+  
+function loginAccount(){  
+  
+    const email =  
+        document.getElementById("loginEmail").value.trim();  
+  
+    const password =  
+        document.getElementById("loginPassword").value.trim();  
+  
+  
+    if(!email || !password){  
+  
+        alert(  
+            "Veuillez remplir tous les champs."  
+        );  
+  
+        return;  
+  
+    }  
+  
+  
+    if(password.length < 6){  
+  
+        alert(  
+            "Le mot de passe doit contenir au moins 6 caractères."  
+        );  
+  
+        return;  
+  
+    }  
+  
+  
+    const savedUser =  
+        localStorage.getItem("rson_user");  
+  
+  
+    if(savedUser){  
+  
+        try{  
+  
+            const user =  
+                JSON.parse(savedUser);  
+  
+            if(  
+                user.email &&  
+                user.email.toLowerCase() ===  
+                email.toLowerCase()  
+            ){  
+  
+                closeModal("loginFormModal");  
+  
+                updateCustomerProfile();  
+  
+                alert(  
+                    "Connexion réussie."  
+                );  
+  
+                openClientProfile();  
+  
+                return;  
+  
+            }  
+  
+        }catch(error){  
+  
+            console.log(error);  
+  
+        }  
+  
+    }  
+  
+  
+    const demoUser = {  
+  
+        name:"Utilisateur R Son",  
+        email:email  
+  
+    };  
+  
+  
+    localStorage.setItem(  
+        "rson_user",  
+        JSON.stringify(demoUser)  
+    );  
+  
+  
+    closeModal("loginFormModal");  
+  
+    updateCustomerProfile();  
+  
+    alert(  
+        "Connexion réussie en mode prototype."  
+    );  
+  
+    openClientProfile();  
+  
+}  
+  
+  
+/* SWITCH */  
+  
+function openRegisterFromLogin(){  
+  
+    closeModal("loginFormModal");  
+  
+    showRegister();  
+  
+}  
+  
+  
+function openLoginFromRegister(){  
+  
+    closeModal("registerModal");  
+  
+    showLogin();  
+  
+}  
+  
+  
+/* UPDATE PROFILE */  
+  
+function updateCustomerProfile(){  
+  
+    const savedUser =  
+        localStorage.getItem("rson_user");  
+  
+    const nameElement =  
+        document.getElementById("customerName");  
+  
+    const statusElement =  
+        document.getElementById("customerStatus");  
+  
+  
+    if(!savedUser){  
+  
+        if(nameElement){  
+  
+            nameElement.textContent =  
+                "Mon compte";  
+  
+        }  
+  
+        if(statusElement){  
+  
+            statusElement.textContent =  
+                "Se connecter / S'inscrire";  
+  
+        }  
+  
+        return;  
+  
+    }  
+  
+  
+    try{  
+  
+        const user =  
+            JSON.parse(savedUser);  
+  
+  
+        if(nameElement){  
+  
+            nameElement.textContent =  
+                user.name || "Utilisateur";  
+  
+        }  
+  
+  
+        if(statusElement){  
+  
+            statusElement.innerHTML =  
+                "Compte connecté " +  
+                '<span class="online-dot"></span>';  
+  
+        }  
+  
+    }catch(error){  
+  
+        console.log(error);  
+  
+    }  
+  
+}  
+  
+  
+/* LOGOUT */  
+  
+function logoutAccount(){  
+  
+    localStorage.removeItem(  
+        "rson_user"  
+    );  
+  
+    closeModal(  
+        "clientProfileModal"  
+    );  
+  
+    updateCustomerProfile();  
+  
+    alert(  
+        "Tu es maintenant déconnecté."  
+    );  
+  
+}  
+  
+  
+/* MUSIC */  
+  
+function playSong(song){  
+  
+    const current =  
+        document.getElementById("currentSong");  
+  
+    if(current){  
+  
+        current.textContent =  
+            song;  
+  
+    }  
+  
+    alert(  
+        "Lecture : " + song  
+    );  
+  
+}  
+  
+  
+let playing = false;  
+  
+  
+function togglePlay(){  
+  
+    const button =  
+        document.getElementById("playButton");  
+  
+    if(!button){  
+  
+        return;  
+  
+    }  
+  
+  
+    playing = !playing;  
+  
+  
+    button.textContent =  
+        playing ? "Ⅱ" : "▶";  
+  
+}  
+  
+  
+/* SEARCH */  
+  
+function searchContent(event){  
+  
+    if(event.key !== "Enter"){  
+  
+        return;  
+  
+    }  
+  
+  
+    const input =  
+        document.getElementById("searchInput");  
+  
+  
+    if(!input){  
+  
+        return;  
+  
+    }  
+  
+  
+    const value =  
+        input.value.trim();  
+  
+  
+    if(value){  
+  
+        alert(  
+            "Recherche : " + value  
+        );  
+  
+    }  
+  
+}  
+  
+  
+/* AI */  
+  
+function aiEnter(event){  
+  
+    if(event.key === "Enter"){  
+  
+        sendAI();  
+  
+    }  
+  
+}  
+  
+  
+function sendAI(){  
+  
+    const input =  
+        document.getElementById("aiInput");  
+  
+    const box =  
+        document.querySelector(".ai-box");  
+  
+  
+    if(!input || !box){  
+  
+        return;  
+  
+    }  
+  
+  
+    const text =  
+        input.value.trim();  
+  
+  
+    if(!text){  
+  
+        return;  
+  
+    }  
+  
+  
+    const userMessage =  
+        document.createElement("div");  
+  
+    userMessage.className =  
+        "ai-message user";  
+  
+    userMessage.textContent =  
+        text;  
+  
+  
+    const aiInput =  
+        box.querySelector(".ai-input");  
+  
+  
+    box.insertBefore(  
+        userMessage,  
+        aiInput  
+    );  
+  
+  
+    const answer =  
+        document.createElement("div");  
+  
+    answer.className =  
+        "ai-message";  
+  
+    answer.textContent =  
+        "Salama! R Son AI dia vonona hanampy anao. Ny AI tena izy dia hampifandraisina amin'ny backend rehefa vita ny système.";  
+  
+  
+    box.insertBefore(  
+        answer,  
+        aiInput  
+    );  
+  
+  
+    input.value = "";  
+  
+}  
+  
+  
+/* LANGUAGE */  
+  
+function changeLanguage(){  
+  
+    const language =  
+        document.getElementById("language");  
+  
+  
+    if(!language){  
+  
+        return;  
+  
+    }  
+  
+  
+    const value =  
+        language.value;  
+  
+  
+    localStorage.setItem(  
+        "rson_language",  
+        value  
+    );  
+  
+  
+    if(value === "mg"){  
+  
+        alert(  
+            "Fiteny Malagasy voafidy."  
+        );  
+  
+    }  
+  
+    if(value === "fr"){  
+  
+        alert(  
+            "Français sélectionné."  
+        );  
+  
+    }  
+  
+    if(value === "en"){  
+  
+        alert(  
+            "English selected."  
+        );  
+  
+    }  
+  
+}  
+  
+  
+/* THEME */  
+  
+function toggleTheme(){  
+  
+    alert(  
+        "Mode clair / sombre : fonctionnalité en préparation."  
+    );  
+  
+}  
+  
+  
+/* LOAD */  
+  
+window.addEventListener(  
+    "DOMContentLoaded",  
+    function(){  
+  
+        const savedLanguage =  
+            localStorage.getItem("rson_language");  
+  
+  
+        const language =  
+            document.getElementById("language");  
+  
+  
+        if(  
+            savedLanguage &&  
+            language  
+        ){  
+  
+            language.value =  
+                savedLanguage;  
+  
+        }  
+  
+  
+        updateCustomerProfile();  
+  
+    }  
+);  
+  
+</script> 
+    <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
 import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-
-
-/* ============================= */
-/* FIREBASE AUTH */
-/* ============================= */
-
-import {
-
     getAuth,
-
     GoogleAuthProvider,
-
     signInWithRedirect,
-
     getRedirectResult,
-
     createUserWithEmailAndPassword,
-
     signInWithEmailAndPassword,
-
     updateProfile,
-
     onAuthStateChanged,
-
     signOut
-
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
 
-/* ============================= */
-/* FIRESTORE */
-/* ============================= */
-
-import {
-
-    getFirestore,
-
-    doc,
-
-    setDoc,
-
-    serverTimestamp
-
-} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
-
-
-/* ============================= */
 /* FIREBASE CONFIG */
-/* ============================= */
 
 const firebaseConfig = {
 
-    apiKey:
-        "AIzaSyDNDRLj-mSOGuWEzRjDIm3L7L4YpoPPVOQ",
+    apiKey: "AIzaSyDNDRLj-mSOGuWEzRjDIm3L7L4YpoPPVOQ",
 
-    authDomain:
-        "r-son-production.firebaseapp.com",
+    authDomain: "r-son-production.firebaseapp.com",
 
-    projectId:
-        "r-son-production",
+    projectId: "r-son-production",
 
-    storageBucket:
-        "r-son-production.firebasestorage.app",
+    storageBucket: "r-son-production.firebasestorage.app",
 
-    messagingSenderId:
-        "65262424057",
+    messagingSenderId: "65262424057",
 
-    appId:
-        "1:65262424057:web:aaa2f38813653bb504f728",
+    appId: "1:65262424057:web:aaa2f38813653bb504f728",
 
-    measurementId:
-        "G-WSSE2N4EZ1"
+    measurementId: "G-WSSE2N4EZ1"
 
 };
 
 
-/* ============================= */
-/* INITIALIZE */
-/* ============================= */
+/* INITIALIZE FIREBASE */
 
-const app =
-    initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const auth =
-    getAuth(app);
+const auth = getAuth(app);
 
-const db =
-    getFirestore(app);
-
-const googleProvider =
-    new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
 
-/* ============================= */
-/* SAVE USER TO FIRESTORE */
-/* ============================= */
-
-async function saveUserToFirestore(user){
-
-    if(!user){
-
-        return;
-
-    }
-
-
-    try{
-
-        await setDoc(
-
-            doc(
-                db,
-                "users",
-                user.uid
-            ),
-
-            {
-
-                uid:
-                    user.uid,
-
-                name:
-                    user.displayName ||
-                    "Utilisateur R Son",
-
-                email:
-                    user.email ||
-                    "",
-
-                photoURL:
-                    user.photoURL ||
-                    "",
-
-                lastLogin:
-                    serverTimestamp()
-
-            },
-
-            {
-                merge:true
-            }
-
-        );
-
-        console.log(
-            "Utilisateur enregistré dans Firestore."
-        );
-
-    }catch(error){
-
-        console.error(
-            "Firestore user error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* ============================= */
 /* GOOGLE LOGIN */
-/* ============================= */
 
 window.googleLogin = async function(){
 
@@ -2664,76 +2736,48 @@ window.googleLogin = async function(){
 };
 
 
-/* ============================= */
-/* GOOGLE REDIRECT */
-/* ============================= */
+/* CHECK GOOGLE REDIRECT */
 
 getRedirectResult(auth)
+.then(function(result){
 
-.then(
-    async function(result){
+    if(result && result.user){
 
-        if(
-            result &&
-            result.user
-        ){
+        closeModal("loginModal");
 
-            await saveUserToFirestore(
-                result.user
-            );
+        closeModal("loginFormModal");
 
-            closeModal(
-                "loginModal"
-            );
+        closeModal("registerModal");
 
-            closeModal(
-                "loginFormModal"
-            );
-
-            closeModal(
-                "registerModal"
-            );
-
-            updateFirebaseProfile(
-                result.user
-            );
-
-            openClientProfile();
-
-        }
+        openClientProfile();
 
     }
-)
 
-.catch(
-    function(error){
+})
+.catch(function(error){
 
-        if(error){
+    if(error){
 
-            console.error(
-                "Google login:",
-                error
-            );
+        console.error(
+            "Google login:",
+            error
+        );
 
-            alert(
-                "Connexion Google impossible : " +
-                error.message
-            );
-
-        }
+        alert(
+            "Connexion Google impossible : " +
+            error.message
+        );
 
     }
-);
+
+});
 
 
-/* ============================= */
 /* OPEN ACCOUNT */
-/* ============================= */
 
 window.openLogin = function(){
 
-    const user =
-        auth.currentUser;
+    const user = auth.currentUser;
 
     if(user){
 
@@ -2744,56 +2788,40 @@ window.openLogin = function(){
     }
 
     const modal =
-        document.getElementById(
-            "loginModal"
-        );
+        document.getElementById("loginModal");
 
     if(modal){
 
-        modal.classList.add(
-            "show"
-        );
+        modal.classList.add("show");
 
     }
 
 };
 
 
-/* ============================= */
 /* REGISTER */
-/* ============================= */
 
 window.registerAccount = async function(){
 
     const name =
         document
-        .getElementById(
-            "registerName"
-        )
+        .getElementById("registerName")
         .value
         .trim();
 
     const email =
         document
-        .getElementById(
-            "registerEmail"
-        )
+        .getElementById("registerEmail")
         .value
         .trim();
 
     const password =
         document
-        .getElementById(
-            "registerPassword"
-        )
+        .getElementById("registerPassword")
         .value;
 
 
-    if(
-        !name ||
-        !email ||
-        !password
-    ){
+    if(!name || !email || !password){
 
         alert(
             "Veuillez remplir tous les champs."
@@ -2817,8 +2845,6 @@ window.registerAccount = async function(){
 
     try{
 
-        /* CREATE AUTH ACCOUNT */
-
         const result =
             await createUserWithEmailAndPassword(
                 auth,
@@ -2826,8 +2852,6 @@ window.registerAccount = async function(){
                 password
             );
 
-
-        /* SAVE DISPLAY NAME */
 
         await updateProfile(
             result.user,
@@ -2837,70 +2861,22 @@ window.registerAccount = async function(){
         );
 
 
-        /* SAVE USER IN FIRESTORE */
-
-        await setDoc(
-
-            doc(
-                db,
-                "users",
-                result.user.uid
-            ),
-
-            {
-
-                uid:
-                    result.user.uid,
-
-                name:
-                    name,
-
-                email:
-                    result.user.email,
-
-                photoURL:
-                    result.user.photoURL ||
-                    "",
-
-                createdAt:
-                    serverTimestamp(),
-
-                lastLogin:
-                    serverTimestamp()
-
-            },
-
-            {
-                merge:true
-            }
-
-        );
-
-
-        closeModal(
-            "registerModal"
-        );
-
+        closeModal("registerModal");
 
         updateFirebaseProfile(
             result.user
         );
 
-
         alert(
             "Compte R Son créé avec succès !"
         );
-
 
         openClientProfile();
 
 
     }catch(error){
 
-        console.error(
-            error
-        );
-
+        console.error(error);
 
         if(
             error.code ===
@@ -2912,7 +2888,6 @@ window.registerAccount = async function(){
             );
 
         }
-
         else if(
             error.code ===
             "auth/invalid-email"
@@ -2923,18 +2898,16 @@ window.registerAccount = async function(){
             );
 
         }
-
         else if(
             error.code ===
             "auth/weak-password"
         ){
 
             alert(
-                "Le mot de passe doit contenir au moins 6 caractères."
+                "Le mot de passe est trop faible."
             );
 
         }
-
         else{
 
             alert(
@@ -2949,32 +2922,23 @@ window.registerAccount = async function(){
 };
 
 
-/* ============================= */
 /* LOGIN */
-/* ============================= */
 
 window.loginAccount = async function(){
 
     const email =
         document
-        .getElementById(
-            "loginEmail"
-        )
+        .getElementById("loginEmail")
         .value
         .trim();
 
     const password =
         document
-        .getElementById(
-            "loginPassword"
-        )
+        .getElementById("loginPassword")
         .value;
 
 
-    if(
-        !email ||
-        !password
-    ){
+    if(!email || !password){
 
         alert(
             "Veuillez remplir tous les champs."
@@ -2995,36 +2959,22 @@ window.loginAccount = async function(){
             );
 
 
-        /* UPDATE FIRESTORE */
-
-        await saveUserToFirestore(
-            result.user
-        );
-
-
-        closeModal(
-            "loginFormModal"
-        );
-
+        closeModal("loginFormModal");
 
         updateFirebaseProfile(
             result.user
         );
 
-
         alert(
             "Connexion réussie !"
         );
-
 
         openClientProfile();
 
 
     }catch(error){
 
-        console.error(
-            error
-        );
+        console.error(error);
 
 
         if(
@@ -3037,7 +2987,6 @@ window.loginAccount = async function(){
             );
 
         }
-
         else if(
             error.code ===
             "auth/user-not-found"
@@ -3048,7 +2997,6 @@ window.loginAccount = async function(){
             );
 
         }
-
         else{
 
             alert(
@@ -3063,14 +3011,11 @@ window.loginAccount = async function(){
 };
 
 
-/* ============================= */
 /* CLIENT PROFILE */
-/* ============================= */
 
 window.openClientProfile = function(){
 
-    const user =
-        auth.currentUser;
+    const user = auth.currentUser;
 
     if(!user){
 
@@ -3081,9 +3026,7 @@ window.openClientProfile = function(){
     }
 
 
-    updateFirebaseProfile(
-        user
-    );
+    updateFirebaseProfile(user);
 
 
     const modal =
@@ -3094,18 +3037,14 @@ window.openClientProfile = function(){
 
     if(modal){
 
-        modal.classList.add(
-            "show"
-        );
+        modal.classList.add("show");
 
     }
 
 };
 
 
-/* ============================= */
 /* UPDATE PROFILE UI */
-/* ============================= */
 
 function updateFirebaseProfile(user){
 
@@ -3212,40 +3151,30 @@ function updateFirebaseProfile(user){
 
     }
 
-}
+};
 
 
-/* ============================= */
 /* LOGOUT */
-/* ============================= */
 
 window.logoutAccount = async function(){
 
     try{
 
-        await signOut(
-            auth
-        );
-
+        await signOut(auth);
 
         closeModal(
             "clientProfileModal"
         );
 
-
         updateFirebaseLoggedOutUI();
-
 
         alert(
             "Tu es maintenant déconnecté."
         );
 
-
     }catch(error){
 
-        console.error(
-            error
-        );
+        console.error(error);
 
         alert(
             "Erreur lors de la déconnexion."
@@ -3256,9 +3185,7 @@ window.logoutAccount = async function(){
 };
 
 
-/* ============================= */
 /* LOGGED OUT UI */
-/* ============================= */
 
 function updateFirebaseLoggedOutUI(){
 
@@ -3287,11 +3214,6 @@ function updateFirebaseLoggedOutUI(){
             "clientLargeEmail"
         );
 
-    const largeAvatar =
-        document.getElementById(
-            "clientLargeAvatar"
-        );
-
 
     if(nameElement){
 
@@ -3311,7 +3233,7 @@ function updateFirebaseLoggedOutUI(){
 
     if(avatar){
 
-        avatar.innerHTML =
+        avatar.textContent =
             "👤";
 
     }
@@ -3332,41 +3254,18 @@ function updateFirebaseLoggedOutUI(){
 
     }
 
-
-    if(largeAvatar){
-
-        largeAvatar.innerHTML =
-            "👤";
-
-    }
-
-}
+};
 
 
-/* ============================= */
-/* AUTH STATE */
-/* ============================= */
+/* FIREBASE AUTH STATE */
 
 onAuthStateChanged(
-
     auth,
-
-    async function(user){
+    function(user){
 
         if(user){
 
-            updateFirebaseProfile(
-                user
-            );
-
-            /*
-             * Ensures the Firestore user document
-             * exists even after page reload.
-             */
-
-            await saveUserToFirestore(
-                user
-            );
+            updateFirebaseProfile(user);
 
         }else{
 
@@ -3375,12 +3274,8 @@ onAuthStateChanged(
         }
 
     }
-
 );
 
 </script>
-
-
-</body>
-
+</body>  
 </html>
