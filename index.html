@@ -2103,74 +2103,41 @@ window.addEventListener("DOMContentLoaded",function(){
 
 });
 function registerAccount(){
-
-    const name =
-        document.getElementById("registerName").value.trim();
-
-    const email =
-        document.getElementById("registerEmail").value.trim();
-
-    const password =
-        document.getElementById("registerPassword").value.trim();
+    const name = document.getElementById("registerName").value.trim();
+    const email = document.getElementById("registerEmail").value.trim();
+    const password = document.getElementById("registerPassword").value.trim();
 
     if(!name || !email || !password){
-
         alert("Veuillez remplir tous les champs.");
-
         return;
     }
 
-    alert(
-        "Compte créé avec succès. Le système sécurisé sera connecté au backend."
-    );
-
+    alert("Compte créé avec succès.");
 }
-
 
 function loginAccount(){
-
-    const email =
-        document.getElementById("loginEmail").value.trim();
-
-    const password =
-        document.getElementById("loginPassword").value.trim();
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
 
     if(!email || !password){
-
         alert("Veuillez remplir tous les champs.");
-
         return;
     }
 
-    alert(
-        "Connexion réussie. Le système sécurisé sera connecté au backend."
-    );
-
+    alert("Connexion réussie.");
 }
-
 
 function openRegisterFromLogin(){
-
     closeModal("loginFormModal");
-
-    document
-        .getElementById("registerModal")
-        .classList
-        .add("show");
-
+    document.getElementById("registerModal").classList.add("show");
 }
-
 
 function openLoginFromRegister(){
-
     closeModal("registerModal");
-
-    document
-        .getElementById("loginFormModal")
-        .classList
-        .add("show");
-
+    document.getElementById("loginFormModal").classList.add("show");
 }
+
+    
 </script>
 
 </body>
