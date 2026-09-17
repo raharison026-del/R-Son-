@@ -2664,7 +2664,9 @@ window.addEventListener(
 );  
   
 </script> 
-    <script type="module">
+
+  <!-- FIREBASE AUTH -->
+<script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
@@ -2684,30 +2686,20 @@ import {
 /* FIREBASE CONFIG */
 
 const firebaseConfig = {
-
     apiKey: "AIzaSyDNDRLj-mSOGuWEzRjDIm3L7L4YpoPPVOQ",
-
     authDomain: "r-son-production.firebaseapp.com",
-
     projectId: "r-son-production",
-
     storageBucket: "r-son-production.firebasestorage.app",
-
     messagingSenderId: "65262424057",
-
     appId: "1:65262424057:web:aaa2f38813653bb504f728",
-
     measurementId: "G-WSSE2N4EZ1"
-
 };
 
 
 /* INITIALIZE FIREBASE */
 
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
-
 const googleProvider = new GoogleAuthProvider();
 
 
@@ -2744,10 +2736,10 @@ getRedirectResult(auth)
     if(result && result.user){
 
         closeModal("loginModal");
-
         closeModal("loginFormModal");
-
         closeModal("registerModal");
+
+        updateFirebaseProfile(result.user);
 
         openClientProfile();
 
@@ -2877,6 +2869,7 @@ window.registerAccount = async function(){
     }catch(error){
 
         console.error(error);
+
 
         if(
             error.code ===
