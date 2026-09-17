@@ -2735,6 +2735,618 @@ window.addEventListener(
 );
 
 </script>
+<script type="module">
 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithRedirect,
+    getRedirectResult,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    updateProfile,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+
+/* FIREBASE CONFIG */
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyDNDRLj-mSOGuWEzRjDIm3L7L4YpoPPVOQ",
+
+    authDomain: "r-son-production.firebaseapp.com",
+
+    projectId: "r-son-production",
+
+    storageBucket: "r-son-production.firebasestorage.app",
+
+    messagingSenderId: "65262424057",
+
+    appId: "1:65262424057:web:aaa2f38813653bb504f728",
+
+    measurementId: "G-WSSE2N4EZ1"
+
+};
+
+
+/* INITIALIZE FIREBASE */
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const googleProvider = new GoogleAuthProvider();
+
+
+/* GOOGLE LOGIN */
+
+window.googleLogin = async function(){
+
+    try{
+
+        await signInWithRedirect(
+            auth,
+            googleProvider
+        );
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "Erreur Google : " +
+            error.message
+        );
+
+    }
+
+};
+
+
+/* CHECK GOOGLE REDIRECT */
+
+getRedirectResult(auth)
+.then(function(result){
+
+    if(result && result.user){
+
+        closeModal("loginModal");
+
+        closeModal("loginFormModal");
+
+        closeModal("registerModal");
+
+        openClientProfile();
+
+    }
+
+})
+.catch(function(error){
+
+    if(error){
+
+        console.error(
+            "Google login:",
+            error
+        );
+
+        alert(
+            "Connexion Google impossible : " +
+            error.message
+        );
+
+    }
+
+});
+
+
+/* OPEN ACCOUNT */
+
+window.openLogin = function(){
+
+    const user = auth.currentUser;
+
+    if(user){
+
+        openClientProfile();
+
+        return;
+
+    }
+
+    const modal =
+        document.getElementById("loginModal");
+
+    if(modal){
+
+        modal.classList.add("show");
+
+    }
+
+};
+
+
+/* REGISTER */
+
+window.registerAccount = async function(){
+
+    const name =
+        document
+        .getElementById("registerName")
+        .value
+        .trim();
+
+    const email =
+        document
+        .getElementById("registerEmail")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("registerPassword")
+        .value;
+
+
+    if(!name || !email || !password){
+
+        alert(
+            "Veuillez remplir tous les champs."
+        );
+
+        return;
+
+    }
+
+
+    if(password.length < 6){
+
+        alert(
+            "Le mot de passe doit contenir au moins 6 caractères."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        const result =
+            await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+        await updateProfile(
+            result.user,
+            {
+                displayName:name
+            }
+        );
+
+
+        closeModal("registerModal");
+
+        updateFirebaseProfile(
+            result.user
+        );
+
+        alert(
+            "Compte R Son créé avec succès !"
+        );
+
+        openClientProfile();
+
+
+    }catch(error){
+
+        console.error(error);
+
+        if(
+            error.code ===
+            "auth/email-already-in-use"
+        ){
+
+            alert(
+                "Cette adresse e-mail possède déjà un compte."
+            );
+
+        }
+        else if(
+            error.code ===
+            "auth/invalid-email"
+        ){
+
+            alert(
+                "Adresse e-mail invalide."
+            );
+
+        }
+        else if(
+            error.code ===
+            "auth/weak-password"
+        ){
+
+            alert(
+                "Le mot de passe est trop faible."
+            );
+
+        }
+        else{
+
+            alert(
+                "Erreur lors de la création du compte : " +
+                error.message
+            );
+
+        }
+
+    }
+
+};
+
+
+/* LOGIN */
+
+window.loginAccount = async function(){
+
+    const email =
+        document
+        .getElementById("loginEmail")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("loginPassword")
+        .value;
+
+
+    if(!email || !password){
+
+        alert(
+            "Veuillez remplir tous les champs."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        const result =
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+        closeModal("loginFormModal");
+
+        updateFirebaseProfile(
+            result.user
+        );
+
+        alert(
+            "Connexion réussie !"
+        );
+
+        openClientProfile();
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        if(
+            error.code ===
+            "auth/invalid-credential"
+        ){
+
+            alert(
+                "E-mail ou mot de passe incorrect."
+            );
+
+        }
+        else if(
+            error.code ===
+            "auth/user-not-found"
+        ){
+
+            alert(
+                "Aucun compte trouvé avec cet e-mail."
+            );
+
+        }
+        else{
+
+            alert(
+                "Erreur de connexion : " +
+                error.message
+            );
+
+        }
+
+    }
+
+};
+
+
+/* CLIENT PROFILE */
+
+window.openClientProfile = function(){
+
+    const user = auth.currentUser;
+
+    if(!user){
+
+        openLogin();
+
+        return;
+
+    }
+
+
+    updateFirebaseProfile(user);
+
+
+    const modal =
+        document.getElementById(
+            "clientProfileModal"
+        );
+
+
+    if(modal){
+
+        modal.classList.add("show");
+
+    }
+
+};
+
+
+/* UPDATE PROFILE UI */
+
+function updateFirebaseProfile(user){
+
+    if(!user){
+
+        return;
+
+    }
+
+
+    const name =
+        user.displayName ||
+        "Utilisateur R Son";
+
+    const email =
+        user.email ||
+        "Utilisateur R Son";
+
+
+    const nameElement =
+        document.getElementById(
+            "customerName"
+        );
+
+    const statusElement =
+        document.getElementById(
+            "customerStatus"
+        );
+
+    const largeName =
+        document.getElementById(
+            "clientLargeName"
+        );
+
+    const largeEmail =
+        document.getElementById(
+            "clientLargeEmail"
+        );
+
+    const avatar =
+        document.getElementById(
+            "customerAvatar"
+        );
+
+    const largeAvatar =
+        document.getElementById(
+            "clientLargeAvatar"
+        );
+
+
+    if(nameElement){
+
+        nameElement.textContent =
+            name;
+
+    }
+
+
+    if(statusElement){
+
+        statusElement.innerHTML =
+            "Compte connecté " +
+            '<span class="online-dot"></span>';
+
+    }
+
+
+    if(largeName){
+
+        largeName.textContent =
+            name;
+
+    }
+
+
+    if(largeEmail){
+
+        largeEmail.textContent =
+            email;
+
+    }
+
+
+    if(user.photoURL){
+
+        if(avatar){
+
+            avatar.innerHTML =
+                '<img src="' +
+                user.photoURL +
+                '" alt="Photo de profil">';
+
+        }
+
+
+        if(largeAvatar){
+
+            largeAvatar.innerHTML =
+                '<img src="' +
+                user.photoURL +
+                '" alt="Photo de profil">';
+
+        }
+
+    }
+
+};
+
+
+/* LOGOUT */
+
+window.logoutAccount = async function(){
+
+    try{
+
+        await signOut(auth);
+
+        closeModal(
+            "clientProfileModal"
+        );
+
+        updateFirebaseLoggedOutUI();
+
+        alert(
+            "Tu es maintenant déconnecté."
+        );
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "Erreur lors de la déconnexion."
+        );
+
+    }
+
+};
+
+
+/* LOGGED OUT UI */
+
+function updateFirebaseLoggedOutUI(){
+
+    const nameElement =
+        document.getElementById(
+            "customerName"
+        );
+
+    const statusElement =
+        document.getElementById(
+            "customerStatus"
+        );
+
+    const avatar =
+        document.getElementById(
+            "customerAvatar"
+        );
+
+    const largeName =
+        document.getElementById(
+            "clientLargeName"
+        );
+
+    const largeEmail =
+        document.getElementById(
+            "clientLargeEmail"
+        );
+
+
+    if(nameElement){
+
+        nameElement.textContent =
+            "Mon compte";
+
+    }
+
+
+    if(statusElement){
+
+        statusElement.textContent =
+            "Se connecter / S'inscrire";
+
+    }
+
+
+    if(avatar){
+
+        avatar.textContent =
+            "👤";
+
+    }
+
+
+    if(largeName){
+
+        largeName.textContent =
+            "Mon compte";
+
+    }
+
+
+    if(largeEmail){
+
+        largeEmail.textContent =
+            "Utilisateur R Son";
+
+    }
+
+};
+
+
+/* FIREBASE AUTH STATE */
+
+onAuthStateChanged(
+    auth,
+    function(user){
+
+        if(user){
+
+            updateFirebaseProfile(user);
+
+        }else{
+
+            updateFirebaseLoggedOutUI();
+
+        }
+
+    }
+);
+
+</script>
 </body>
 </html>
