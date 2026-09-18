@@ -1,3567 +1,3353 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="mg">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>R Son Production</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
 <style>
-:root{
---bg:#061426;
---panel:#09213a;
---line:#164a72;
---blue:#078cff;
---cyan:#08c8ff;
---text:#fff;
---muted:#8da8c0
-}
 
 *{
-box-sizing:border-box;
-margin:0;
-padding:0;
-font-family:Poppins,Arial,sans-serif
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 body{
-height:100vh;
-overflow:hidden;
-background:var(--bg);
-color:var(--text);
-display:flex
+    font-family:Arial,sans-serif;
+    background:#07111d;
+    color:#fff;
+    padding-bottom:80px;
 }
 
 button,input,select{
-font:inherit
+    font-family:inherit;
 }
 
+button{
+    cursor:pointer;
+    border:none;
+}
+
+.app{
+    min-height:100vh;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
 .sidebar{
-width:220px;
-min-width:220px;
-height:100vh;
-background:#05172a;
-border-right:1px solid var(--line);
-padding:12px;
-display:flex;
-flex-direction:column;
-justify-content:space-between
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:250px;
+    background:#0a1725;
+    border-right:1px solid #183149;
+    padding:22px 15px;
+    z-index:100;
 }
 
 .logo{
-display:flex;
-align-items:center;
-gap:8px;
-margin-bottom:12px
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:5px 10px 25px;
 }
 
-.logo img{
-width:58px;
-height:58px;
-object-fit:contain
+.logo-image{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid #20bfff;
 }
 
-.logo b{
-font-size:21px;
-color:#08baff
+.logo-text{
+    font-size:21px;
+    font-weight:bold;
 }
 
-.logo span{
-display:block;
-font-size:10px;
-color:#61a9df
+.logo-text span{
+    display:block;
+    font-size:12px;
+    color:#20bfff;
+    margin-top:2px;
 }
 
 .menu{
-list-style:none
-}
-
-.menu li{
-margin:3px 0
-}
-
-.menu a{
-display:flex;
-align-items:center;
-gap:13px;
-color:#a7bdd0;
-text-decoration:none;
-padding:10px 12px;
-border-radius:10px;
-font-size:11px;
-cursor:pointer
-}
-
-.menu a i{
-width:18px;
-text-align:center
-}
-
-.menu li.active a,
-.menu a:hover{
-background:linear-gradient(100deg,#078cff,#096be4);
-color:#fff
-}
-
-.admin{
-margin-top:8px;
-padding-top:8px;
-border-top:1px solid #173751!important
-}
-
-.profile{
-display:flex;
-gap:8px;
-align-items:center;
-border:1px solid #16466b;
-border-radius:11px;
-padding:9px;
-cursor:pointer
-}
-
-.profile img{
-width:38px;
-height:38px;
-border-radius:50%;
-object-fit:cover
-}
-
-.profile b{
-font-size:11px
-}
-
-.profile small{
-display:block;
-color:var(--muted);
-font-size:8px
-}
-
-main{
-flex:1;
-min-width:0;
-height:100vh;
-overflow:auto;
-padding:15px 18px 25px;
-background:radial-gradient(circle at 55% 0,#006fff13,transparent 35%),var(--bg)
-}
-
-.top{
-height:43px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:12px;
-margin-bottom:10px
-}
-
-.search{
-position:relative;
-width:480px;
-max-width:60%
-}
-
-.search i{
-position:absolute;
-left:14px;
-top:11px;
-color:#7592aa;
-font-size:12px
-}
-
-.search input{
-width:100%;
-height:35px;
-border:1px solid #19486c;
-border-radius:20px;
-background:#0a223b;
-color:#fff;
-padding:0 14px 0 36px;
-outline:0;
-font-size:10px
-}
-
-.actions{
-display:flex;
-gap:7px
-}
-
-.actions select,
-.round{
-height:35px;
-border:1px solid #19486c;
-background:#0a223b;
-color:#dceaf5;
-border-radius:20px
-}
-
-.actions select{
-padding:0 10px;
-font-size:9px
-}
-
-.round{
-width:35px;
-border-radius:50%;
-cursor:pointer
-}
-
-.round img{
-width:25px;
-height:25px;
-border-radius:50%;
-object-fit:cover
-}
-
-.view{
-display:none
-}
-
-.view.active{
-display:block
-}
-
-.hero{
-height:250px;
-border:1px solid #14649a;
-border-radius:15px;
-overflow:hidden;
-position:relative;
-background:#07182b;
-margin-bottom:12px
-}
-
-.hero .photo{
-position:absolute;
-width:55%;
-height:100%;
-left:0;
-top:0;
-object-fit:cover
-}
-
-.hero:after{
-content:"";
-position:absolute;
-inset:0;
-background:linear-gradient(
-90deg,
-#06142618 0%,
-#06142618 38%,
-#061426dd 72%,
-#061426fa 100%
-)
-}
-
-.hero-content{
-position:absolute;
-z-index:2;
-left:48%;
-right:3%;
-top:0;
-height:100%;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-text-align:center
-}
-
-.hero-content img{
-width:115px;
-height:82px;
-object-fit:contain
-}
-
-.hero h1{
-font-size:36px;
-color:#08c4ff;
-line-height:1
-}
-
-.hero h1 span{
-color:#fff
-}
-
-.hero p{
-font-size:11px;
-font-style:italic;
-margin-top:12px;
-color:#d8e4ef
-}
-
-.quick{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:12px;
-margin-bottom:14px
-}
-
-.q{
-min-height:112px;
-border:1px solid #175078;
-border-radius:12px;
-padding:12px;
-color:#fff;
-cursor:pointer
-}
-
-.q:nth-child(1){
-background:linear-gradient(135deg,#087dcc,#073e7b)
-}
-
-.q:nth-child(2){
-background:linear-gradient(135deg,#7128dc,#3d0d91)
-}
-
-.q:nth-child(3){
-background:linear-gradient(135deg,#00a987,#006866)
-}
-
-.q:nth-child(4){
-background:linear-gradient(135deg,#c9781d,#82400e)
-}
-
-.qicon{
-width:40px;
-height:40px;
-border-radius:10px;
-background:#ffffff25;
-display:flex;
-align-items:center;
-justify-content:center;
-margin-bottom:10px
-}
-
-.q h3{
-font-size:13px
-}
-
-.q p{
-font-size:8px;
-color:#d8e7f2
-}
-
-.grid{
-display:grid;
-grid-template-columns:minmax(0,2fr) minmax(270px,1fr);
-gap:14px
-}
-
-.panel{
-background:#082039d9;
-border:1px solid #16466d;
-border-radius:13px;
-padding:13px
-}
-
-.title{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:11px
-}
-
-.title h2{
-font-size:13px
-}
-
-.title a{
-font-size:9px;
-color:#08b4ff;
-cursor:pointer
-}
-
-.media{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:8px
-}
-
-.card{
-min-width:0;
-border:1px solid #123c5e;
-background:#ffffff06;
-border-radius:9px;
-padding:6px;
-cursor:pointer
-}
-
-.card:hover{
-border-color:#09aaff
-}
-
-.card img{
-width:100%;
-aspect-ratio:1.3/1;
-object-fit:cover;
-border-radius:7px;
-display:block;
-margin-bottom:5px
-}
-
-.card h4{
-font-size:9.5px;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis
-}
-
-.card p{
-font-size:8px;
-color:var(--muted)
-}
-
-.card button,
-.btn{
-width:100%;
-border:0;
-border-radius:6px;
-background:#087fe8;
-color:#fff;
-font-size:8px;
-padding:6px;
-margin-top:5px;
-cursor:pointer
-}
-
-.card button:hover,
-.btn:hover{
-background:#096be4
-}
-
-.ann{
-display:flex;
-gap:8px;
-padding:5px;
-border-radius:7px
-}
-
-.ann img{
-width:40px;
-height:40px;
-border-radius:6px;
-object-fit:cover
-}
-
-.ann h4{
-font-size:9px
-}
-
-.ann p{
-font-size:8px;
-color:var(--muted);
-line-height:1.3
-}
-
-.player{
-margin-top:14px
-}
-
-.now{
-display:flex;
-align-items:center;
-gap:8px;
-background:#0004;
-padding:7px;
-border-radius:8px
-}
-
-.now img{
-width:43px;
-height:43px;
-border-radius:6px;
-object-fit:cover
-}
-
-.now b{
-display:block;
-font-size:10px
-}
-
-.now span{
-font-size:8px;
-color:var(--muted)
-}
-
-.progress{
-height:4px;
-background:#17344e;
-border-radius:4px;
-margin-top:9px;
-overflow:hidden;
-cursor:pointer
-}
-
-.fill{
-height:100%;
-width:0;
-background:#08aaff
-}
-
-.times{
-display:flex;
-justify-content:space-between;
-font-size:8px;
-color:var(--muted);
-margin-top:3px
-}
-
-.controls{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:20px;
-margin-top:10px;
-color:#9ab2c7
-}
-
-.controls i{
-cursor:pointer
-}
-
-.play{
-width:38px;
-height:38px;
-border:0;
-border-radius:50%;
-background:#087ff0;
-color:#fff
-}
-
-.volume{
-display:flex;
-align-items:center;
-gap:7px;
-margin-top:8px;
-color:#7f99af;
-font-size:9px
-}
-
-.volume input{
-width:100%
-}
-
-.ai{
-height:calc(100vh - 95px);
-min-height:400px;
-display:flex;
-flex-direction:column;
-border:1px solid #16466d;
-border-radius:13px;
-overflow:hidden;
-background:#09213a
-}
-
-.aihead{
-padding:12px 15px;
-background:#071c32;
-border-bottom:1px solid #16466d;
-display:flex;
-gap:9px;
-align-items:center
-}
-
-.aihead i{
-color:#08adff;
-font-size:18px
-}
-
-.aihead b{
-font-size:11px
-}
-
-.aihead small{
-display:block;
-color:var(--muted);
-font-size:8px
-}
-
-.messages{
-flex:1;
-overflow:auto;
-padding:15px;
-display:flex;
-flex-direction:column;
-gap:9px
-}
-
-.msg{
-max-width:75%;
-padding:9px 11px;
-border-radius:10px;
-font-size:9px;
-line-height:1.5
-}
-
-.bot{
-align-self:flex-start;
-background:#122d48
-}
-
-.user{
-align-self:flex-end;
-background:#087fe8
-}
-
-.aiinput{
-display:flex;
-gap:7px;
-padding:9px;
-background:#061a2e;
-border-top:1px solid #16466d
-}
-
-.aiinput input{
-flex:1;
-border:1px solid #19486c;
-border-radius:20px;
-background:#09243f;
-color:#fff;
-padding:8px 12px;
-font-size:9px;
-outline:0
-}
-
-.aiinput button{
-width:35px;
-height:35px;
-border:0;
-border-radius:50%;
-background:#0789f4;
-color:#fff
-}
-
-.account{
-display:grid;
-grid-template-columns:130px 1fr;
-gap:16px;
-align-items:start
-}
-
-.account-avatar{
-width:110px;
-height:110px;
-border-radius:50%;
-object-fit:cover;
-border:3px solid #078cff
-}
-
-.account h3{
-font-size:15px;
-color:#08c4ff
-}
-
-.account p{
-font-size:9px;
-color:var(--muted);
-margin:4px 0 12px
-}
-
-.tag{
-display:inline-block;
-border:1px solid #16466d;
-background:#071c32;
-border-radius:20px;
-padding:6px 9px;
-font-size:8px;
-color:#cfe0ed;
-margin:2px
-}
-
-.login-note{
-padding:10px;
-background:#071c32;
-border:1px solid #16466d;
-border-radius:9px;
-font-size:8px;
-color:var(--muted);
-margin-top:10px
-}
-
-.formgrid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:18px
-}
-
-.fg{
-margin-bottom:10px
-}
-
-.fg label{
-display:block;
-color:var(--muted);
-font-size:9px;
-margin-bottom:4px
-}
-
-.fg input{
-width:100%;
-background:#071c32;
-color:#fff;
-border:1px solid #19486c;
-border-radius:7px;
-padding:8px;
-font-size:9px;
-outline:0
-}
-
-.empty{
-color:var(--muted);
-font-size:9px;
-padding:15px
-}
-
-.modal{
-display:none;
-position:fixed;
-inset:0;
-background:#0009;
-z-index:100;
-align-items:center;
-justify-content:center;
-padding:15px
-}
-
-.modal.open{
-display:flex
-}
-
-.modal-box{
-width:min(420px,100%);
-max-height:90vh;
-overflow:auto;
-background:#09213a;
-border:1px solid #176090;
-border-radius:16px;
-padding:18px
-}
-
-.modal-head{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:14px
-}
-
-.modal-head h2{
-font-size:14px
-}
-
-.close{
-background:none;
-border:0;
-color:#9db4c7;
-font-size:22px;
-cursor:pointer
-}
-
-.owner{
-text-align:center
-}
-
-.owner img{
-width:90px;
-height:90px;
-border-radius:50%;
-object-fit:cover;
-border:3px solid #08aaff
-}
-
-.owner h3{
-font-size:16px;
-color:#08c4ff;
-margin-top:8px
-}
-
-.owner p{
-font-size:9px;
-color:var(--muted);
-line-height:1.5;
-margin:5px 0 14px
-}
-
-/* ACCOUNT */
-
-.account-input{
-width:100%;
-padding:12px 14px;
-margin:6px 0;
-border:1px solid #183149;
-border-radius:10px;
-background:#081522;
-color:#fff;
-outline:none;
-font-size:10px
-}
-
-.account-input:focus{
-border-color:#20bfff;
-box-shadow:0 0 0 2px rgba(32,191,255,.12)
-}
-
-.account-input::placeholder{
-color:#7f94a8
-}
-
-.login-action,
-.google-login,
-.switch-account{
-width:100%;
-cursor:pointer
-}
-
-.login-action{
-border:0;
-border-radius:10px;
-padding:11px;
-margin-top:8px;
-background:#087fe8;
-color:white;
-font-size:10px
-}
-
-.google-login{
-border:1px solid #31516d;
-border-radius:10px;
-padding:11px;
-margin-top:8px;
-background:#fff;
-color:#18232d;
-font-size:10px
-}
-
-.switch-account{
-border:0;
-background:none;
-color:#08baff;
-padding:10px;
-font-size:9px
-}
-
-.account-status{
-margin-top:10px;
-padding:9px;
-border-radius:9px;
-background:#071c32;
-border:1px solid #16466d;
-font-size:8px;
-color:var(--muted);
-text-align:center
-}
-
-.profile-large{
-text-align:center
-}
-
-.avatar-large{
-width:96px;
-height:96px;
-margin:0 auto 15px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-overflow:hidden;
-background:#071c32;
-border:3px solid #08aaff;
-font-size:35px
-}
-
-.avatar-large img,
-.customer-avatar img,
-.profile img,
-.round img{
-display:block;
-width:100%;
-height:100%;
-object-fit:cover
-}
-
-.profile-links{
-display:flex;
-flex-direction:column;
-gap:7px;
-margin-top:12px
-}
-
-.profile-links button{
-border:1px solid #16466d;
-background:#071c32;
-color:#fff;
-padding:10px;
-border-radius:9px;
-font-size:9px;
-cursor:pointer
-}
-
-.profile-links button:hover{
-border-color:#08aaff
-}
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.menu button{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    width:100%;
+    padding:13px 15px;
+    border-radius:10px;
+    background:transparent;
+    color:#b8c8d8;
+    text-align:left;
+    font-size:15px;
+}
+
+.menu button:hover,
+.menu button.active{
+    background:#10283c;
+    color:#20bfff;
+}
+
+.menu-icon{
+    width:25px;
+    text-align:center;
+    font-size:19px;
+}
+
+/* =========================
+   CUSTOMER PROFILE
+========================= */
 
 .customer-profile{
-display:flex;
-align-items:center;
-gap:8px;
-padding:8px;
-border:1px solid #16466d;
-border-radius:10px;
-margin-top:10px
+    position:absolute;
+    left:15px;
+    right:15px;
+    bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px;
+    border-radius:12px;
+    background:#102235;
+    border:1px solid #183b55;
+    transition:.2s ease;
+}
+
+.customer-profile:hover{
+    border-color:#20bfff;
+    transform:translateY(-1px);
 }
 
 .customer-avatar{
-width:40px;
-height:40px;
-border-radius:50%;
-background:#071c32;
-display:flex;
-align-items:center;
-justify-content:center;
-overflow:hidden;
-flex-shrink:0
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:#183149;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    flex-shrink:0;
+    overflow:hidden;
+}
+
+.customer-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.customer-info{
+    min-width:0;
 }
 
 .customer-info strong{
-display:block;
-font-size:9px
+    display:block;
+    font-size:13px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 .customer-info small{
-display:block;
-font-size:7px;
-color:var(--muted)
+    display:block;
+    color:#8ca1b4;
+    font-size:10px;
+    margin-top:3px;
 }
 
-.bottom{
-display:none
+.online-dot{
+    display:inline-block;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#20d47b;
+    margin-left:4px;
 }
 
-.light{
---bg:#edf4f9;
---panel:#fff;
---line:#b8d0e0;
---text:#10202d;
---muted:#60798b
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:250px;
+    min-height:100vh;
 }
 
-.light main{
-background:#edf4f9
-}
+/* =========================
+   TOPBAR
+========================= */
 
-.light .panel,
-.light .ai{
-background:#fff
-}
-
-.light .card,
-.light .now{
-background:#f5f9fc
-}
-
-@media(max-width:900px){
-
-.sidebar{
-display:none
-}
-
-.bottom{
-display:flex;
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-height:62px;
-background:#06192c;
-border-top:1px solid #16466d;
-z-index:50;
-justify-content:space-around
-}
-
-.bottom a{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-gap:4px;
-color:#7895ad;
-text-decoration:none;
-font-size:7px;
-cursor:pointer
-}
-
-.bottom a i{
-font-size:15px
-}
-
-.bottom a.active{
-color:#08aaff
-}
-
-main{
-padding:10px 10px 75px
+.topbar{
+    height:75px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:12px 25px;
+    background:rgba(7,17,29,.95);
+    border-bottom:1px solid #183149;
+    position:sticky;
+    top:0;
+    z-index:90;
 }
 
 .search{
-max-width:58%
+    flex:1;
+    max-width:650px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#0d2031;
+    border:1px solid #183b55;
+    border-radius:12px;
+    padding:0 14px;
 }
 
-.grid{
-grid-template-columns:1fr
+.search span{
+    font-size:23px;
+    color:#8ba4b8;
 }
 
-.quick{
-grid-template-columns:repeat(2,1fr)
+.search input{
+    width:100%;
+    height:45px;
+    border:none;
+    outline:none;
+    background:transparent;
+    color:#fff;
 }
 
-.media{
-grid-template-columns:repeat(2,1fr)
+.search input::placeholder{
+    color:#71869a;
 }
+
+.language{
+    background:#0d2031;
+    color:#fff;
+    border:1px solid #183b55;
+    border-radius:9px;
+    padding:10px;
+    outline:none;
+}
+
+.top-actions{
+    display:flex;
+    gap:8px;
+    margin-left:auto;
+}
+
+.icon-button,
+.profile-button,
+.client-top-button{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#102235;
+    color:#fff;
+    border:1px solid #183b55;
+}
+
+.icon-button:hover,
+.profile-button:hover,
+.client-top-button:hover{
+    border-color:#20bfff;
+}
+
+.profile-button{
+    padding:0;
+    overflow:hidden;
+}
+
+.profile-button img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.client-top-button{
+    font-size:21px;
+    padding:0;
+    overflow:hidden;
+}
+
+.client-top-button img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:50%;
+    display:block;
+}
+
+/* =========================
+   HERO
+========================= */
 
 .hero{
-height:200px
+    margin:25px;
+    min-height:310px;
+    border-radius:20px;
+    overflow:hidden;
+    background:#0c1c2c;
+    border:1px solid #183b55;
+    display:flex;
 }
 
-.hero h1{
-font-size:25px
+.hero-photo{
+    width:50%;
+    min-height:310px;
+}
+
+.hero-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
 }
 
 .hero-content{
-left:43%
+    width:50%;
+    padding:45px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
 }
 
-.hero-content img{
-width:85px;
-height:62px
-}
-
-.formgrid,
-.account{
-grid-template-columns:1fr
-}
-
-.account{
-text-align:center
-}
-
-.account-avatar{
-margin:auto
-}
-}
-
-@media(max-width:480px){
-
-.hero{
-height:175px
+.hero-badge{
+    display:inline-block;
+    width:max-content;
+    padding:8px 12px;
+    border-radius:20px;
+    background:#102f47;
+    color:#20bfff;
+    font-size:12px;
+    margin-bottom:15px;
 }
 
 .hero h1{
-font-size:20px
+    font-size:55px;
+    margin-bottom:15px;
+}
+
+.hero h1 span{
+    color:#20bfff;
 }
 
 .hero p{
-font-size:7px
+    color:#b5c6d5;
+    line-height:1.7;
+    font-size:16px;
+    max-width:520px;
 }
 
-.hero-content img{
-width:70px;
-height:50px
+/* =========================
+   QUICK ACCESS
+========================= */
+
+.quick-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    padding:0 25px 25px;
 }
 
-.q{
-min-height:90px
+.quick-card{
+    position:relative;
+    min-height:145px;
+    padding:20px;
+    border-radius:15px;
+    border:1px solid #183b55;
+    background:#0c1c2c;
+    transition:.2s;
+    cursor:pointer;
 }
 
-.q h3{
-font-size:11px
+.quick-card:hover{
+    transform:translateY(-3px);
+    border-color:#20bfff;
 }
 
-.actions select{
-display:none
+.quick-icon{
+    font-size:28px;
+    margin-bottom:12px;
 }
 
-.search{
-max-width:70%
+.quick-card h3{
+    margin-bottom:7px;
 }
+
+.quick-card p{
+    color:#8ea4b7;
+    font-size:12px;
 }
+
+.quick-arrow{
+    position:absolute;
+    right:18px;
+    bottom:15px;
+    font-size:25px;
+    color:#20bfff;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 320px;
+    gap:20px;
+    padding:0 25px;
+}
+
+.panel{
+    background:#0c1c2c;
+    border:1px solid #183b55;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.panel-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:18px;
+}
+
+.panel-title{
+    font-size:18px;
+    font-weight:bold;
+}
+
+.view-all{
+    background:transparent;
+    color:#20bfff;
+    font-size:12px;
+}
+
+/* =========================
+   MUSIC
+========================= */
+
+.music-list{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.music-card{
+    position:relative;
+    background:#102235;
+    border-radius:12px;
+    padding:10px;
+    overflow:hidden;
+}
+
+.cover{
+    height:130px;
+    border-radius:9px;
+    background:#183149;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.music-card h4{
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.music-card p{
+    font-size:11px;
+    color:#8399ac;
+}
+
+.more{
+    position:absolute;
+    right:8px;
+    bottom:8px;
+    background:transparent;
+    color:#fff;
+    font-size:18px;
+}
+
+/* =========================
+   PLAYER
+========================= */
+
+.player{
+    background:#081622;
+    border-radius:12px;
+    padding:18px;
+}
+
+.now-playing{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.now-cover{
+    width:55px;
+    height:55px;
+    border-radius:9px;
+    background:#183149;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+}
+
+.now-info{
+    flex:1;
+}
+
+.now-info strong{
+    display:block;
+    margin-bottom:4px;
+}
+
+.now-info small{
+    color:#8297a9;
+}
+
+.control,
+.play{
+    border-radius:50%;
+    background:#10283c;
+    color:#fff;
+    width:38px;
+    height:38px;
+}
+
+.play{
+    background:#20bfff;
+    color:#00131e;
+    width:48px;
+    height:48px;
+}
+
+.progress{
+    margin-top:20px;
+}
+
+.progress input{
+    width:100%;
+}
+
+.time{
+    display:flex;
+    justify-content:space-between;
+    color:#71869a;
+    font-size:11px;
+}
+
+.player-controls{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+    margin-top:12px;
+}
+
+/* =========================
+   AI
+========================= */
+
+.ai-box{
+    background:#081622;
+    border-radius:12px;
+    padding:15px;
+}
+
+.ai-message{
+    display:block;
+    max-width:80%;
+    background:#10283c;
+    padding:10px 12px;
+    border-radius:10px;
+    margin-bottom:10px;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.ai-message.user{
+    margin-left:auto;
+    background:#12476a;
+}
+
+.ai-input{
+    display:flex;
+    gap:8px;
+    margin-top:15px;
+}
+
+.ai-input input{
+    flex:1;
+    background:#102235;
+    border:1px solid #183b55;
+    color:#fff;
+    border-radius:9px;
+    padding:12px;
+    outline:none;
+}
+
+.ai-send{
+    width:45px;
+    border-radius:9px;
+    background:#20bfff;
+}
+
+/* =========================
+   ANNOUNCEMENTS
+========================= */
+
+.announcement{
+    display:flex;
+    gap:12px;
+    padding:13px 0;
+    border-bottom:1px solid #183149;
+}
+
+.announcement:last-child{
+    border-bottom:none;
+}
+
+.announcement-icon{
+    width:40px;
+    height:40px;
+    flex-shrink:0;
+    border-radius:10px;
+    background:#10283c;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.announcement h4{
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.announcement p{
+    font-size:11px;
+    line-height:1.5;
+    color:#8399ac;
+}
+
+/* =========================
+   MODALS
+========================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.78);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:500;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    position:relative;
+    width:100%;
+    max-width:430px;
+    max-height:90vh;
+    overflow-y:auto;
+    background:#0c1c2c;
+    border:1px solid #20506f;
+    border-radius:18px;
+    padding:28px;
+    box-shadow:0 20px 60px rgba(0,0,0,.5);
+}
+
+.close{
+    position:absolute;
+    right:15px;
+    top:12px;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    background:#10283c;
+    color:#fff;
+    font-size:22px;
+}
+
+.profile-large{
+    text-align:center;
+    padding:10px 10px 20px;
+}
+
+.avatar-large{
+    width:96px;
+    height:96px;
+    margin:0 auto 15px;
+    border-radius:50%;
+    background:#183149;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    overflow:hidden;
+    border:2px solid #20bfff;
+}
+
+.avatar-large img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.profile-large h2{
+    margin-bottom:7px;
+}
+
+.profile-large p{
+    color:#9db0c1;
+    font-size:13px;
+    line-height:1.6;
+    margin-top:8px;
+}
+
+.profile-links{
+    display:grid;
+    gap:8px;
+}
+
+.profile-links button,
+.login-action{
+    width:100%;
+    padding:12px;
+    background:#10283c;
+    color:#fff;
+    border-radius:9px;
+    text-align:center;
+}
+
+.profile-links button:hover,
+.login-action:hover{
+    background:#163852;
+}
+
+.google-login{
+    width:100%;
+    padding:13px;
+    border-radius:9px;
+    background:#fff;
+    color:#111;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.account-input{
+    width:100%;
+    padding:14px 16px;
+    margin:7px 0;
+    border:1px solid #183149;
+    border-radius:12px;
+    background:#081522;
+    color:#fff;
+    outline:none;
+    font-size:15px;
+}
+
+.account-input:focus{
+    border-color:#20bfff;
+    box-shadow:0 0 0 2px rgba(32,191,255,.12);
+}
+
+.account-input::placeholder{
+    color:#7f94a8;
+}
+
+.switch-account{
+    width:100%;
+    padding:12px;
+    margin-top:9px;
+    background:transparent;
+    color:#20bfff;
+    border:1px solid #183b55;
+    border-radius:9px;
+}
+
+.login-action{
+    margin-top:8px;
+}
+
+.login-note{
+    color:#71869a;
+    font-size:11px;
+    line-height:1.5;
+    text-align:center;
+    margin-top:15px;
+}
+
+.account-message{
+    margin:15px 0;
+    padding:12px;
+    border-radius:12px;
+    background:rgba(32,191,255,.08);
+    border:1px solid rgba(32,191,255,.18);
+    text-align:center;
+    color:#b8c8d8;
+    font-size:12px;
+}
+
+/* =========================
+   MOBILE NAV
+========================= */
+
+.mobile-nav{
+    display:none;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1100px){
+
+    .quick-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .music-list{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .content-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:750px){
+
+    body{
+        padding-bottom:75px;
+    }
+
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .topbar{
+        padding:10px;
+        height:auto;
+        flex-wrap:wrap;
+    }
+
+    .search{
+        order:1;
+        flex-basis:100%;
+        max-width:none;
+    }
+
+    .language{
+        order:2;
+    }
+
+    .top-actions{
+        order:3;
+    }
+
+    .client-top-button{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+
+    .hero{
+        margin:15px;
+        display:block;
+    }
+
+    .hero-photo{
+        width:100%;
+        height:210px;
+        min-height:210px;
+    }
+
+    .hero-content{
+        width:100%;
+        padding:25px;
+    }
+
+    .hero h1{
+        font-size:40px;
+    }
+
+    .quick-grid{
+        padding:0 15px 15px;
+        grid-template-columns:repeat(2,1fr);
+        gap:10px;
+    }
+
+    .quick-card{
+        min-height:130px;
+        padding:15px;
+    }
+
+    .content-grid{
+        padding:0 15px;
+    }
+
+    .music-list{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .cover{
+        height:105px;
+    }
+
+    .mobile-nav{
+        position:fixed;
+        left:0;
+        right:0;
+        bottom:0;
+        height:65px;
+        background:#0a1725;
+        border-top:1px solid #183149;
+        display:flex;
+        justify-content:space-around;
+        align-items:center;
+        z-index:200;
+    }
+
+    .mobile-nav button{
+        background:transparent;
+        color:#8298aa;
+        font-size:10px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:3px;
+    }
+
+    .mobile-nav button span{
+        font-size:20px;
+    }
+
+    .mobile-nav button.active{
+        color:#20bfff;
+    }
+
+    .modal{
+        padding:12px;
+    }
+
+    .modal-box{
+        padding:22px;
+    }
+}
+
+@media(max-width:400px){
+
+    .top-actions{
+        gap:4px;
+    }
+
+    .icon-button,
+    .profile-button,
+    .client-top-button{
+        width:38px;
+        height:38px;
+    }
+
+    .language{
+        padding:8px 5px;
+        font-size:11px;
+    }
+}
+
 </style>
 </head>
 
 <body>
 
+<div class="app">
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
 <aside class="sidebar">
 
-<div>
+    <div class="logo">
 
-<div class="logo">
-<img src="logo.png" alt="R Son">
-<div>
-<b>R son</b>
-<span>Production</span>
-</div>
-</div>
+        <img
+            src="logo.png"
+            alt="R Son Production"
+            class="logo-image"
+        >
 
-<ul class="menu">
+        <div class="logo-text">
+            R Son
+            <span>Production</span>
+        </div>
 
-<li id="nav-accueil" class="active">
-<a onclick="show('accueil')">
-<i class="fa-solid fa-house"></i>Accueil
-</a>
-</li>
+    </div>
 
-<li id="nav-musique">
-<a onclick="show('musique')">
-<i class="fa-solid fa-music"></i>Musique
-</a>
-</li>
+    <nav class="menu">
 
-<li id="nav-videos">
-<a onclick="show('videos')">
-<i class="fa-solid fa-video"></i>Vidéos
-</a>
-</li>
+        <button class="active" onclick="goHome()">
+            <span class="menu-icon">⌂</span>
+            Accueil
+        </button>
 
-<li id="nav-downloads">
-<a onclick="show('downloads')">
-<i class="fa-solid fa-download"></i>Téléchargements
-</a>
-</li>
+        <button onclick="showMessage('Musique')">
+            <span class="menu-icon">♫</span>
+            Musique
+        </button>
 
-<li id="nav-playlists">
-<a onclick="show('playlists')">
-<i class="fa-solid fa-list"></i>Playlists
-</a>
-</li>
+        <button onclick="showMessage('Vidéos')">
+            <span class="menu-icon">▣</span>
+            Vidéos
+        </button>
 
-<li id="nav-favoris">
-<a onclick="show('favoris')">
-<i class="fa-regular fa-heart"></i>Favoris
-</a>
-</li>
+        <button onclick="showMessage('Téléchargements')">
+            <span class="menu-icon">⇩</span>
+            Téléchargements
+        </button>
 
-<li id="nav-ai">
-<a onclick="show('ai')">
-<i class="fa-solid fa-robot"></i>R Son AI
-</a>
-</li>
+        <button onclick="showMessage('Playlists')">
+            <span class="menu-icon">☷</span>
+            Playlists
+        </button>
 
-<li id="nav-parametres">
-<a onclick="openLogin()">
-<i class="fa-solid fa-user"></i>Mon Profil
-</a>
-</li>
+        <button onclick="showMessage('Favoris')">
+            <span class="menu-icon">♡</span>
+            Favoris
+        </button>
 
-<li id="nav-admin" class="admin">
-<a onclick="show('admin')">
-<i class="fa-solid fa-crown"></i>Admin Dashboard
-</a>
-</li>
+        <button onclick="openAI()">
+            <span class="menu-icon">🤖</span>
+            R Son AI
+        </button>
 
-</ul>
+        <button onclick="showMessage('Paramètres')">
+            <span class="menu-icon">⚙</span>
+            Paramètres
+        </button>
 
-</div>
+    </nav>
 
-<div class="profile" onclick="openOwnerProfile()">
+    <div
+        class="customer-profile"
+        onclick="openLogin()"
+        style="cursor:pointer"
+    >
 
-<img src="logo.png" alt="R Son">
+        <div
+            class="customer-avatar"
+            id="customerAvatar"
+        >
+            👤
+        </div>
 
-<div>
-<b>R Son</b>
-<small>Admin • Producteur</small>
-</div>
+        <div class="customer-info">
 
-</div>
+            <strong id="customerName">
+                Mon compte
+            </strong>
+
+            <small id="customerStatus">
+                Se connecter / S'inscrire
+            </small>
+
+        </div>
+
+    </div>
 
 </aside>
 
 
-<main id="main">
+<!-- =========================
+     MAIN
+========================= -->
 
-<header class="top">
+<main class="main">
 
-<div class="search">
+<!-- TOPBAR -->
 
-<i class="fa-solid fa-magnifying-glass"></i>
+<div class="topbar">
 
-<input
-id="search"
-placeholder="Rechercher une chanson, un artiste, une vidéo..."
-oninput="searchSongs(this.value)"
->
+    <div class="search">
 
-</div>
+        <span>⌕</span>
 
-<div class="actions">
+        <input
+            id="searchInput"
+            type="text"
+            placeholder="Rechercher une chanson, un artiste, une vidéo..."
+            onkeydown="searchContent(event)"
+        >
 
-<select id="language">
-<option>🇲🇬 Malagasy</option>
-<option>🇫🇷 Français</option>
-<option>🇬🇧 English</option>
-</select>
+    </div>
 
-<button class="round" onclick="alert('Tsy misy fampandrenesana vaovao.')">
-<i class="fa-regular fa-bell"></i>
-</button>
+    <select
+        class="language"
+        id="language"
+        onchange="changeLanguage()"
+    >
 
-<button class="round" onclick="dark()">
-<i id="theme" class="fa-regular fa-moon"></i>
-</button>
+        <option value="mg">🇲🇬 Malagasy</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="en">🇬🇧 English</option>
 
-<button class="round" onclick="openLogin()">
-<img id="topProfileImage" src="logo.png" alt="Profile">
-</button>
+    </select>
 
-</div>
+    <div class="top-actions">
 
-</header>
+        <button
+            class="icon-button"
+            onclick="showMessage('Notifications')"
+            title="Notifications"
+        >
+            🔔
+        </button>
 
+        <button
+            class="icon-button"
+            onclick="toggleTheme()"
+            title="Theme"
+        >
+            ☾
+        </button>
 
-<section id="view-accueil" class="view active">
+        <button
+            class="client-top-button"
+            onclick="openLogin()"
+            title="Mon compte"
+            id="clientTopButton"
+        >
+            👤
+        </button>
 
-<div class="hero">
+        <button
+            class="profile-button"
+            onclick="openOwnerProfile()"
+            title="R Son Production"
+        >
 
-<img class="photo" src="studio.jpg" alt="R Son Studio">
+            <img
+                src="logo.png"
+                alt="R Son"
+            >
 
-<div class="hero-content">
+        </button>
 
-<img src="logo.png" alt="R Son">
-
-<h1>
-R son <span>Production</span>
-</h1>
-
-<p>Talenta fa tsy natao ho ifaninana</p>
-
-</div>
-
-</div>
-
-
-<div class="quick">
-
-<div class="q" onclick="show('musique')">
-<div class="qicon">
-<i class="fa-solid fa-music"></i>
-</div>
-<h3>Musique</h3>
-<p>Écoute tes sons préférés</p>
-</div>
-
-<div class="q" onclick="show('videos')">
-<div class="qicon">
-<i class="fa-solid fa-video"></i>
-</div>
-<h3>Vidéos</h3>
-<p>Regarde les clips et films</p>
-</div>
-
-<div class="q" onclick="show('downloads')">
-<div class="qicon">
-<i class="fa-solid fa-download"></i>
-</div>
-<h3>Téléchargements</h3>
-<p>Hors ligne, à tout moment</p>
-</div>
-
-<div class="q" onclick="show('ai')">
-<div class="qicon">
-<i class="fa-solid fa-robot"></i>
-</div>
-<h3>R Son AI</h3>
-<p>Pose tes questions</p>
-</div>
+    </div>
 
 </div>
 
 
-<div class="grid">
+<!-- =========================
+     HERO
+========================= -->
 
-<div class="panel">
+<section class="hero">
 
-<div class="title">
-<h2>🎵 Musique récente</h2>
-<a onclick="show('musique')">Voir tout ›</a>
-</div>
+    <div class="hero-photo">
 
-<div id="recent" class="media"></div>
+        <img
+            src="studio.jpg"
+            alt="R Son Studio"
+        >
 
-</div>
+    </div>
 
+    <div class="hero-content">
 
-<div>
+        <div class="hero-badge">
+            🎵 R SON PLATFORM
+        </div>
 
-<div class="panel">
+        <h1>
+            R <span>Son</span>
+        </h1>
 
-<div class="title">
-<h2>📢 Annonces</h2>
-</div>
+        <p>
+            tsy hifaninagna fa mba hizara talenta
+            namian-jagnahary🤗.
+            Hira, horonan-tsary, teknolojia ary R Son AI.
+        </p>
 
-<div id="annonces"></div>
-
-</div>
-
-
-<div class="panel player">
-
-<div class="title">
-<h2>Lecture en cours</h2>
-</div>
-
-<div class="now">
-
-<img id="cover" src="studio.jpg">
-
-<div style="flex:1">
-
-<b id="song">Rêve d'un jeune</b>
-
-<span id="artist">R Son</span>
-
-</div>
-
-<i
-id="heart"
-class="fa-regular fa-heart"
-onclick="fav()"
-style="cursor:pointer;color:#08aaff"
-></i>
-
-</div>
-
-<div class="progress" onclick="seek(event)">
-<div id="fill" class="fill"></div>
-</div>
-
-<div class="times">
-<span id="cur">00:00</span>
-<span id="total">03:45</span>
-</div>
-
-<div class="controls">
-
-<i onclick="shuffle()" id="shuf" class="fa-solid fa-shuffle"></i>
-
-<i onclick="prev()" class="fa-solid fa-backward-step"></i>
-
-<button class="play" onclick="playPause()">
-<i id="play" class="fa-solid fa-play"></i>
-</button>
-
-<i onclick="next()" class="fa-solid fa-forward-step"></i>
-
-<i onclick="repeat()" id="rep" class="fa-solid fa-repeat"></i>
-
-</div>
-
-<div class="volume">
-
-<i class="fa-solid fa-volume-high"></i>
-
-<input
-type="range"
-min="0"
-max="1"
-step=".05"
-value="1"
-oninput="audio.volume=this.value"
->
-
-</div>
-
-</div>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
 
-<section id="view-musique" class="view">
+<!-- =========================
+     QUICK ACCESS
+========================= -->
 
-<div class="panel">
+<section class="quick-grid">
 
-<div class="title">
-<h2>🎵 Musique & Bibliothèque</h2>
-</div>
+    <div
+        class="quick-card"
+        onclick="showMessage('Musique')"
+    >
 
-<div id="library" class="media"></div>
+        <div class="quick-icon">♫</div>
 
-</div>
+        <h3>Musique</h3>
 
-</section>
+        <p>
+            Écoute tes sons préférés
+        </p>
 
+        <div class="quick-arrow">›</div>
 
-<section id="view-videos" class="view">
-
-<div class="panel">
-
-<div class="title">
-<h2>🎬 Vidéos & Clips officiels</h2>
-</div>
-
-<div id="videos" class="media"></div>
-
-</div>
-
-</section>
+    </div>
 
 
-<section id="view-downloads" class="view">
+    <div
+        class="quick-card"
+        onclick="showMessage('Vidéos')"
+    >
 
-<div class="panel">
+        <div class="quick-icon">▶</div>
 
-<div class="title">
-<h2>⬇️ Téléchargements & Offline</h2>
-</div>
+        <h3>Vidéos</h3>
 
-<p style="font-size:9px;color:var(--muted)">
-Prototype: le vrai stockage offline sera connecté avec le backend/app.
-</p>
+        <p>
+            Regarde tes films et clips
+        </p>
 
-<div id="downloads" class="media"></div>
+        <div class="quick-arrow">›</div>
 
-</div>
-
-</section>
+    </div>
 
 
-<section id="view-playlists" class="view">
+    <div
+        class="quick-card"
+        onclick="showMessage('Téléchargements')"
+    >
 
-<div class="panel">
+        <div class="quick-icon">⇩</div>
 
-<div class="title">
-<h2>📋 Playlists</h2>
-</div>
+        <h3>Téléchargements</h3>
 
-<input
-id="plist"
-placeholder="Anaran'ny playlist vaovao..."
-style="width:80%;padding:8px;background:#071c32;color:white;border:1px solid #19486c;border-radius:7px;font-size:9px"
->
+        <p>
+            Hors ligne, à tout moment
+        </p>
 
-<button
-class="btn"
-onclick="addPlaylist()"
-style="width:auto"
->
-Mamorona
-</button>
+        <div class="quick-arrow">›</div>
 
-<div
-id="playlists"
-class="media"
-style="margin-top:12px"
-></div>
+    </div>
 
-</div>
+
+    <div
+        class="quick-card"
+        onclick="openAI()"
+    >
+
+        <div class="quick-icon">🤖</div>
+
+        <h3>R Son AI</h3>
+
+        <p>
+            Pose tes questions
+        </p>
+
+        <div class="quick-arrow">›</div>
+
+    </div>
 
 </section>
 
 
-<section id="view-favoris" class="view">
+<!-- =========================
+     CONTENT
+========================= -->
 
-<div class="panel">
+<div class="content-grid">
 
-<div class="title">
-<h2>❤️ Favoris</h2>
+    <div>
+
+        <!-- RECENT MUSIC -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div class="panel-title">
+                    🎵 Musique récente
+                </div>
+
+                <button
+                    class="view-all"
+                    onclick="showMessage('Toutes les musiques')"
+                >
+                    Voir tout →
+                </button>
+
+            </div>
+
+            <div class="music-list">
+
+                <div class="music-card">
+
+                    <div class="cover">
+                        🎵
+                    </div>
+
+                    <h4>
+                        Rêve d'un jeune
+                    </h4>
+
+                    <p>
+                        R Son · 03:45
+                    </p>
+
+                    <button
+                        class="more"
+                        onclick="playSong('Rêve d’un jeune')"
+                    >
+                        ⋮
+                    </button>
+
+                </div>
+
+
+                <div class="music-card">
+
+                    <div class="cover">
+                        🎵
+                    </div>
+
+                    <h4>
+                        Mamy
+                    </h4>
+
+                    <p>
+                        R Son · 04:12
+                    </p>
+
+                    <button
+                        class="more"
+                        onclick="playSong('Mamy')"
+                    >
+                        ⋮
+                    </button>
+
+                </div>
+
+
+                <div class="music-card">
+
+                    <div class="cover">
+                        🎵
+                    </div>
+
+                    <h4>
+                        Antsika
+                    </h4>
+
+                    <p>
+                        R Son · 05:20
+                    </p>
+
+                    <button
+                        class="more"
+                        onclick="playSong('Antsika')"
+                    >
+                        ⋮
+                    </button>
+
+                </div>
+
+
+                <div class="music-card">
+
+                    <div class="cover">
+                        🎵
+                    </div>
+
+                    <h4>
+                        Fitia vana
+                    </h4>
+
+                    <p>
+                        R Son · 03:38
+                    </p>
+
+                    <button
+                        class="more"
+                        onclick="playSong('Fitia vana')"
+                    >
+                        ⋮
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PLAYER -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div class="panel-title">
+                    ▶ Lecture en cours
+                </div>
+
+                <button class="view-all">
+                    Bibliothèque
+                </button>
+
+            </div>
+
+            <div class="player">
+
+                <div class="now-playing">
+
+                    <div class="now-cover">
+                        🎵
+                    </div>
+
+                    <div class="now-info">
+
+                        <strong id="currentSong">
+                            Rêve d'un jeune
+                        </strong>
+
+                        <small>
+                            R Son Production
+                        </small>
+
+                    </div>
+
+                    <button
+                        class="control"
+                        onclick="showMessage('Favoris')"
+                    >
+                        ♡
+                    </button>
+
+                </div>
+
+
+                <div class="progress">
+
+                    <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="0"
+                        id="progress"
+                    >
+
+                </div>
+
+
+                <div class="time">
+
+                    <span>00:00</span>
+                    <span>03:45</span>
+
+                </div>
+
+
+                <div class="player-controls">
+
+                    <button
+                        class="control"
+                        onclick="showMessage('Lecture aléatoire')"
+                    >
+                        🔀
+                    </button>
+
+                    <button
+                        class="control"
+                        onclick="showMessage('Piste précédente')"
+                    >
+                        ◀
+                    </button>
+
+                    <button
+                        class="play"
+                        id="playButton"
+                        onclick="togglePlay()"
+                    >
+                        ▶
+                    </button>
+
+                    <button
+                        class="control"
+                        onclick="showMessage('Piste suivante')"
+                    >
+                        ▶
+                    </button>
+
+                    <button
+                        class="control"
+                        onclick="showMessage('Répétition')"
+                    >
+                        🔁
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- AI -->
+
+        <section
+            class="panel"
+            id="aiSection"
+        >
+
+            <div class="panel-header">
+
+                <div class="panel-title">
+                    🤖 R Son AI
+                </div>
+
+                <small>
+                    Assistant intelligent
+                </small>
+
+            </div>
+
+            <div class="ai-box">
+
+                <div class="ai-message">
+                    Salama! Inona no azoko
+                    anampiana anao?
+                </div>
+
+                <div class="ai-message user">
+                    Ahoana no fomba fampiasa
+                    an'i R Son?
+                </div>
+
+                <div class="ai-message">
+                    Afaka mitady hira sy vidéo ianao,
+                    mitahiry azy ireo ho an'ny offline,
+                    ary mametraka fanontaniana amiko.
+                </div>
+
+                <div class="ai-input">
+
+                    <input
+                        id="aiInput"
+                        type="text"
+                        placeholder="Soraty ny fanontanianao..."
+                        onkeydown="aiEnter(event)"
+                    >
+
+                    <button
+                        class="ai-send"
+                        onclick="sendAI()"
+                    >
+                        ➤
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- ANNOUNCEMENTS -->
+
+    <aside>
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div class="panel-title">
+                    📢 Annonces
+                </div>
+
+                <button
+                    class="view-all"
+                    onclick="showMessage('Toutes les annonces')"
+                >
+                    Voir tout →
+                </button>
+
+            </div>
+
+
+            <div class="announcement">
+
+                <div class="announcement-icon">
+                    🎵
+                </div>
+
+                <div>
+
+                    <h4>
+                        Nouveau son disponible !
+                    </h4>
+
+                    <p>
+                        Découvrez le dernier titre
+                        de R Son.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="announcement">
+
+                <div class="announcement-icon">
+                    🎬
+                </div>
+
+                <div>
+
+                    <h4>
+                        Nouvelle vidéo
+                    </h4>
+
+                    <p>
+                        Le clip officiel est maintenant
+                        en ligne.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="announcement">
+
+                <div class="announcement-icon">
+                    🚀
+                </div>
+
+                <div>
+
+                    <h4>
+                        Mise à jour de l'app
+                    </h4>
+
+                    <p>
+                        Plus de fonctionnalités
+                        bientôt !
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </aside>
+
 </div>
-
-<div id="favorites" class="media"></div>
-
-</div>
-
-</section>
-
-
-<section id="view-ai" class="view">
-
-<div class="ai">
-
-<div class="aihead">
-
-<i class="fa-solid fa-robot"></i>
-
-<div>
-
-<b>R Son AI Assistant</b>
-
-<small>Malagasy / Français / English</small>
-
-</div>
-
-</div>
-
-<div id="messages" class="messages">
-
-<div class="msg bot">
-Salama! Izaho no R Son AI. Afaka manampy anao amin'ny plateforme aho.
-</div>
-
-</div>
-
-<div class="aiinput">
-
-<input
-id="aiinput"
-placeholder="Soraty ny fanontanianao eto..."
-onkeydown="if(event.key==='Enter')sendAI()"
->
-
-<button onclick="sendAI()">
-<i class="fa-solid fa-paper-plane"></i>
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section id="view-parametres" class="view">
-
-<div class="panel">
-
-<div class="title">
-<h2>👤 Mon Profil</h2>
-</div>
-
-<div class="account">
-
-<img
-class="account-avatar"
-id="accountAvatar"
-src="logo.png"
-alt="R Son"
->
-
-<div>
-
-<h3 id="accountName">
-Mon compte
-</h3>
-
-<p id="accountEmail">
-Se connecter pour utiliser votre compte.
-</p>
-
-<span class="tag">🎵 Musique</span>
-<span class="tag">❤️ Favoris</span>
-<span class="tag">⬇️ Offline</span>
-<span class="tag">🤖 R Son AI</span>
-
-<br>
-
-<button
-class="btn"
-onclick="openLogin()"
-style="width:auto;margin-top:12px"
->
-Se connecter
-</button>
-
-<div class="login-note">
-Ton compte R Son est sécurisé avec Firebase Authentication.
-</div>
-
-</div>
-
-</div>
-
-<br>
-
-<button
-class="btn"
-onclick="dark()"
-style="width:auto"
->
-Dark / Light
-</button>
-
-</div>
-
-</section>
-
-
-<section id="view-admin" class="view">
-
-<div class="panel">
-
-<div class="title">
-<h2>👑 Admin Dashboard</h2>
-</div>
-
-<p style="font-size:9px;color:var(--muted);margin-bottom:15px">
-
-Prototype. Le système complet d'administration,
-upload, base de données, annonces et contrôle de R Son AI
-sera développé progressivement.
-
-</p>
-
-<div class="formgrid">
-
-<div>
-
-<div class="fg">
-
-<label>Anaran'ny hira</label>
-
-<input
-id="newtitle"
-placeholder="Hazavana Miandry"
->
-
-</div>
-
-<div class="fg">
-
-<label>Mpanakanto</label>
-
-<input
-id="newartist"
-value="R Son"
->
-
-</div>
-
-<div class="fg">
-
-<label>Audio URL</label>
-
-<input
-id="newsrc"
-placeholder="https://.../song.mp3"
->
-
-</div>
-
-<button class="btn" onclick="addSong()">
-Ampio Hira
-</button>
-
-</div>
-
-
-<div>
-
-<div class="fg">
-
-<label>Lohatenin'ny annonce</label>
-
-<input
-id="anntitle"
-placeholder="Annonce vaovao"
->
-
-</div>
-
-<div class="fg">
-
-<label>Famaritana</label>
-
-<input
-id="anndesc"
-placeholder="Famaritana fohy"
->
-
-</div>
-
-<button class="btn" onclick="addAnn()">
-Ampio Annonce
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
 
 </main>
 
 
-<nav class="bottom">
+<!-- =========================
+     MOBILE NAV
+========================= -->
 
-<a id="m-accueil" class="active" onclick="show('accueil')">
-<i class="fa-solid fa-house"></i>Accueil
-</a>
+<nav class="mobile-nav">
 
-<a id="m-musique" onclick="show('musique')">
-<i class="fa-solid fa-music"></i>Musique
-</a>
+    <button
+        class="active"
+        onclick="goHome()"
+    >
+        <span>⌂</span>
+        Accueil
+    </button>
 
-<a id="m-videos" onclick="show('videos')">
-<i class="fa-solid fa-video"></i>Vidéos
-</a>
+    <button onclick="showMessage('Musique')">
+        <span>♫</span>
+        Musique
+    </button>
 
-<a id="m-downloads" onclick="show('downloads')">
-<i class="fa-solid fa-download"></i>Offline
-</a>
+    <button onclick="showMessage('Vidéos')">
+        <span>▣</span>
+        Vidéos
+    </button>
 
-<a id="m-ai" onclick="show('ai')">
-<i class="fa-solid fa-robot"></i>AI
-</a>
+    <button onclick="showMessage('Offline')">
+        <span>⇩</span>
+        Offline
+    </button>
+
+    <button onclick="openAI()">
+        <span>🤖</span>
+        AI
+    </button>
 
 </nav>
 
 
-<audio
-id="audio"
-ontimeupdate="progressTime()"
-onended="ended()"
-></audio>
+<!-- =========================
+     R SON OWNER PROFILE
+========================= -->
 
+<div class="modal" id="ownerModal">
 
-<!-- OWNER MODAL -->
+    <div class="modal-box">
 
-<div
-id="ownerModal"
-class="modal"
-onclick="if(event.target===this)closeOwnerProfile()"
->
+        <button
+            class="close"
+            onclick="closeModal('ownerModal')"
+        >
+            ×
+        </button>
 
-<div class="modal-box">
+        <div class="profile-large">
 
-<div class="modal-head">
+            <div class="avatar-large">
 
-<h2>R Son Production</h2>
+                <img
+                    src="logo.png"
+                    alt="R Son"
+                >
 
-<button
-class="close"
-onclick="closeOwnerProfile()"
->
-×
-</button>
+            </div>
 
-</div>
+            <h2>
+                R Son
+            </h2>
 
-<div class="owner">
+            <p>
+                Artiste · Producteur · Créateur
+            </p>
 
-<img src="logo.png" alt="R Son Production">
+            <p>
+                tsy hifaninagna fa mba hizara talenta
+                namian-jagnahary🤗.
+            </p>
 
-<h3>R Son Production</h3>
+        </div>
 
-<p>
-Créateur • Chanteur • Producteur<br>
-Music, vidéo, technologie et R Son AI.
-</p>
+        <div class="profile-links">
 
-<button
-class="btn"
-onclick="showAdminFromModal()"
->
-👑 Ouvrir Admin Dashboard
-</button>
+            <button onclick="showMessage('Profil R Son')">
+                👤 Mon profil
+            </button>
 
-</div>
+            <button onclick="showMessage('Mes créations')">
+                🎵 Mes créations
+            </button>
 
-</div>
+            <button onclick="showMessage('À propos de R Son')">
+                ℹ️ À propos
+            </button>
 
-</div>
+            <button onclick="showMessage('Contact')">
+                ✉️ Contact
+            </button>
 
+        </div>
 
-<!-- LOGIN CHOICE -->
-
-<div
-id="loginModal"
-class="modal"
-onclick="if(event.target===this)closeModal('loginModal')"
->
-
-<div class="modal-box">
-
-<div class="modal-head">
-
-<h2>👤 Mon compte R Son</h2>
-
-<button
-class="close"
-onclick="closeModal('loginModal')"
->
-×
-</button>
-
-</div>
-
-<div style="text-align:center">
-
-<div class="avatar-large">
-👤
-</div>
-
-<h3 style="font-size:15px;color:#08c4ff">
-Bienvenue sur R Son
-</h3>
-
-<p style="font-size:9px;color:var(--muted);margin:7px 0 14px">
-Connecte-toi ou crée ton compte.
-</p>
-
-<button
-class="google-login"
-onclick="googleLogin()"
->
-<i class="fa-brands fa-google"></i>
-&nbsp; Continuer avec Google
-</button>
-
-<button
-class="login-action"
-onclick="showRegister()"
->
-Créer un compte
-</button>
-
-<button
-class="switch-account"
-onclick="showLogin()"
->
-J'ai déjà un compte
-</button>
-
-</div>
-
-</div>
+    </div>
 
 </div>
 
 
-<!-- REGISTER -->
+<!-- =========================
+     CLIENT LOGIN
+========================= -->
 
-<div
-id="registerModal"
-class="modal"
-onclick="if(event.target===this)closeModal('registerModal')"
->
+<div class="modal" id="loginModal">
 
-<div class="modal-box">
+    <div class="modal-box">
 
-<div class="modal-head">
+        <button
+            class="close"
+            onclick="closeModal('loginModal')"
+        >
+            ×
+        </button>
 
-<h2>Créer un compte</h2>
+        <div class="profile-large">
 
-<button
-class="close"
-onclick="closeModal('registerModal')"
->
-×
-</button>
+            <div
+                class="avatar-large"
+                id="loginAvatar"
+            >
+                👤
+            </div>
 
-</div>
+            <h2>
+                Mon compte
+            </h2>
 
-<input
-type="text"
-id="registerName"
-class="account-input"
-placeholder="Nom complet"
-autocomplete="name"
->
+            <p>
+                Connecte-toi ou inscris-toi pour utiliser
+                toutes les fonctionnalités de R Son.
+            </p>
 
-<input
-type="email"
-id="registerEmail"
-class="account-input"
-placeholder="Adresse e-mail"
-autocomplete="email"
->
+        </div>
 
-<input
-type="password"
-id="registerPassword"
-class="account-input"
-placeholder="Mot de passe"
-autocomplete="new-password"
->
+        <button
+            class="google-login"
+            onclick="googleLogin()"
+        >
+            🔵 Continuer avec Google
+        </button>
 
-<button
-class="login-action"
-onclick="registerAccount()"
->
-S'inscrire
-</button>
+        <button
+            class="login-action"
+            onclick="showRegister()"
+        >
+            S'inscrire
+        </button>
 
-<button
-class="switch-account"
-onclick="openLoginFromRegister()"
->
-J'ai déjà un compte
-</button>
+        <button
+            class="login-action"
+            onclick="showLogin()"
+        >
+            Se connecter
+        </button>
 
-<div id="registerStatus" class="account-status">
-Ton compte sera enregistré avec Firebase.
-</div>
+        <p class="login-note">
+            Ton compte permettra d'utiliser R Son AI,
+            les téléchargements, les playlists et les favoris.
+        </p>
 
-</div>
+    </div>
 
 </div>
 
 
-<!-- LOGIN FORM -->
+<!-- =========================
+     REGISTER
+========================= -->
 
-<div
-id="loginFormModal"
-class="modal"
-onclick="if(event.target===this)closeModal('loginFormModal')"
->
+<div class="modal" id="registerModal">
 
-<div class="modal-box">
+    <div class="modal-box">
 
-<div class="modal-head">
+        <button
+            class="close"
+            onclick="closeModal('registerModal')"
+        >
+            ×
+        </button>
 
-<h2>Se connecter</h2>
+        <div class="profile-large">
 
-<button
-class="close"
-onclick="closeModal('loginFormModal')"
->
-×
-</button>
+            <div class="avatar-large">
+                👤
+            </div>
 
-</div>
+            <h2>
+                Créer un compte
+            </h2>
 
-<input
-type="email"
-id="loginEmail"
-class="account-input"
-placeholder="Adresse e-mail"
-autocomplete="email"
->
+            <p>
+                Crée ton compte R Son.
+            </p>
 
-<input
-type="password"
-id="loginPassword"
-class="account-input"
-placeholder="Mot de passe"
-autocomplete="current-password"
->
+        </div>
 
-<button
-class="login-action"
-onclick="loginAccount()"
->
-Se connecter
-</button>
+        <input
+            type="text"
+            id="registerName"
+            class="account-input"
+            placeholder="Nom complet"
+            autocomplete="name"
+        >
 
-<button
-class="google-login"
-onclick="googleLogin()"
->
-<i class="fa-brands fa-google"></i>
-&nbsp; Continuer avec Google
-</button>
+        <input
+            type="email"
+            id="registerEmail"
+            class="account-input"
+            placeholder="Adresse e-mail"
+            autocomplete="email"
+        >
 
-<button
-class="switch-account"
-onclick="openRegisterFromLogin()"
->
-Créer un compte
-</button>
+        <input
+            type="password"
+            id="registerPassword"
+            class="account-input"
+            placeholder="Mot de passe"
+            autocomplete="new-password"
+        >
 
-<div id="loginStatus" class="account-status">
-Utilise ton adresse e-mail et ton mot de passe.
-</div>
+        <button
+            class="login-action"
+            id="registerButton"
+            onclick="registerAccount()"
+        >
+            S'inscrire
+        </button>
 
-</div>
+        <button
+            class="switch-account"
+            onclick="openLoginFromRegister()"
+        >
+            J'ai déjà un compte
+        </button>
 
-</div>
+        <p class="login-note">
+            Ton compte est sécurisé avec Firebase.
+        </p>
 
-
-<!-- CLIENT PROFILE -->
-
-<div
-id="clientProfileModal"
-class="modal"
-onclick="if(event.target===this)closeModal('clientProfileModal')"
->
-
-<div class="modal-box">
-
-<div class="modal-head">
-
-<h2>👤 Mon compte</h2>
-
-<button
-class="close"
-onclick="closeModal('clientProfileModal')"
->
-×
-</button>
-
-</div>
-
-<div class="profile-large">
-
-<div class="avatar-large" id="clientLargeAvatar">
-👤
-</div>
-
-<h2 id="clientLargeName">
-Mon compte
-</h2>
-
-<p
-id="clientLargeEmail"
-style="font-size:9px;color:var(--muted);margin-top:5px"
->
-Utilisateur R Son
-</p>
-
-</div>
-
-<div class="account-message">
-Tongasoa ao amin'ny kaontinao R Son.
-</div>
-
-<div class="profile-links">
-
-<button onclick="show('downloads');closeModal('clientProfileModal')">
-⇩ Mes téléchargements
-</button>
-
-<button onclick="show('playlists');closeModal('clientProfileModal')">
-☷ Mes playlists
-</button>
-
-<button onclick="show('favoris');closeModal('clientProfileModal')">
-♡ Mes favoris
-</button>
-
-<button onclick="logoutAccount()">
-↪ Se déconnecter
-</button>
-
-</div>
-
-</div>
+    </div>
 
 </div>
 
 
-<!-- NORMAL SITE JAVASCRIPT -->
+<!-- =========================
+     LOGIN FORM
+========================= -->
+
+<div class="modal" id="loginFormModal">
+
+    <div class="modal-box">
+
+        <button
+            class="close"
+            onclick="closeModal('loginFormModal')"
+        >
+            ×
+        </button>
+
+        <div class="profile-large">
+
+            <div class="avatar-large">
+                👤
+            </div>
+
+            <h2>
+                Se connecter
+            </h2>
+
+            <p>
+                Connecte-toi à ton compte R Son.
+            </p>
+
+        </div>
+
+        <input
+            type="email"
+            id="loginEmail"
+            class="account-input"
+            placeholder="Adresse e-mail"
+            autocomplete="email"
+        >
+
+        <input
+            type="password"
+            id="loginPassword"
+            class="account-input"
+            placeholder="Mot de passe"
+            autocomplete="current-password"
+        >
+
+        <button
+            class="login-action"
+            id="loginButton"
+            onclick="loginAccount()"
+        >
+            Se connecter
+        </button>
+
+        <button
+            class="switch-account"
+            onclick="openRegisterFromLogin()"
+        >
+            Créer un compte
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     CLIENT PROFILE
+========================= -->
+
+<div class="modal" id="clientProfileModal">
+
+    <div class="modal-box">
+
+        <button
+            class="close"
+            onclick="closeModal('clientProfileModal')"
+        >
+            ×
+        </button>
+
+        <div class="profile-large">
+
+            <div
+                class="avatar-large"
+                id="clientLargeAvatar"
+            >
+                👤
+            </div>
+
+            <h2 id="clientLargeName">
+                Mon compte
+            </h2>
+
+            <p id="clientLargeEmail">
+                Utilisateur R Son
+            </p>
+
+        </div>
+
+        <div class="account-message">
+            Tongasoa ao amin'ny kaontinao R Son.
+        </div>
+
+        <div class="profile-links">
+
+            <button onclick="showMessage('Mes téléchargements')">
+                ⇩ Mes téléchargements
+            </button>
+
+            <button onclick="showMessage('Mes playlists')">
+                ☷ Mes playlists
+            </button>
+
+            <button onclick="showMessage('Mes favoris')">
+                ♡ Mes favoris
+            </button>
+
+            <button onclick="logoutAccount()">
+                ↪ Se déconnecter
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     BASIC JAVASCRIPT
+========================= -->
 
 <script>
 
-let songs=JSON.parse(localStorage.getItem('rson_songs'))||[
-{
-id:1,
-title:"Rêve d'un jeune",
-artist:"R Son",
-cover:"studio.jpg",
-duration:"03:45",
-src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-},
-{
-id:2,
-title:"Mamy",
-artist:"R Son",
-cover:"studio.jpg",
-duration:"04:12",
-src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
-},
-{
-id:3,
-title:"Antsika",
-artist:"R Son",
-cover:"studio.jpg",
-duration:"05:20",
-src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
-},
-{
-id:4,
-title:"Fitiavana",
-artist:"R Son",
-cover:"studio.jpg",
-duration:"03:38",
-src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
-}
-];
+/* =========================
+   BASIC FUNCTIONS
+========================= */
 
-let videos=[
-{
-title:"Clip - Rêve d'un jeune",
-info:"03:45 • R Son"
-},
-{
-title:"Antsika (Official Video)",
-info:"05:20 • R Son"
-},
-{
-title:"Fitiavana (Clip officiel)",
-info:"03:38 • R Son"
-},
-{
-title:"Live Studio Session",
-info:"08:12 • R Son Production"
-}
-];
+function showMessage(message){
 
-let downloads=
-JSON.parse(localStorage.getItem('rson_downloads'))||[];
-
-let favorites=
-JSON.parse(localStorage.getItem('rson_favorites'))||[];
-
-let annonces=
-JSON.parse(localStorage.getItem('rson_annonces'))||[];
-
-let playlists=
-JSON.parse(localStorage.getItem('rson_playlists'))||[
-{name:"Ma playlist",count:24},
-{name:"Favoris",count:18},
-{name:"Ambiance",count:32}
-];
-
-const audio=document.getElementById('audio');
-
-let index=0;
-let playing=false;
-let shuf=false;
-let rep=false;
-
-
-function save(){
-
-localStorage.setItem(
-'rson_songs',
-JSON.stringify(songs)
-);
-
-localStorage.setItem(
-'rson_downloads',
-JSON.stringify(downloads)
-);
-
-localStorage.setItem(
-'rson_favorites',
-JSON.stringify(favorites)
-);
-
-localStorage.setItem(
-'rson_annonces',
-JSON.stringify(annonces)
-);
-
-localStorage.setItem(
-'rson_playlists',
-JSON.stringify(playlists)
-);
+    alert(message + " — fonctionnalité en préparation.");
 
 }
 
 
-function show(n){
+function goHome(){
 
-document.querySelectorAll('.view')
-.forEach(x=>x.classList.remove('active'));
-
-document.getElementById('view-'+n)
-.classList.add('active');
-
-document.querySelectorAll('.menu li')
-.forEach(x=>x.classList.remove('active'));
-
-let p=document.getElementById('nav-'+n);
-
-if(p)p.classList.add('active');
-
-document.querySelectorAll('.bottom a')
-.forEach(x=>x.classList.remove('active'));
-
-let m=document.getElementById('m-'+n);
-
-if(m)m.classList.add('active');
-
-document.getElementById('main').scrollTop=0;
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 
 }
 
 
-function safe(x){
+function openAI(){
 
-return String(x??'')
-.replace(
-/[&<>"']/g,
-m=>({
-'&':'&amp;',
-'<':'&lt;',
-'>':'&gt;',
-'"':'&quot;',
-"'":'&#039;'
-}[m])
-);
+    const ai = document.getElementById("aiSection");
 
-}
+    if(ai){
 
+        ai.scrollIntoView({
+            behavior:"smooth"
+        });
 
-function card(s){
-
-return `
-<div class="card" onclick="playId(${s.id})">
-
-<img
-src="${s.cover}"
-onerror="this.src='studio.jpg'"
->
-
-<h4>${safe(s.title)}</h4>
-
-<p>
-${safe(s.artist)} • ${s.duration||'--:--'}
-</p>
-
-<button
-onclick="event.stopPropagation();download(${s.id})"
->
-⬇ Télécharger
-</button>
-
-</div>
-`;
-
-}
-
-
-function render(){
-
-document.getElementById('recent').innerHTML=
-songs.slice(0,4).map(card).join('');
-
-document.getElementById('library').innerHTML=
-songs.map(card).join('');
-
-document.getElementById('videos').innerHTML=
-videos.map(v=>`
-<div class="card">
-
-<img src="studio.jpg">
-
-<h4>${safe(v.title)}</h4>
-
-<p>${safe(v.info)}</p>
-
-<button onclick="alert('Vidéo prête pour le backend.')">
-▶ Ouvrir
-</button>
-
-</div>
-`).join('');
-
-document.getElementById('downloads').innerHTML=
-downloads.length
-?downloads.map(card).join('')
-:'<div class="empty">Mbola tsy misy rakitra offline.</div>';
-
-document.getElementById('favorites').innerHTML=
-favorites.length
-?favorites.map(card).join('')
-:'<div class="empty">Mbola tsy misy Favoris ❤️.</div>';
-
-document.getElementById('playlists').innerHTML=
-playlists.map(p=>`
-<div class="card">
-
-<img src="studio.jpg">
-
-<h4>${safe(p.name)}</h4>
-
-<p>${p.count} titres</p>
-
-</div>
-`).join('');
-
-let a=[
-...annonces,
-{
-title:"Nouveau son disponible !",
-desc:"Découvrez le dernier titre de R Son."
-},
-{
-title:"Nouvelle vidéo",
-desc:"Le clip officiel est maintenant en ligne."
-}
-];
-
-document.getElementById('annonces').innerHTML=
-a.slice(0,3).map(x=>`
-<div class="ann">
-
-<img src="studio.jpg">
-
-<div>
-
-<h4>${safe(x.title)}</h4>
-
-<p>${safe(x.desc)}</p>
-
-</div>
-
-</div>
-`).join('');
-
-save();
-
-}
-
-
-function load(i){
-
-if(!songs[i])return;
-
-index=i;
-
-let s=songs[i];
-
-document.getElementById('song').textContent=s.title;
-
-document.getElementById('artist').textContent=s.artist;
-
-document.getElementById('cover').src=s.cover;
-
-audio.src=s.src;
-
-audio.load();
-
-updateHeart();
-
-}
-
-
-function playId(id){
-
-let i=songs.findIndex(s=>s.id===id);
-
-if(i>=0)play(i);
-
-}
-
-
-function play(i){
-
-load(i);
-
-audio.play()
-.then(()=>{
-playing=true;
-ui();
-})
-.catch(()=>{
-alert('Audio URL tsy azo alefa.');
-});
-
-}
-
-
-function playPause(){
-
-if(audio.paused){
-
-play(index);
-
-}else{
-
-audio.pause();
-
-playing=false;
-
-ui();
-
-}
-
-}
-
-
-function ui(){
-
-let btn=document.getElementById('play');
-
-btn.className=
-playing
-?'fa-solid fa-pause'
-:'fa-solid fa-play';
-
-}
-
-
-function next(){
-
-if(!songs.length)return;
-
-index=
-shuf
-?Math.floor(Math.random()*songs.length)
-:(index+1)%songs.length;
-
-play(index);
-
-}
-
-
-function prev(){
-
-index=
-(index-1+songs.length)%songs.length;
-
-play(index);
-
-}
-
-
-function ended(){
-
-if(rep){
-
-audio.currentTime=0;
-
-audio.play();
-
-}else{
-
-next();
-
-}
-
-}
-
-
-function shuffle(){
-
-shuf=!shuf;
-
-let el=document.getElementById('shuf');
-
-el.style.color=
-shuf?'#08aaff':'';
-
-}
-
-
-function repeat(){
-
-rep=!rep;
-
-let el=document.getElementById('rep');
-
-el.style.color=
-rep?'#08aaff':'';
-
-}
-
-
-function progressTime(){
-
-if(!isFinite(audio.duration))return;
-
-document.getElementById('fill').style.width=
-(audio.currentTime/audio.duration*100)+'%';
-
-document.getElementById('cur').textContent=
-time(audio.currentTime);
-
-document.getElementById('total').textContent=
-time(audio.duration);
-
-}
-
-
-function time(s){
-
-s=Math.floor(s||0);
-
-return String(Math.floor(s/60))
-.padStart(2,'0')
-+':'+
-String(s%60)
-.padStart(2,'0');
-
-}
-
-
-function seek(e){
-
-if(!isFinite(audio.duration))return;
-
-let r=
-e.currentTarget.getBoundingClientRect();
-
-audio.currentTime=
-((e.clientX-r.left)/r.width)
-*audio.duration;
-
-}
-
-
-function fav(){
-
-let s=songs[index];
-
-let i=
-favorites.findIndex(x=>x.id===s.id);
-
-if(i>=0){
-
-favorites.splice(i,1);
-
-}else{
-
-favorites.push(s);
-
-}
-
-save();
-
-render();
-
-updateHeart();
-
-}
-
-
-function updateHeart(){
-
-let s=songs[index];
-
-if(!s)return;
-
-let yes=
-favorites.some(x=>x.id===s.id);
-
-let heart=
-document.getElementById('heart');
-
-heart.className=
-yes
-?'fa-solid fa-heart'
-:'fa-regular fa-heart';
-
-heart.style.color=
-yes
-?'#ff4770'
-:'#08aaff';
-
-}
-
-
-function download(id){
-
-let s=
-songs.find(x=>x.id===id);
-
-if(!s)return;
-
-if(!downloads.some(x=>x.id===id)){
-
-downloads.push(s);
-
-save();
-
-render();
-
-alert(
-'Voatahiry ao amin\\'ny Offline: '
-+s.title
-);
-
-}else{
-
-alert(
-'Efa ao amin\\'ny Offline ity hira ity.'
-);
-
-}
-
-}
-
-
-function searchSongs(q){
-
-q=q.toLowerCase().trim();
-
-show('musique');
-
-document.getElementById('library').innerHTML=
-
-songs.filter(s=>
-s.title.toLowerCase().includes(q)
-||
-s.artist.toLowerCase().includes(q)
-)
-.map(card)
-.join('')
-||
-'<div class="empty">Tsy nahitana hira.</div>';
-
-}
-
-
-function addPlaylist(){
-
-let input=
-document.getElementById('plist');
-
-let n=input.value.trim();
-
-if(!n)return;
-
-playlists.push({
-name:n,
-count:0
-});
-
-input.value='';
-
-save();
-
-render();
-
-}
-
-
-function addSong(){
-
-let title=
-document.getElementById('newtitle')
-.value.trim();
-
-if(!title){
-
-alert("Ampidiro ny anaran'ny hira.");
-
-return;
-
-}
-
-songs.push({
-
-id:Date.now(),
-
-title:title,
-
-artist:
-document.getElementById('newartist').value
-||'R Son',
-
-cover:'studio.jpg',
-
-duration:'03:30',
-
-src:
-document.getElementById('newsrc').value
-||
-'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
-
-});
-
-save();
-
-render();
-
-document.getElementById('newtitle').value='';
-
-alert('Tafiditra ny hira.');
-
-}
-
-
-function addAnn(){
-
-let title=
-document.getElementById('anntitle')
-.value.trim();
-
-if(!title)return;
-
-annonces.push({
-
-title:title,
-
-desc:
-document.getElementById('anndesc').value
-||'R Son Production'
-
-});
-
-save();
-
-render();
-
-document.getElementById('anntitle').value='';
-
-document.getElementById('anndesc').value='';
-
-}
-
-
-function sendAI(){
-
-let inp=
-document.getElementById('aiinput');
-
-let q=inp.value.trim();
-
-if(!q)return;
-
-let box=
-document.getElementById('messages');
-
-box.insertAdjacentHTML(
-'beforeend',
-'<div class="msg user">'+
-safe(q)+
-'</div>'
-);
-
-inp.value='';
-
-setTimeout(()=>{
-
-let r=
-"Misaotra! Afaka manampy anao amin'ny Musique, Vidéos, Offline, Playlist ary R Son AI aho.";
-
-let x=q.toLowerCase();
-
-if(x.includes('offline')){
-
-r=
-"Tsindrio Télécharger amin'ny hira iray. Hiseho ao amin'ny Téléchargements izy.";
-
-}
-
-if(x.includes('hira')){
-
-r=
-"Mandehana ao amin'ny Musique raha hikaroka sy hihaino hira.";
-
-}
-
-box.insertAdjacentHTML(
-'beforeend',
-'<div class="msg bot">'+
-safe(r)+
-'</div>'
-);
-
-box.scrollTop=
-box.scrollHeight;
-
-},400);
-
-}
-
-
-function dark(){
-
-let l=
-document.body.classList.toggle('light');
-
-document.getElementById('theme').className=
-l
-?'fa-solid fa-sun'
-:'fa-regular fa-moon';
+    }
 
 }
 
 
 function openOwnerProfile(){
 
-document.getElementById('ownerModal')
-.classList.add('open');
+    openModal("ownerModal");
 
 }
 
 
-function closeOwnerProfile(){
+/* =========================
+   MODALS
+========================= */
 
-document.getElementById('ownerModal')
-.classList.remove('open');
+function openModal(id){
 
-}
+    const modal = document.getElementById(id);
 
+    if(modal){
 
-function showAdminFromModal(){
+        modal.classList.add("show");
 
-closeOwnerProfile();
-
-show('admin');
+    }
 
 }
 
 
 function closeModal(id){
 
-let m=document.getElementById(id);
+    const modal = document.getElementById(id);
 
-if(m)m.classList.remove('open');
+    if(modal){
 
-}
+        modal.classList.remove("show");
 
-
-/* Firebase account UI */
-
-function updateCustomerProfile(user){
-
-let name=
-user?.displayName
-||
-user?.email?.split('@')[0]
-||
-'Mon compte';
-
-let email=
-user?.email
-||
-'Utilisateur R Son';
-
-let photo=
-user?.photoURL
-||
-'';
-
-let nameEl=
-document.getElementById('accountName');
-
-let emailEl=
-document.getElementById('accountEmail');
-
-let avatar=
-document.getElementById('accountAvatar');
-
-let top=
-document.getElementById('topProfileImage');
-
-let large=
-document.getElementById('clientLargeAvatar');
-
-let largeName=
-document.getElementById('clientLargeName');
-
-let largeEmail=
-document.getElementById('clientLargeEmail');
-
-let sidebarName=
-document.getElementById('customerName');
-
-if(nameEl)nameEl.textContent=name;
-
-if(emailEl)emailEl.textContent=email;
-
-if(largeName)largeName.textContent=name;
-
-if(largeEmail)largeEmail.textContent=email;
-
-if(sidebarName)sidebarName.textContent=name;
-
-if(photo){
-
-if(avatar)avatar.src=photo;
-
-if(top)top.src=photo;
-
-if(large){
-
-large.innerHTML=
-'<img src="'+
-safe(photo)+
-'" alt="Profile">';
-
-}
-
-}
+    }
 
 }
 
 
-function openLogin(){
+document.querySelectorAll(".modal").forEach(function(modal){
 
-if(window.firebaseCurrentUser){
+    modal.addEventListener("click",function(event){
 
-openClientProfile();
+        if(event.target === modal){
 
-}else{
+            modal.classList.remove("show");
 
-closeModal('registerModal');
+        }
 
-closeModal('loginFormModal');
-
-document.getElementById('loginModal')
-.classList.add('open');
-
-}
-
-}
-
-
-function openClientProfile(){
-
-if(!window.firebaseCurrentUser){
-
-openLogin();
-
-return;
-
-}
-
-closeModal('loginModal');
-
-closeModal('loginFormModal');
-
-closeModal('registerModal');
-
-document.getElementById('clientProfileModal')
-.classList.add('open');
-
-if(window.loadFirebaseUserProfile){
-
-window.loadFirebaseUserProfile();
-
-}
-
-}
-
-
-render();
-
-load(0);
-
-</script>
-
-
-<!-- FIREBASE -->
-
-<script type="module">
-
-import {
-initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-
-import {
-getAuth,
-GoogleAuthProvider,
-signInWithRedirect,
-getRedirectResult,
-onAuthStateChanged,
-createUserWithEmailAndPassword,
-signInWithEmailAndPassword,
-updateProfile,
-signOut
-}
-from
-"https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-
-import {
-getFirestore,
-doc,
-setDoc,
-getDoc,
-serverTimestamp
-}
-from
-"https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
-
-
-const firebaseConfig={
-
-apiKey:
-"AIzaSyDNDRLj-mSOGuWEzRjDIm3L7L4YpoPPVOQ",
-
-authDomain:
-"r-son-production.firebaseapp.com",
-
-databaseURL:
-"https://r-son-production-default-rtdb.firebaseio.com",
-
-projectId:
-"r-son-production",
-
-storageBucket:
-"r-son-production.firebasestorage.app",
-
-messagingSenderId:
-"65262424057",
-
-appId:
-"1:65262424057:web:aaa2f38813653bb504f728",
-
-measurementId:
-"G-WSSE2N4EZ1"
-
-};
-
-
-const app=
-initializeApp(firebaseConfig);
-
-const auth=
-getAuth(app);
-
-const db=
-getFirestore(app);
-
-const googleProvider=
-new GoogleAuthProvider();
-
-
-window.firebaseCurrentUser=null;
-
-
-function firebaseError(error){
-
-console.error(error);
-
-let message=
-"Une erreur est survenue.";
-
-if(error.code==="auth/email-already-in-use"){
-
-message=
-"Cette adresse e-mail possède déjà un compte.";
-
-}
-
-else if(error.code==="auth/invalid-email"){
-
-message=
-"Adresse e-mail invalide.";
-
-}
-
-else if(error.code==="auth/weak-password"){
-
-message=
-"Le mot de passe doit être plus sécurisé.";
-
-}
-
-else if(error.code==="auth/invalid-credential"){
-
-message=
-"E-mail ou mot de passe incorrect.";
-
-}
-
-else if(error.code==="auth/popup-closed-by-user"){
-
-message=
-"Connexion Google annulée.";
-
-}
-
-else if(error.code==="auth/network-request-failed"){
-
-message=
-"Problème de connexion Internet.";
-
-}
-
-else if(error.code==="permission-denied"){
-
-message=
-"Permission Firestore refusée. Vérifie les règles Firestore.";
-
-}
-
-return message;
-
-}
-
-
-async function saveUserProfile(
-user,
-extraData={}
-){
-
-if(!user)return;
-
-const userRef=
-doc(
-db,
-"users",
-user.uid
-);
-
-await setDoc(
-userRef,
-{
-
-uid:user.uid,
-
-name:
-user.displayName
-||
-extraData.name
-||
-user.email?.split('@')[0]
-||
-"Utilisateur R Son",
-
-email:
-user.email
-||
-"",
-
-photoURL:
-user.photoURL
-||
-"",
-
-provider:
-extraData.provider
-||
-"firebase",
-
-updatedAt:
-serverTimestamp(),
-
-...extraData
-
-},
-{
-merge:true
-}
-);
-
-}
-
-
-async function getUserProfile(user){
-
-if(!user)return null;
-
-const userRef=
-doc(
-db,
-"users",
-user.uid
-);
-
-const snap=
-await getDoc(userRef);
-
-if(snap.exists()){
-
-return snap.data();
-
-}
-
-return null;
-
-}
-
-
-/* GOOGLE LOGIN */
-
-window.googleLogin=async function(){
-
-try{
-
-closeModal('loginModal');
-
-closeModal('loginFormModal');
-
-closeModal('registerModal');
-
-await signInWithRedirect(
-auth,
-googleProvider
-);
-
-}catch(error){
-
-alert(firebaseError(error));
-
-}
-
-};
-
-
-/* REGISTER */
-
-window.registerAccount=async function(){
-
-const name=
-document.getElementById('registerName')
-.value.trim();
-
-const email=
-document.getElementById('registerEmail')
-.value.trim();
-
-const password=
-document.getElementById('registerPassword')
-.value;
-
-const status=
-document.getElementById('registerStatus');
-
-
-if(!name){
-
-status.textContent=
-"Fenoy ny anarana.";
-
-return;
-
-}
-
-if(!email){
-
-status.textContent=
-"Fenoy ny adresse e-mail.";
-
-return;
-
-}
-
-if(!password){
-
-status.textContent=
-"Fenoy ny mot de passe.";
-
-return;
-
-}
-
-
-status.textContent=
-"Création du compte...";
-
-
-try{
-
-const result=
-await createUserWithEmailAndPassword(
-auth,
-email,
-password
-);
-
-
-await updateProfile(
-result.user,
-{
-displayName:name
-}
-);
-
-
-await saveUserProfile(
-result.user,
-{
-name:name,
-provider:"password"
-}
-);
-
-
-status.textContent=
-"Compte créé avec succès.";
-
-closeModal('registerModal');
-
-alert(
-"Bienvenue "+name+" ! Ton compte R Son est créé."
-);
-
-}catch(error){
-
-status.textContent=
-firebaseError(error);
-
-}
-
-};
-
-
-/* LOGIN */
-
-window.loginAccount=async function(){
-
-const email=
-document.getElementById('loginEmail')
-.value.trim();
-
-const password=
-document.getElementById('loginPassword')
-.value;
-
-const status=
-document.getElementById('loginStatus');
-
-
-if(!email){
-
-status.textContent=
-"Fenoy ny adresse e-mail.";
-
-return;
-
-}
-
-if(!password){
-
-status.textContent=
-"Fenoy ny mot de passe.";
-
-return;
-
-}
-
-
-status.textContent=
-"Connexion...";
-
-
-try{
-
-const result=
-await signInWithEmailAndPassword(
-auth,
-email,
-password
-);
-
-
-await saveUserProfile(
-result.user,
-{
-provider:"password"
-}
-);
-
-
-status.textContent=
-"Connexion réussie.";
-
-closeModal('loginFormModal');
-
-}catch(error){
-
-status.textContent=
-firebaseError(error);
-
-}
-
-};
-
-
-/* OPEN REGISTER */
-
-window.showRegister=function(){
-
-closeModal('loginModal');
-
-closeModal('loginFormModal');
-
-document.getElementById('registerModal')
-.classList.add('open');
-
-};
-
-
-/* OPEN LOGIN */
-
-window.showLogin=function(){
-
-closeModal('loginModal');
-
-closeModal('registerModal');
-
-document.getElementById('loginFormModal')
-.classList.add('open');
-
-};
-
-
-window.openLoginFromRegister=function(){
-
-showLogin();
-
-};
-
-
-window.openRegisterFromLogin=function(){
-
-showRegister();
-
-};
-
-
-/* LOGOUT */
-
-window.logoutAccount=async function(){
-
-try{
-
-await signOut(auth);
-
-closeModal('clientProfileModal');
-
-show('accueil');
-
-alert(
-"Déconnexion réussie."
-);
-
-}catch(error){
-
-alert(firebaseError(error));
-
-}
-
-};
-
-
-/* LOAD FIRESTORE PROFILE */
-
-window.loadFirebaseUserProfile=
-async function(){
-
-const user=
-window.firebaseCurrentUser;
-
-if(!user)return;
-
-try{
-
-const data=
-await getUserProfile(user);
-
-if(data){
-
-const mergedUser={
-...user,
-displayName:
-data.name||
-user.displayName,
-photoURL:
-data.photoURL||
-user.photoURL
-};
-
-updateCustomerProfile(
-mergedUser
-);
-
-}else{
-
-updateCustomerProfile(user);
-
-}
-
-}catch(error){
-
-console.error(
-"Firestore profile error:",
-error
-);
-
-updateCustomerProfile(user);
-
-}
-
-};
-
-
-/* GOOGLE REDIRECT RESULT */
-
-getRedirectResult(auth)
-.then(async(result)=>{
-
-if(result && result.user){
-
-window.firebaseCurrentUser=
-result.user;
-
-await saveUserProfile(
-result.user,
-{
-provider:"google"
-}
-);
-
-updateCustomerProfile(
-result.user
-);
-
-}
-
-})
-.catch(error=>{
-
-if(error.code){
-
-console.error(
-"Google redirect:",
-error
-);
-
-}
+    });
 
 });
 
 
-/* AUTH STATE */
+document.addEventListener("keydown",function(event){
+
+    if(event.key === "Escape"){
+
+        document.querySelectorAll(".modal.show").forEach(function(modal){
+
+            modal.classList.remove("show");
+
+        });
+
+    }
+
+});
+
+
+/* =========================
+   MUSIC
+========================= */
+
+let playing = false;
+
+
+function playSong(song){
+
+    const current = document.getElementById("currentSong");
+
+    if(current){
+
+        current.textContent = song;
+
+    }
+
+    playing = false;
+
+    const button = document.getElementById("playButton");
+
+    if(button){
+
+        button.textContent = "▶";
+
+    }
+
+    alert("Lecture : " + song);
+
+}
+
+
+function togglePlay(){
+
+    const button = document.getElementById("playButton");
+
+    if(!button){
+
+        return;
+
+    }
+
+    playing = !playing;
+
+    button.textContent = playing ? "Ⅱ" : "▶";
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function searchContent(event){
+
+    if(event.key !== "Enter"){
+
+        return;
+
+    }
+
+    const input = document.getElementById("searchInput");
+
+    if(!input){
+
+        return;
+
+    }
+
+    const value = input.value.trim();
+
+    if(value){
+
+        alert("Recherche : " + value);
+
+    }
+
+}
+
+
+/* =========================
+   AI DEMO
+========================= */
+
+function aiEnter(event){
+
+    if(event.key === "Enter"){
+
+        sendAI();
+
+    }
+
+}
+
+
+function sendAI(){
+
+    const input = document.getElementById("aiInput");
+
+    const box = document.querySelector(".ai-box");
+
+    if(!input || !box){
+
+        return;
+
+    }
+
+    const text = input.value.trim();
+
+    if(!text){
+
+        return;
+
+    }
+
+    const userMessage = document.createElement("div");
+
+    userMessage.className = "ai-message user";
+
+    userMessage.textContent = text;
+
+    const aiInput = box.querySelector(".ai-input");
+
+    box.insertBefore(userMessage,aiInput);
+
+
+    const answer = document.createElement("div");
+
+    answer.className = "ai-message";
+
+    answer.textContent =
+        "Salama! R Son AI dia vonona hanampy anao. " +
+        "Ny AI tena izy dia hampifandraisina amin'ny backend rehefa vita ny système.";
+
+    box.insertBefore(answer,aiInput);
+
+    input.value = "";
+
+}
+
+
+/* =========================
+   LANGUAGE
+========================= */
+
+function changeLanguage(){
+
+    const language = document.getElementById("language");
+
+    if(!language){
+
+        return;
+
+    }
+
+    const value = language.value;
+
+    localStorage.setItem("rson_language",value);
+
+    if(value === "mg"){
+
+        alert("Fiteny Malagasy voafidy.");
+
+    }
+
+    else if(value === "fr"){
+
+        alert("Français sélectionné.");
+
+    }
+
+    else if(value === "en"){
+
+        alert("English selected.");
+
+    }
+
+}
+
+
+/* =========================
+   THEME
+========================= */
+
+function toggleTheme(){
+
+    alert(
+        "Mode clair / sombre : fonctionnalité en préparation."
+    );
+
+}
+
+
+/* =========================
+   LOAD
+========================= */
+
+window.addEventListener("DOMContentLoaded",function(){
+
+    const savedLanguage =
+        localStorage.getItem("rson_language");
+
+    const language =
+        document.getElementById("language");
+
+    if(savedLanguage && language){
+
+        language.value = savedLanguage;
+
+    }
+
+});
+
+</script>
+
+
+<!-- ============================= -->
+<!-- R SON FIREBASE SYSTEM         -->
+<!-- ============================= -->
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+
+import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithRedirect,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    updateProfile,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+/* =============================
+   FIREBASE CONFIG
+============================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyDNDRLj-mSOGuWEzRjDIm3L7L4YpoPPVOQ",
+
+    authDomain:
+        "r-son-production.firebaseapp.com",
+
+    databaseURL:
+        "https://r-son-production-default-rtdb.firebaseio.com",
+
+    projectId:
+        "r-son-production",
+
+    storageBucket:
+        "r-son-production.firebasestorage.app",
+
+    messagingSenderId:
+        "65262424057",
+
+    appId:
+        "1:65262424057:web:aaa2f38813653bb504f728",
+
+    measurementId:
+        "G-WSSE2N4EZ1"
+
+};
+
+
+/* =============================
+   INITIALIZE FIREBASE
+============================= */
+
+const app =
+    initializeApp(firebaseConfig);
+
+const auth =
+    getAuth(app);
+
+const db =
+    getFirestore(app);
+
+const googleProvider =
+    new GoogleAuthProvider();
+
+
+/* =============================
+   FIREBASE ERROR
+============================= */
+
+function firebaseError(error){
+
+    console.error("Firebase error:",error);
+
+    switch(error.code){
+
+        case "auth/email-already-in-use":
+            return "Cette adresse e-mail est déjà utilisée.";
+
+        case "auth/invalid-email":
+            return "Adresse e-mail invalide.";
+
+        case "auth/weak-password":
+            return "Le mot de passe doit contenir au moins 6 caractères.";
+
+        case "auth/invalid-credential":
+            return "E-mail ou mot de passe incorrect.";
+
+        case "auth/user-not-found":
+            return "Compte introuvable.";
+
+        case "auth/wrong-password":
+            return "Mot de passe incorrect.";
+
+        case "auth/operation-not-allowed":
+            return "Cette méthode de connexion n'est pas activée dans Firebase.";
+
+        case "auth/network-request-failed":
+            return "Problème de connexion Internet.";
+
+        case "auth/too-many-requests":
+            return "Trop de tentatives. Réessaie plus tard.";
+
+        case "auth/invalid-api-key":
+            return "Configuration Firebase invalide.";
+
+        case "permission-denied":
+        case "firestore/permission-denied":
+            return "Accès Firestore refusé. Vérifie les règles Firebase.";
+
+        default:
+            return (
+                error.message ||
+                error.code ||
+                "Erreur Firebase inconnue."
+            );
+
+    }
+
+}
+
+
+/* =============================
+   AVATAR HELPER
+============================= */
+
+function setAvatar(element,photoURL){
+
+    if(!element){
+
+        return;
+
+    }
+
+    element.innerHTML = "";
+
+    if(photoURL){
+
+        const image =
+            document.createElement("img");
+
+        image.src = photoURL;
+
+        image.alt = "Profil";
+
+        image.referrerPolicy = "no-referrer";
+
+        element.appendChild(image);
+
+    }
+    else{
+
+        element.textContent = "👤";
+
+    }
+
+}
+
+
+/* =============================
+   SAVE USER PROFILE
+============================= */
+
+async function saveUserProfile(user,extraData = {}){
+
+    if(!user){
+
+        return;
+
+    }
+
+    const userRef =
+        doc(db,"users",user.uid);
+
+
+    const provider =
+        user.providerData &&
+        user.providerData.length > 0
+            ? user.providerData[0].providerId
+            : "password";
+
+
+    const userData = {
+
+        uid:
+            user.uid,
+
+        name:
+            extraData.name ||
+            user.displayName ||
+            "Utilisateur R Son",
+
+        email:
+            user.email || "",
+
+        photoURL:
+            user.photoURL || "",
+
+        provider:
+            provider,
+
+        updatedAt:
+            serverTimestamp()
+
+    };
+
+
+    try{
+
+        await setDoc(
+            userRef,
+            userData,
+            {
+                merge:true
+            }
+        );
+
+        console.log(
+            "R Son profile saved:",
+            user.uid
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "Firestore profile error:",
+            error
+        );
+
+        alert(
+            "Connexion Firebase réussie, " +
+            "mais le profil n'a pas pu être enregistré dans Firestore.\n\n" +
+            firebaseError(error)
+        );
+
+    }
+
+}
+
+
+/* =============================
+   READ USER PROFILE
+============================= */
+
+async function getUserProfile(user){
+
+    if(!user){
+
+        return null;
+
+    }
+
+    try{
+
+        const userRef =
+            doc(
+                db,
+                "users",
+                user.uid
+            );
+
+
+        const snapshot =
+            await getDoc(userRef);
+
+
+        if(snapshot.exists()){
+
+            return snapshot.data();
+
+        }
+
+        return null;
+
+    }
+    catch(error){
+
+        console.error(
+            "Profile read error:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
+/* =============================
+   UPDATE CUSTOMER UI
+============================= */
+
+async function updateCustomerProfile(user){
+
+    const nameElement =
+        document.getElementById(
+            "customerName"
+        );
+
+    const statusElement =
+        document.getElementById(
+            "customerStatus"
+        );
+
+    const avatarElement =
+        document.getElementById(
+            "customerAvatar"
+        );
+
+    const topButton =
+        document.getElementById(
+            "clientTopButton"
+        );
+
+
+    if(!user){
+
+        if(nameElement){
+
+            nameElement.textContent =
+                "Mon compte";
+
+        }
+
+        if(statusElement){
+
+            statusElement.textContent =
+                "Se connecter / S'inscrire";
+
+        }
+
+        setAvatar(
+            avatarElement,
+            ""
+        );
+
+        setAvatar(
+            topButton,
+            ""
+        );
+
+        return;
+
+    }
+
+
+    const profile =
+        await getUserProfile(user);
+
+
+    const name =
+        profile?.name ||
+        user.displayName ||
+        "Utilisateur R Son";
+
+
+    const photo =
+        profile?.photoURL ||
+        user.photoURL ||
+        "";
+
+
+    if(nameElement){
+
+        nameElement.textContent =
+            name;
+
+    }
+
+
+    if(statusElement){
+
+        statusElement.innerHTML =
+            'Compte connecté <span class="online-dot"></span>';
+
+    }
+
+
+    setAvatar(
+        avatarElement,
+        photo
+    );
+
+
+    setAvatar(
+        topButton,
+        photo
+    );
+
+}
+
+
+/* =============================
+   OPEN ACCOUNT
+============================= */
+
+window.openLogin = function(){
+
+    if(auth.currentUser){
+
+        window.openClientProfile();
+
+    }
+    else{
+
+        openModal("loginModal");
+
+    }
+
+};
+
+
+/* =============================
+   GOOGLE LOGIN
+============================= */
+
+window.googleLogin = async function(){
+
+    try{
+
+        await signInWithRedirect(
+            auth,
+            googleProvider
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "Google login error:",
+            error
+        );
+
+        alert(
+            "Erreur Google :\n\n" +
+            firebaseError(error)
+        );
+
+    }
+
+};
+
+
+/* =============================
+   SHOW REGISTER
+============================= */
+
+window.showRegister = function(){
+
+    closeModal("loginModal");
+
+    openModal("registerModal");
+
+};
+
+
+/* =============================
+   SHOW LOGIN
+============================= */
+
+window.showLogin = function(){
+
+    closeModal("loginModal");
+
+    openModal("loginFormModal");
+
+};
+
+
+/* =============================
+   REGISTER
+============================= */
+
+window.registerAccount = async function(){
+
+    const nameElement =
+        document.getElementById(
+            "registerName"
+        );
+
+    const emailElement =
+        document.getElementById(
+            "registerEmail"
+        );
+
+    const passwordElement =
+        document.getElementById(
+            "registerPassword"
+        );
+
+    const button =
+        document.getElementById(
+            "registerButton"
+        );
+
+
+    const name =
+        nameElement
+            ? nameElement.value.trim()
+            : "";
+
+
+    const email =
+        emailElement
+            ? emailElement.value.trim()
+            : "";
+
+
+    const password =
+        passwordElement
+            ? passwordElement.value
+            : "";
+
+
+    if(!name){
+
+        alert("Entre ton nom.");
+
+        return;
+
+    }
+
+
+    if(!email){
+
+        alert("Entre ton adresse e-mail.");
+
+        return;
+
+    }
+
+
+    if(password.length < 6){
+
+        alert(
+            "Le mot de passe doit contenir au moins 6 caractères."
+        );
+
+        return;
+
+    }
+
+
+    if(button){
+
+        button.disabled = true;
+
+        button.textContent =
+            "Création...";
+
+    }
+
+
+    try{
+
+        const credential =
+            await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+        const user =
+            credential.user;
+
+
+        await updateProfile(
+            user,
+            {
+                displayName:name
+            }
+        );
+
+
+        await saveUserProfile(
+            user,
+            {
+                name:name
+            }
+        );
+
+
+        closeModal(
+            "registerModal"
+        );
+
+
+        if(nameElement)
+            nameElement.value = "";
+
+        if(emailElement)
+            emailElement.value = "";
+
+        if(passwordElement)
+            passwordElement.value = "";
+
+
+        alert(
+            "Bienvenue " +
+            name +
+            " ! Ton compte R Son a été créé."
+        );
+
+
+        window.openClientProfile();
+
+    }
+    catch(error){
+
+        alert(
+            "Erreur lors de la création du compte :\n\n" +
+            firebaseError(error)
+        );
+
+    }
+    finally{
+
+        if(button){
+
+            button.disabled = false;
+
+            button.textContent =
+                "S'inscrire";
+
+        }
+
+    }
+
+};
+
+
+/* =============================
+   LOGIN
+============================= */
+
+window.loginAccount = async function(){
+
+    const emailElement =
+        document.getElementById(
+            "loginEmail"
+        );
+
+    const passwordElement =
+        document.getElementById(
+            "loginPassword"
+        );
+
+    const button =
+        document.getElementById(
+            "loginButton"
+        );
+
+
+    const email =
+        emailElement
+            ? emailElement.value.trim()
+            : "";
+
+
+    const password =
+        passwordElement
+            ? passwordElement.value
+            : "";
+
+
+    if(!email || !password){
+
+        alert(
+            "Entre ton e-mail et ton mot de passe."
+        );
+
+        return;
+
+    }
+
+
+    if(button){
+
+        button.disabled = true;
+
+        button.textContent =
+            "Connexion...";
+
+    }
+
+
+    try{
+
+        const credential =
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+        const user =
+            credential.user;
+
+
+        await saveUserProfile(user);
+
+
+        closeModal(
+            "loginFormModal"
+        );
+
+
+        if(emailElement)
+            emailElement.value = "";
+
+        if(passwordElement)
+            passwordElement.value = "";
+
+
+        alert(
+            "Connexion réussie."
+        );
+
+
+        window.openClientProfile();
+
+    }
+    catch(error){
+
+        alert(
+            "Erreur de connexion :\n\n" +
+            firebaseError(error)
+        );
+
+    }
+    finally{
+
+        if(button){
+
+            button.disabled = false;
+
+            button.textContent =
+                "Se connecter";
+
+        }
+
+    }
+
+};
+
+
+/* =============================
+   SWITCH REGISTER → LOGIN
+============================= */
+
+window.openLoginFromRegister = function(){
+
+    closeModal(
+        "registerModal"
+    );
+
+    openModal(
+        "loginFormModal"
+    );
+
+};
+
+
+/* =============================
+   SWITCH LOGIN → REGISTER
+============================= */
+
+window.openRegisterFromLogin = function(){
+
+    closeModal(
+        "loginFormModal"
+    );
+
+    openModal(
+        "registerModal"
+    );
+
+};
+
+
+/* =============================
+   CLIENT PROFILE
+============================= */
+
+window.openClientProfile = async function(){
+
+    const user =
+        auth.currentUser;
+
+
+    if(!user){
+
+        openModal(
+            "loginModal"
+        );
+
+        return;
+
+    }
+
+
+    const profile =
+        await getUserProfile(user);
+
+
+    const name =
+        profile?.name ||
+        user.displayName ||
+        "Mon compte";
+
+
+    const email =
+        profile?.email ||
+        user.email ||
+        "Utilisateur R Son";
+
+
+    const photo =
+        profile?.photoURL ||
+        user.photoURL ||
+        "";
+
+
+    const nameElement =
+        document.getElementById(
+            "clientLargeName"
+        );
+
+
+    const emailElement =
+        document.getElementById(
+            "clientLargeEmail"
+        );
+
+
+    const avatar =
+        document.getElementById(
+            "clientLargeAvatar"
+        );
+
+
+    if(nameElement){
+
+        nameElement.textContent =
+            name;
+
+    }
+
+
+    if(emailElement){
+
+        emailElement.textContent =
+            email;
+
+    }
+
+
+    setAvatar(
+        avatar,
+        photo
+    );
+
+
+    openModal(
+        "clientProfileModal"
+    );
+
+};
+
+
+/* =============================
+   LOGOUT
+============================= */
+
+window.logoutAccount = async function(){
+
+    try{
+
+        await signOut(auth);
+
+        closeModal(
+            "clientProfileModal"
+        );
+
+        alert(
+            "Tu es maintenant déconnecté."
+        );
+
+    }
+    catch(error){
+
+        alert(
+            "Erreur de déconnexion :\n\n" +
+            firebaseError(error)
+        );
+
+    }
+
+};
+
+
+/* =============================
+   AUTH STATE
+============================= */
 
 onAuthStateChanged(
-auth,
-async(user)=>{
+    auth,
+    async function(user){
 
-window.firebaseCurrentUser=
-user||null;
+        if(user){
 
-if(user){
+            console.log(
+                "R Son user connected:",
+                user.uid
+            );
 
-try{
 
-await saveUserProfile(
-user,
-{
-provider:
-user.providerData?.[0]?.providerId
-||
-"firebase"
-}
-);
+            await saveUserProfile(
+                user
+            );
 
-}catch(error){
 
-console.error(
-"Save profile error:",
-error
-);
+            await updateCustomerProfile(
+                user
+            );
 
-}
+        }
+        else{
 
-updateCustomerProfile(user);
+            console.log(
+                "No R Son user connected"
+            );
 
-}else{
 
-document.getElementById('accountName')
-.textContent=
-"Mon compte";
+            await updateCustomerProfile(
+                null
+            );
 
-document.getElementById('accountEmail')
-.textContent=
-"Se connecter pour utiliser votre compte.";
+        }
 
-document.getElementById('accountAvatar')
-.src=
-"logo.png";
-
-document.getElementById('topProfileImage')
-.src=
-"logo.png";
-
-}
-
-}
-
+    }
 );
 
 </script>
