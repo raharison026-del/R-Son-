@@ -3370,22 +3370,62 @@ onAuthStateChanged(
     auth,
     async function(user){
 
+        console.log(
+            "AUTH STATE:",
+            user ? user.uid : "SIGNED OUT"
+        );
+
         if(user){
 
-            console.log(
-                "R Son user connected:",
-                user.uid
+            /* Close all account modals */
+            closeModal("loginModal");
+            closeModal("registerModal");
+            closeModal("loginFormModal");
+
+            /* Update the interface immediately */
+            const nameElement =
+                document.getElementById("customerName");
+
+            const statusElement =
+                document.getElementById("customerStatus");
+
+            if(nameElement){
+
+                nameElement.textContent =
+                    user.displayName ||
+                    "Utilisateur R Son";
+
+            }
+
+            if(statusElement){
+
+                statusElement.innerHTML =
+                    'Compte connecté <span class="online-dot"></span>';
+
+            }
+
+            /* Show Google/profile photo immediately */
+            const avatarElement =
+                document.getElementById("customerAvatar");
+
+            const topButton =
+                document.getElementById("clientTopButton");
+
+            setAvatar(
+                avatarElement,
+                user.photoURL || ""
             );
 
-
-            await saveUserProfile(
-                user
+            setAvatar(
+                topButton,
+                user.photoURL || ""
             );
 
+            /* Save profile in Firestore */
+            await saveUserProfile(user);
 
-            await updateCustomerProfile(
-                user
-            );
+            /* Refresh from Firestore */
+            await updateCustomerProfile(user);
 
         }
         else{
@@ -3394,10 +3434,7 @@ onAuthStateChanged(
                 "No R Son user connected"
             );
 
-
-            await updateCustomerProfile(
-                null
-            );
+            updateCustomerProfile(null);
 
         }
 
