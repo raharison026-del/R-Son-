@@ -2462,7 +2462,17 @@ const app =
 
 const auth =
     getAuth(app);
+setPersistence(
+    auth,
+    browserLocalPersistence
+).catch(function(error){
 
+    console.error(
+        "Firebase persistence error:",
+        error
+    );
+
+});
 const db =
     getFirestore(app);
 
@@ -3308,7 +3318,50 @@ window.logoutAccount = async function(){
 
 };
 
+/* =============================
+   GOOGLE REDIRECT RESULT
+============================= */
 
+getRedirectResult(auth)
+    .then(async function(result){
+
+        if(result && result.user){
+
+            console.log(
+                "Google login successful:",
+                result.user.uid
+            );
+
+            await saveUserProfile(
+                result.user
+            );
+
+            await updateCustomerProfile(
+                result.user
+            );
+
+            closeModal("loginModal");
+
+            alert(
+                "Connexion Google réussie."
+            );
+
+        }
+
+    })
+    .catch(function(error){
+
+        console.error(
+            "Google redirect error:",
+            error
+        );
+
+        alert(
+            "Erreur Google :\n\n" +
+            firebaseError(error)
+        );
+
+    });
 /* =============================
    AUTH STATE
 ============================= */
