@@ -2314,43 +2314,721 @@ function updateSearchSuggestions(){
         `;
 
         row.onclick = function(){
-            document.getElementById("searchPageInput").value = item;
-            performOnlineSearch(item);
-        };
+/* =========================
+   R SON SEARCH
+========================= */
 
-        container.appendChild(row);
-    });
-}
+(function(){
 
-function performOnlineSearch(query){
+    /* =========================
+       SEARCH PAGE STYLE
+    ========================= */
 
-    query = query.trim();
+    const searchStyle = document.createElement("style");
 
-    if(!query){ return; }
+    searchStyle.textContent = `
+
+        #searchPage{
+            position:fixed;
+            inset:0;
+            z-index:99999;
+            background:#07111d;
+            color:#fff;
+            display:none;
+            flex-direction:column;
+            overflow:hidden;
+        }
+
+        #searchPage.active{
+            display:flex;
+        }
+
+        .search-page-header{
+            width:100%;
+            min-height:76px;
+            display:flex;
+            align-items:center;
+            gap:10px;
+            padding:12px 14px;
+            background:#07111d;
+            border-bottom:1px solid #183149;
+        }
+
+        .search-back-button{
+            width:44px;
+            height:44px;
+            border:0;
+            background:transparent;
+            color:#fff;
+            font-size:38px;
+            line-height:1;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            cursor:pointer;
+            flex-shrink:0;
+        }
+
+        .search-page-box{
+            flex:1;
+            height:48px;
+            display:flex;
+            align-items:center;
+            padding:0 16px;
+            border-radius:28px;
+            background:#102235;
+            border:1px solid #183b55;
+        }
+
+        .search-page-box span{
+            font-size:22px;
+            margin-right:9px;
+            color:#8ba4b8;
+        }
+
+        #searchPageInput{
+            width:100%;
+            height:100%;
+            border:0;
+            outline:0;
+            background:transparent;
+            color:#fff;
+            font-size:18px;
+        }
+
+        #searchPageInput::placeholder{
+            color:#71869a;
+        }
+
+        .search-submit-button{
+            width:44px;
+            height:44px;
+            border:0;
+            background:transparent;
+            color:#fff;
+            font-size:29px;
+            cursor:pointer;
+            flex-shrink:0;
+        }
+
+        .search-page-content{
+            flex:1;
+            overflow-y:auto;
+            padding:18px 16px 40px;
+        }
+
+        .search-section-title{
+            font-size:21px;
+            font-weight:700;
+            color:#fff;
+            margin:8px 0 14px;
+        }
+
+        .search-suggestion{
+            width:100%;
+            min-height:62px;
+            display:flex;
+            align-items:center;
+            gap:14px;
+            padding:8px 6px;
+            border-radius:14px;
+            cursor:pointer;
+        }
+
+        .search-suggestion:active{
+            background:#102235;
+        }
+
+        .suggestion-icon{
+            width:45px;
+            height:45px;
+            border-radius:50%;
+            background:#102235;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:25px;
+            color:#fff;
+            flex-shrink:0;
+        }
+
+        .suggestion-text{
+            color:#fff;
+            font-size:17px;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+        }
+
+        /* LIGHT THEME */
+
+        body.rson-light #searchPage{
+            background:#ffffff;
+            color:#111827;
+        }
+
+        body.rson-light .search-page-header{
+            background:#ffffff;
+            border-bottom:1px solid #dddddd;
+        }
+
+        body.rson-light .search-back-button,
+        body.rson-light .search-submit-button{
+            color:#111827;
+        }
+
+        body.rson-light .search-page-box{
+            background:#f0f2f5;
+            border-color:#e0e0e0;
+        }
+
+        body.rson-light #searchPageInput{
+            color:#111827;
+        }
+
+        body.rson-light #searchPageInput::placeholder{
+            color:#777;
+        }
+
+        body.rson-light .search-section-title{
+            color:#111827;
+        }
+
+        body.rson-light .suggestion-icon{
+            background:#eeeeee;
+            color:#111827;
+        }
+
+        body.rson-light .suggestion-text{
+            color:#111827;
+        }
+
+        @media(max-width:600px){
+
+            .search-page-header{
+                min-height:70px;
+                padding:10px;
+            }
+
+            .search-page-content{
+                padding:15px 12px 30px;
+            }
+
+            #searchPageInput{
+                font-size:17px;
+            }
+
+            .search-section-title{
+                font-size:20px;
+            }
+
+        }
+
+    `;
+
+    document.head.appendChild(searchStyle);
+
+
+    /* =========================
+       CREATE SEARCH PAGE
+    ========================= */
+
+    function createSearchPage(){
+
+        if(document.getElementById("searchPage")){
+            return;
+        }
+
+        const page = document.createElement("div");
+
+        page.id = "searchPage";
+
+        page.innerHTML = `
+
+            <div class="search-page-header">
+
+                <button
+                    class="search-back-button"
+                    id="searchBackButton"
+                    aria-label="Retour"
+                >
+                    ‹
+                </button>
+
+                <div class="search-page-box">
+
+                    <span>⌕</span>
+
+                    <input
+                        id="searchPageInput"
+                        type="text"
+                        placeholder="Rechercher..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+                <button
+                    class="search-submit-button"
+                    id="searchSubmitButton"
+                    aria-label="Rechercher"
+                >
+                    ⌕
+                </button>
+
+            </div>
+
+            <div class="search-page-content">
+
+                <div class="search-section-title">
+                    Suggestions
+                </div>
+
+                <div id="searchSuggestions"></div>
+
+            </div>
+
+        `;
+
+        document.body.appendChild(page);
+
+
+        /* BACK BUTTON */
+
+        document
+            .getElementById("searchBackButton")
+            .onclick = function(){
+
+                closeSearchPage();
+
+            };
+
+
+        /* SEARCH INPUT */
+
+        const input =
+            document.getElementById("searchPageInput");
+
+
+        input.addEventListener(
+            "input",
+            function(){
+
+                updateSearchSuggestions();
+
+            }
+        );
+
+
+        input.addEventListener(
+            "keydown",
+            function(event){
+
+                if(event.key === "Enter"){
+
+                    event.preventDefault();
+
+                    performOnlineSearch(
+                        input.value
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* SEARCH BUTTON */
+
+        document
+            .getElementById("searchSubmitButton")
+            .onclick = function(){
+
+                performOnlineSearch(
+                    input.value
+                );
+
+            };
+
+
+        updateSearchSuggestions();
+
+    }
+
+
+    /* =========================
+       OPEN SEARCH PAGE
+    ========================= */
+
+    window.openSearchPage = function(initialText = ""){
+
+        createSearchPage();
+
+        const page =
+            document.getElementById("searchPage");
+
+        const input =
+            document.getElementById("searchPageInput");
+
+
+        if(!page || !input){
+            return;
+        }
+
+
+        page.classList.add("active");
+
+        input.value =
+            initialText || "";
+
+
+        updateSearchSuggestions();
+
+
+        setTimeout(function(){
+
+            input.focus();
+
+        },100);
+
+    };
+
+
+    /* =========================
+       CLOSE SEARCH PAGE
+    ========================= */
+
+    window.closeSearchPage = function(){
+
+        const page =
+            document.getElementById("searchPage");
+
+        if(page){
+
+            page.classList.remove("active");
+
+        }
+
+    };
+
+
+    /* =========================
+       SEARCH SUGGESTIONS
+    ========================= */
+
+    window.updateSearchSuggestions = function(){
+
+        const input =
+            document.getElementById("searchPageInput");
+
+        const container =
+            document.getElementById("searchSuggestions");
+
+
+        if(!input || !container){
+            return;
+        }
+
+
+        const query =
+            input.value
+                .trim()
+                .toLowerCase();
+
+
+        const popularSearches = [
+
+            "R son",
+            "fihirana fanampiny",
+            "fihirana FFPM",
+            "fihirana vaovao",
+            "hira malagasy",
+            "musique malgache",
+            "nouvelle chanson",
+            "film malagasy",
+            "musique gospel",
+            "Afrobeat Madagascar",
+            "Tsimihety music",
+            "clip malagasy",
+            "R Son Production",
+            "hira vaovao",
+            "chanson malgache",
+            "film vaovao",
+            "gospel malagasy",
+            "musique Madagascar"
+
+        ];
+
+
+        let results;
+
+
+        if(query === ""){
+
+            results =
+                popularSearches.slice(0,10);
+
+        }
+        else{
+
+            results =
+                popularSearches.filter(
+                    function(item){
+
+                        return item
+                            .toLowerCase()
+                            .includes(query);
+
+                    }
+                );
+
+
+            /*
+              Raha tsy hita ao amin'ireo
+              suggestions malaza ilay teny,
+              dia mamorona suggestions
+              mifanaraka amin'izay nosoratana.
+            */
+
+            if(results.length === 0){
+
+                results = [
+
+                    query,
+                    query + " musique",
+                    query + " chanson",
+                    query + " vidéo"
+
+                ];
+
+            }
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        results.forEach(
+            function(item){
+
+                const row =
+                    document.createElement("div");
+
+
+                row.className =
+                    "search-suggestion";
+
+
+                row.innerHTML = `
+
+                    <div class="suggestion-icon">
+                        ⌕
+                    </div>
+
+                    <div class="suggestion-text">
+                        ${escapeSearchText(item)}
+                    </div>
+
+                `;
+
+
+                row.onclick = function(){
+
+                    const input =
+                        document.getElementById(
+                            "searchPageInput"
+                        );
+
+
+                    if(input){
+
+                        input.value = item;
+
+                    }
+
+
+                    performOnlineSearch(item);
+
+                };
+
+
+                container.appendChild(row);
+
+            }
+        );
+
+    };
+
+
+    /* =========================
+       ONLINE SEARCH
+    ========================= */
+
+    window.performOnlineSearch = function(query){
+
+        query =
+            query
+                .trim();
+
+
+        if(!query){
+            return;
+        }
+
+
+        /*
+          Recherche Internet générale.
+          Google peut également afficher
+          des résultats YouTube, Facebook,
+          Audiomack et autres sites indexés.
+        */
+
+        const url =
+            "https://www.google.com/search?q=" +
+            encodeURIComponent(query);
+
+
+        window.open(
+            url,
+            "_blank"
+        );
+
+    };
+
+
+    /* =========================
+       ESCAPE TEXT
+    ========================= */
+
+    window.escapeSearchText = function(text){
+
+        return String(text)
+
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+
+            .replace(
+                /</g,
+                "&lt;"
+            )
+
+            .replace(
+                />/g,
+                "&gt;"
+            )
+
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    };
+
+
+    /* =========================
+       OPEN SEARCH BY TOP BAR
+    ========================= */
+
+    const oldSearchInput =
+        document.getElementById(
+            "searchInput"
+        );
+
+
+    if(oldSearchInput){
+
+        oldSearchInput.onclick =
+            function(){
+
+                openSearchPage(
+                    oldSearchInput.value
+                );
+
+            };
+
+    }
+
+
+    /* =========================
+       REAL THEME
+    ========================= */
+
+    window.toggleTheme = function(){
+
+        document.body.classList.toggle(
+            "rson-light"
+        );
+
+
+        const isLight =
+            document.body.classList.contains(
+                "rson-light"
+            );
+
+
+        localStorage.setItem(
+            "rson_theme",
+            isLight
+                ? "light"
+                : "dark"
+        );
+
+    };
+
+
+    /* =========================
+       LOAD THEME
+    ========================= */
+
+    window.addEventListener(
+        "DOMContentLoaded",
+        function(){
+
+            createSearchPage();
+
+
+            const savedTheme =
+                localStorage.getItem(
+                    "rson_theme"
+                );
+
+
+            if(savedTheme === "light"){
+
+                document.body.classList.add(
+                    "rson-light"
+                );
+
+            }
+
+        }
+    );
+
 
     /*
-      For now this opens the online Google search.
-      Later we will connect YouTube, Audiomack,
-      Facebook and other sources directly to R Son.
+      Raha DOMContentLoaded efa nitranga
+      vao ampidirina ity script ity,
+      dia mamorona avy hatrany.
     */
 
-    const url =
-        "https://www.google.com/search?q=" +
-        encodeURIComponent(query);
+    if(
+        document.readyState === "interactive" ||
+        document.readyState === "complete"
+    ){
 
-    window.open(url, "_blank");
-}
+        createSearchPage();
 
-function escapeSearchText(text){
+    }
 
-    return text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
+})();
 /* =========================
    AI DEMO
 ========================= */
