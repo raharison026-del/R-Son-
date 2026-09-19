@@ -2225,31 +2225,131 @@ function togglePlay(){
 ========================= */
 
 function searchContent(event){
-
-    if(event.key !== "Enter"){
-
-        return;
-
-    }
+    if(event.key !== "Enter"){ return; }
 
     const input = document.getElementById("searchInput");
+    if(!input){ return; }
 
-    if(!input){
-
-        return;
-
-    }
-
-    const value = input.value.trim();
-
-    if(value){
-
-        alert("Recherche : " + value);
-
-    }
-
+    openSearchPage(input.value);
 }
 
+function openSearchPage(initialText = ""){
+    const page = document.getElementById("searchPage");
+
+    if(!page){ return; }
+
+    page.classList.add("active");
+
+    const input = document.getElementById("searchPageInput");
+
+    if(input){
+        input.value = initialText || "";
+        updateSearchSuggestions();
+
+        setTimeout(function(){
+            input.focus();
+        }, 100);
+    }
+}
+
+function closeSearchPage(){
+    const page = document.getElementById("searchPage");
+
+    if(page){
+        page.classList.remove("active");
+    }
+}
+
+function updateSearchSuggestions(){
+
+    const input = document.getElementById("searchPageInput");
+    const container = document.getElementById("searchSuggestions");
+
+    if(!input || !container){ return; }
+
+    const query = input.value.trim().toLowerCase();
+
+    const popularSearches = [
+        "R son",
+        "fihirana fanampiny",
+        "fihirana FFPM",
+        "fihirana vaovao",
+        "hira malagasy",
+        "musique malgache",
+        "nouvelle chanson",
+        "film malagasy",
+        "musique gospel",
+        "Afrobeat Madagascar",
+        "Tsimihety music",
+        "clip malagasy"
+    ];
+
+    let results = popularSearches;
+
+    if(query !== ""){
+        results = popularSearches.filter(function(item){
+            return item.toLowerCase().includes(query);
+        });
+
+        if(results.length === 0){
+            results = [
+                query,
+                query + " musique",
+                query + " chanson",
+                query + " vidéo"
+            ];
+        }
+    }
+
+    container.innerHTML = "";
+
+    results.forEach(function(item){
+
+        const row = document.createElement("div");
+        row.className = "search-suggestion";
+
+        row.innerHTML = `
+            <div class="suggestion-icon">⌕</div>
+            <div class="suggestion-text">${escapeSearchText(item)}</div>
+        `;
+
+        row.onclick = function(){
+            document.getElementById("searchPageInput").value = item;
+            performOnlineSearch(item);
+        };
+
+        container.appendChild(row);
+    });
+}
+
+function performOnlineSearch(query){
+
+    query = query.trim();
+
+    if(!query){ return; }
+
+    /*
+      For now this opens the online Google search.
+      Later we will connect YouTube, Audiomack,
+      Facebook and other sources directly to R Son.
+    */
+
+    const url =
+        "https://www.google.com/search?q=" +
+        encodeURIComponent(query);
+
+    window.open(url, "_blank");
+}
+
+function escapeSearchText(text){
+
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 
 /* =========================
    AI DEMO
