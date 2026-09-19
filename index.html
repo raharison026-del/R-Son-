@@ -2397,19 +2397,20 @@ import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
-
 import {
     getAuth,
     GoogleAuthProvider,
     signInWithRedirect,
+    getRedirectResult,
+    setPersistence,
+    browserLocalPersistence,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     updateProfile,
     onAuthStateChanged,
     signOut
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-
-
+    
 import {
     getFirestore,
     doc,
